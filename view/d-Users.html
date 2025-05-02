@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Admin Dashboard</title>
@@ -30,17 +31,21 @@
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/plugins.min.css" />
     <link rel="stylesheet" href="/css/kaiadmin.min.css" />
+
+    <!-- CSS Just for demo purpose, don't include it in your project -->
     <link rel="stylesheet" href="/css/demo.css" />
 </head>
+
 <body style="background-color: rgb(197, 197, 197);">
     <div class="wrapper">
         <!-- Sidebar -->
         <div class="sidebar" data-background-color="dark">
             <div class="sidebar-logo">
+                <!-- Logo Header -->
                 <div class="logo-header" data-background-color="dark">
                     <a href="index.html" class="logo">
                         <img src="#" alt="navbar brand" class="navbar-brand" height="20" />
-                        < Nadeem style="color: white; padding-left: 10px;">SMS</h4>
+                        <h4 style="color: white; padding-left: 10px;">SMS</h4>
                     </a>
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
@@ -54,6 +59,7 @@
                         <i class="gg-more-vertical-alt"></i>
                     </button>
                 </div>
+                <!-- End Logo Header -->
             </div>
             <div class="sidebar-wrapper scrollbar scrollbar-inner">
                 <div class="sidebar-content">
@@ -70,6 +76,9 @@
                             </span>
                             <h4 class="text-section">Components</h4>
                         </li>
+                        <!--  -->
+
+                        <!-- Master -->
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#master">
                                 <i class="fas fa-users"></i>
@@ -91,6 +100,7 @@
                                 </ul>
                             </div>
                         </li>
+                        <!-- Tables -->
                         <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#tables">
                                 <i class="fas fa-table"></i>
@@ -121,9 +131,11 @@
         <div class="main-panel">
             <div class="main-header">
                 <div class="main-header-logo">
+                    <!-- Logo Header -->
                     <div class="logo-header" data-background-color="dark">
                         <a href="index.html" class="logo">
-                            <img src="/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20" />
+                            <img src="/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand"
+                                height="20" />
                         </a>
                         <div class="nav-toggle">
                             <button class="btn btn-toggle toggle-sidebar">
@@ -137,10 +149,13 @@
                             <i class="gg-more-vertical-alt"></i>
                         </button>
                     </div>
+                    <!-- End Logo Header -->
                 </div>
+                <!-- Navbar Header -->
                 <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
                     <div class="container-fluid">
-                        <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+                        <nav
+                            class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
                             <div class="input-group">
                                 <div class="input-group-prepend">
                                     <button type="submit" class="btn btn-search pe-1">
@@ -150,9 +165,11 @@
                                 <input type="text" placeholder="Search ..." class="form-control" />
                             </div>
                         </nav>
+
                         <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
                             <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
-                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" aria-haspopup="true">
+                                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                                    aria-expanded="false" aria-haspopup="true">
                                     <i class="fa fa-search"></i>
                                 </a>
                                 <ul class="dropdown-menu dropdown-search animated fadeIn">
@@ -164,7 +181,8 @@
                                 </ul>
                             </li>
                             <li class="nav-item topbar-user dropdown hidden-caret">
-                                <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+                                <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
+                                    aria-expanded="false">
                                     <div class="avatar-sm">
                                         <img src="/img/profile.jpg" alt="..." class="avatar-img rounded-circle" />
                                     </div>
@@ -178,7 +196,8 @@
                                         <li>
                                             <div class="user-box">
                                                 <div class="avatar-lg">
-                                                    <img src="/img/profile.jpg" alt="image profile" class="avatar-img rounded" />
+                                                    <img src="/img/profile.jpg" alt="image profile"
+                                                        class="avatar-img rounded" />
                                                 </div>
                                                 <div class="u-text">
                                                     <h4>Obuli</h4>
@@ -196,8 +215,8 @@
                         </ul>
                     </div>
                 </nav>
+                <!-- End Navbar -->
             </div>
-
             <!-- User Datatable -->
             <div class="container">
                 <div class="page-inner">
@@ -205,35 +224,49 @@
                         <h3 class="fw-bold mb-3">Users List</h3>
                         <ul class="breadcrumbs mb-3">
                             <li class="nav-home">
-                                <a href="#"><i class="icon-home"></i></a>
+                                <a href="#">
+                                    <i class="icon-home"></i>
+                                </a>
                             </li>
-                            <li class="separator"><i class="icon-arrow-right"></i></li>
-                            <li class="nav-item"><a href="#">Master</a></li>
-                            <li class="separator"><i class="icon-arrow-right"></i></li>
-                            <li class="nav-item"><a href="#">Users</a></li>
+                            <li class="separator">
+                                <i class="icon-arrow-right"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">Master</a>
+                            </li>
+                            <li class="separator">
+                                <i class="icon-arrow-right"></i>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#">Users</a>
+                            </li>
                         </ul>
                     </div>
+
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header">
                                 <div class="d-flex align-items-center">
                                     <h4 class="card-title">Users</h4>
-                                    <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal" data-bs-target="#addRowModal">
-                                        <i class="fa fa-plus"></i> New User
+                                    <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
+                                        data-bs-target="#addRowModal">
+                                        <i class="fa fa-plus"></i>
+                                        New User
                                     </button>
                                 </div>
                             </div>
                             <div class="card-body">
                                 <!-- Add User Modal -->
-                                <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                                <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header border-0">
                                                 <h5 class="modal-title">
-                                                    <span class="fw-mediumbold">New</span>
-                                                    <span class="fw-light">User</span>
+                                                    <span class="fw-mediumbold"> New</span>
+                                                    <span class="fw-light"> User </span>
                                                 </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form id="addUserForm">
@@ -241,37 +274,45 @@
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>First Name</label>
-                                                                <input id="addFirstName" type="text" class="form-control" placeholder="Enter first name" required />
+                                                                <input id="addFirstName" type=" сторонуtext"
+                                                                    class="form-control" placeholder="Enter first name"
+                                                                    required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>Last Name</label>
-                                                                <input id="addLastName" type="text" class="form-control" placeholder="Enter last name" required />
+                                                                <input id="addLastName" type="text" class="form-control"
+                                                                    placeholder="Enter last name" required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>User Name</label>
-                                                                <input id="addUserName" type="text" class="form-control" placeholder="Enter user name" required />
+                                                                <input id="addUserName" type="text" class="form-control"
+                                                                    placeholder="Enter user name" required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>Password</label>
-                                                                <input id="addPassword" type="password" class="form-control" placeholder="Enter password" required />
+                                                                <input id="addPassword" type="password"
+                                                                    class="form-control" placeholder="Enter password"
+                                                                    required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>Email Id</label>
-                                                                <input id="addEmail" type="email" class="form-control" placeholder="Enter email" required />
+                                                                <input id="addEmail" type="email" class="form-control"
+                                                                    placeholder="Enter email" required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>Phone Number</label>
-                                                                <input id="addPhone" type="tel" class="form-control" placeholder="Enter phone number" required />
+                                                                <input id="addPhone" type="tel" class="form-control"
+                                                                    placeholder="Enter phone number" required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12">
@@ -279,6 +320,9 @@
                                                                 <label>Role</label>
                                                                 <select id="addRole" class="form-control" required>
                                                                     <option value="">Select Role</option>
+                                                                    <option value="Admin">Admin</option>
+                                                                    <option value="Manager">Manager</option>
+                                                                    <option value="Employee">Employee</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -286,62 +330,77 @@
                                                 </form>
                                             </div>
                                             <div class="modal-footer border-0">
-                                                <button type="button" id="addRowButton" class="btn btn-primary">Add</button>
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" id="addRowButton" class="btn btn-primary">
+                                                    Add
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <!-- Edit User Modal -->
-                                <div class="modal fade" id="editRowModal" tabindex="-1" role="dialog" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+                                <div class="modal fade" id="editRowModal" tabindex="-1" role="dialog"
+                                    aria-hidden="true"  data-bs-backdrop="static" data-bs-keyboard="false">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header border-0">
                                                 <h5 class="modal-title">
-                                                    <span class="fw-mediumbold">Edit</span>
-                                                    <span class="fw-light">User</span>
+                                                    <span class="fw-mediumbold"> Edit</span>
+                                                    <span class="fw-light"> User </span>
                                                 </h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
                                                 <form id="editUserForm">
-                                                    <input type="hidden" id="editUserId">
                                                     <div class="row">
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>First Name</label>
-                                                                <input id="editFirstName" type="text" class="form-control" placeholder="Enter first name" required />
+                                                                <input id="editFirstName" type="text"
+                                                                    class="form-control" placeholder="Enter first name"
+                                                                    required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>Last Name</label>
-                                                                <input id="editLastName" type="text" class="form-control" placeholder="Enter last name" required />
+                                                                <input id="editLastName" type="text"
+                                                                    class="form-control" placeholder="Enter last name"
+                                                                    required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>User Name</label>
-                                                                <input id="editUserName" type="text" class="form-control" placeholder="Enter user name" required />
+                                                                <input id="editUserName" type="text"
+                                                                    class="form-control" placeholder="Enter user name"
+                                                                    required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>Password</label>
-                                                                <input id="editPassword" type="password" class="form-control" placeholder="Enter new password (optional)" />
+                                                                <input id="editPassword" type="password"
+                                                                    class="form-control"
+                                                                    placeholder="Enter new password" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>Email Id</label>
-                                                                <input id="editEmail" type="email" class="form-control" placeholder="Enter email" required />
+                                                                <input id="editEmail" type="email" class="form-control"
+                                                                    placeholder="Enter email" required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
                                                             <div class="form-group form-group-default">
                                                                 <label>Phone Number</label>
-                                                                <input id="editPhone" type="tel" class="form-control" placeholder="Enter phone number" required />
+                                                                <input id="editPhone" type="tel" class="form-control"
+                                                                    placeholder="Enter phone number" required />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12">
@@ -349,6 +408,9 @@
                                                                 <label>Role</label>
                                                                 <select id="editRole" class="form-control" required>
                                                                     <option value="">Select Role</option>
+                                                                    <option value="Admin">Admin</option>
+                                                                    <option value="Manager">Manager</option>
+                                                                    <option value="Employee">Employee</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -365,8 +427,12 @@
                                                 </form>
                                             </div>
                                             <div class="modal-footer border-0">
-                                                <button type="button" id="editRowButton" class="btn btn-primary">Save</button>
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                                <button type="button" id="editRowButton" class="btn btn-primary">
+                                                    Save
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+                                                    Close
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -380,10 +446,13 @@
                                                 <th>First Name</th>
                                                 <th>Last Name</th>
                                                 <th>User Name</th>
+                                                <th>Password</th>
                                                 <th>Email Id</th>
                                                 <th>Phone Number</th>
                                                 <th>Role</th>
                                                 <th>Status</th>
+                                                <th>Created At</th>
+                                                <th>Updated At</th>
                                                 <th style="width: 10%">Action</th>
                                             </tr>
                                         </thead>
@@ -393,13 +462,99 @@
                                                 <th>First Name</th>
                                                 <th>Last Name</th>
                                                 <th>User Name</th>
+                                                <th>Password</th>
                                                 <th>Email Id</th>
                                                 <th>Phone Number</th>
                                                 <th>Role</th>
                                                 <th>Status</th>
+                                                <th>Created At</th>
+                                                <th>Updated At</th>
                                                 <th>Action</th>
                                             </tr>
                                         </tfoot>
+                                        <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>Obuli</td>
+                                                <td>Deva</td>
+                                                <td>obulideva</td>
+                                                <td>pass123</td>
+                                                <td>obuli@.com</td>
+                                                <td>6369407802</td>
+                                                <td>Admin</td>
+                                                <td>Active</td>
+                                                <td>2025-04-01 10:00:00</td>
+                                                <td>2025-04-01 10:00:00</td>
+                                                <td>
+                                                    <div class="form-button-action">
+                                                        <button type="button" data-bs-toggle="tooltip" title=""
+                                                            class="btn btn-link btn-primary btn-lg edit-user"
+                                                            data-original-title="Edit User">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button type="button" data-bs-toggle="tooltip" title=""
+                                                            class="btn btn-link btn-danger remove-user"
+                                                            data-original-title="Remove">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>Dhanush</td>
+                                                <td>Manickam</td>
+                                                <td>Dhanush</td>
+                                                <td>pass456</td>
+                                                <td>dhanush@gmail.com</td>
+                                                <td>0987654321</td>
+                                                <td>Manager</td>
+                                                <td>Active</td | Inactiv>
+                                                <td>2025-04-02 09:30:00</td>
+                                                <td>2025-04-02 09:30:00</td>
+                                                <td>
+                                                    <div class="form-button-action">
+                                                        <button type="button" data-bs-toggle="tooltip" title=""
+                                                            class="btn btn-link btn-primary btn-lg edit-user"
+                                                            data-original-title="Edit User">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button type="button" data-bs-toggle="tooltip" title=""
+                                                            class="btn btn-link btn-danger remove-user"
+                                                            data-original-title="Remove">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3</td>
+                                                <td>Panneer</td>
+                                                <td>Selvam</td>
+                                                <td>panneer</td>
+                                                <td>pass789</td>
+                                                <td>panneer@gmail.com</td>
+                                                <td>1122334455</td>
+                                                <td>Employee</td>
+                                                <td>Inactive</td>
+                                                <td>2025-04-03 14:20:00</td>
+                                                <td>2025-04-03 14:20:00</td>
+                                                <td>
+                                                    <div class="form-button-action">
+                                                        <button type="button" data-bs-toggle="tooltip" title=""
+                                                            class="btn btn-link btn-primary btn-lg edit-user"
+                                                            data-original-title="Edit User">
+                                                            <i class="fa fa-edit"></i>
+                                                        </button>
+                                                        <button type="button" data-bs-toggle="tooltip" title=""
+                                                            class="btn btn-link btn-danger remove-user"
+                                                            data-original-title="Remove">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -407,202 +562,168 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
-
-    <!-- Core JS Files -->
+    </div>
+    </div>
+    <!--   Core JS Files   -->
     <script src="/js/core/jquery-3.7.1.min.js"></script>
     <script src="/js/core/popper.min.js"></script>
     <script src="/js/core/bootstrap.min.js"></script>
+
+    <!-- Datatables -->
     <script src="/js/plugin/datatables/datatables.min.js"></script>
 
     <script>
         $(document).ready(function () {
-            // Fetch roles to populate dropdowns
-            async function populateRoles() {
-                try {
-                    const response = await fetch('/api/userRole/getroles');
-                    if (!response.ok) throw new Error('Failed to fetch roles');
-                    const data = await response.json();
-                    const roles = data.data;
-
-                    ['addRole', 'editRole'].forEach(id => {
-                        const select = document.getElementById(id);
-                        select.innerHTML = '<option value="">Select Role</option>'; // Reset options
-                        roles.forEach(role => {
-                            const option = document.createElement('option');
-                            option.value = role.id;
-                            option.textContent = role.roleName;
-                            select.appendChild(option);
-                        });
-                    });
-                } catch (err) {
-                    console.error('Error populating roles:', err);
-                    alert('Failed to load roles. Please try again.');
-                }
-            }
-            populateRoles();
-
             // Initialize DataTable
-            const table = $('#add-row').DataTable({
-                ajax: {
-                    url: '/api/users',
-                    dataSrc: 'data'
-                },
-                columns: [
-                    { data: 'id' },
-                    { data: 'firstName' },
-                    { data: 'lastName' },
-                    { data: 'username' },
-                    { data: 'email' },
-                    { data: 'phone' },
-                    { data: 'roleName' }, // Display roleName instead of role
-                    { data: 'status' },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return `
-                                <button class="btn btn-link text-primary btn-lg edit-user" data-id="${row.id}"><i class="fa fa-pencil"></i></button>
-                                <button class="btn btn-link text-danger btn-lg remove-user" data-id="${row.id}"><i class="fa fa-trash"></i></button>
-                            `;
-                        }
-                    }
-                ],
-                pageLength: 10,
-                responsive: true,
-                language: {
-                    emptyTable: "No users found",
-                    info: "Showing _START_ to _END_ of _TOTAL_ users",
-                    infoEmpty: "Showing 0 to 0 of 0 users",
-                    loadingRecords: "Loading...",
-                    processing: "Processing...",
-                    search: "Search:",
-                    zeroRecords: "No matching users found"
-                }
+            var table = $("#add-row").DataTable({
+                pageLength: 5,
             });
+
+            // Action buttons template
+            var action = '<td> <div class="form-button-action"> ' +
+                '<button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg edit-user" data-original-title="Edit User"> ' +
+                '<i class="fa fa-edit"></i> </button> ' +
+                '<button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger remove-user" data-original-title="Remove"> ' +
+                '<i class="fa fa-times"></i> </button> ' +
+                '</div> </td>';
+
+            // Function to get the highest ID
+            function getNextId() {
+                var maxId = 0;
+                table.rows().every(function () {
+                    var id = parseInt(this.data()[0], 10);
+                    if (id > maxId) maxId = id;
+                });
+                return maxId + 1;
+            }
 
             // Add User
-            document.getElementById('addRowButton').addEventListener('click', async () => {
-                const firstName = document.getElementById('addFirstName').value.trim();
-                const lastName = document.getElementById('addLastName').value.trim();
-                const username = document.getElementById('addUserName').value.trim();
-                const password = document.getElementById('addPassword').value;
-                const email = document.getElementById('addEmail').value.trim();
-                const phone = document.getElementById('addPhone').value.trim();
-                const userRoleId = document.getElementById('addRole').value;
+            $("#addRowButton").click(function () {
+                // Get current date/time
+                var now = new Date();
+                var formattedDate = now.getFullYear() + '-' +
+                    ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + now.getDate()).slice(-2) + ' ' +
+                    ('0' + now.getHours()).slice(-2) + ':' +
+                    ('0' + now.getMinutes()).slice(-2) + ':' +
+                    ('0' + now.getSeconds()).slice(-2);
 
-                if (!firstName || !lastName || !username || !password || !email || !phone || !userRoleId) {
-                    alert('All fields are required');
+                // Get next sequential ID
+                var newId = getNextId();
+
+                // Validate form
+                if ($("#addFirstName").val().trim() === '' ||
+                    $("#addLastName").val().trim() === '' ||
+                    $("#addUserName").val().trim() === '' ||
+                    $("#addPassword").val().trim() === '' ||
+                    $("#addEmail").val().trim() === '' ||
+                    $("#addPhone").val().trim() === '' ||
+                    $("#addRole").val() === '') {
+                    alert('Please fill in all required fields');
                     return;
                 }
 
-                try {
-                    const response = await fetch('/api/users', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ firstName, lastName, username, password, email, phone, userRoleId })
-                    });
+                table.row.add([
+                    newId,
+                    $("#addFirstName").val(),
+                    $("#addLastName").val(),
+                    $("#addUserName").val(),
+                    $("#addPassword").val(),
+                    $("#addEmail").val(),
+                    $("#addPhone").val(),
+                    $("#addRole").val(),
+                    'Active', // Default status for new users
+                    formattedDate,
+                    formattedDate,
+                    action
+                ]).draw();
 
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.message || 'Failed to add user');
-                    }
-
-                    const modalEl = bootstrap.Modal.getInstance(document.getElementById('addRowModal'));
-                    modalEl.hide();
-                    document.body.classList.remove('modal-open');
-                    const backdrop = document.querySelector('.modal-backdrop');
-                    if (backdrop) backdrop.remove();
-                    document.getElementById('addUserForm').reset();
-                    table.ajax.reload();
-                    alert('User added successfully');
-                } catch (err) {
-                    console.error(err);
-                    alert('Error: ' + err.message);
-                }
+                // Reset and close modal
+                $("#addUserForm")[0].reset();
+                $("#addRowModal").modal("hide");
             });
 
-            // Edit User - Populate Modal
+            // Edit User
             $('#add-row').on('click', '.edit-user', function () {
-                const id = $(this).data('id');
-                const rowData = table.row($(this).parents('tr')).data();
-                document.getElementById('editUserId').value = rowData.id;
-                document.getElementById('editFirstName').value = rowData.firstName;
-                document.getElementById('editLastName').value = rowData.lastName;
-                document.getElementById('editUserName').value = rowData.username;
-                document.getElementById('editEmail').value = rowData.email;
-                document.getElementById('editPhone').value = rowData.phone;
-                document.getElementById('editRole').value = rowData.userRoleId;
-                document.getElementById('editStatus').value = rowData.status;
+                var row = $(this).closest('tr');
+                var rowData = table.row(row).data();
 
-                new bootstrap.Modal(document.getElementById('editRowModal')).show();
+                // Populate edit modal with current data
+                $('#editFirstName').val(rowData[1]);
+                $('#editLastName').val(rowData[2]);
+                $('#editUserName').val(rowData[3]);
+                $('#editPassword').val(''); // Clear password field for security
+                $('#editEmail').val(rowData[5]);
+                $('#editPhone').val(rowData[6]);
+                $('#editRole').val(rowData[7]);
+                $('#editStatus').val(rowData[8]);
+
+                // Show edit modal
+                $('#editRowModal').modal('show');
+
+                // Store row reference for updating
+                $('#editRowButton').data('row', row);
             });
 
-            // Edit User - Save Changes
-            document.getElementById('editRowButton').addEventListener('click', async () => {
-                const id = document.getElementById('editUserId').value;
-                const firstName = document.getElementById('editFirstName').value.trim();
-                const lastName = document.getElementById('editLastName').value.trim();
-                const username = document.getElementById('editUserName').value.trim();
-                const password = document.getElementById('editPassword').value;
-                const email = document.getElementById('editEmail').value.trim();
-                const phone = document.getElementById('editPhone').value.trim();
-                const userRoleId = document.getElementById('editRole').value;
-                const status = document.getElementById('editStatus').value;
+            // Save Edited User
+            $('#editRowButton').click(function () {
+                var row = $(this).data('row');
+                var rowData = table.row(row).data();
 
-                if (!firstName || !lastName || !username || !email || !phone || !userRoleId || !status) {
-                    alert('All fields except password are required');
+                // Get current date/time for updated_at
+                var now = new Date();
+                var formattedDate = now.getFullYear() + '-' +
+                    ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
+                    ('0' + now.getDate()).slice(-2) + ' ' +
+                    ('0' + now.getHours()).slice(-2) + ':' +
+                    ('0' + now.getMinutes()).slice(-2) + ':' +
+                    ('0' + now.getSeconds()).slice(-2);
+
+                // Validate form
+                if ($("#editFirstName").val().trim() === '' ||
+                    $("#editLastName").val().trim() === '' ||
+                    $("#editUserName").val().trim() === '' ||
+                    $("#editEmail").val().trim() === '' ||
+                    $("#editPhone").val().trim() === '' ||
+                    $("#editRole").val() === '') {
+                    alert('Please fill in all required fields');
                     return;
                 }
 
-                try {
-                    const response = await fetch(`/api/users/${id}`, {
-                        method: 'PUT',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ firstName, lastName, username, password, email, phone, userRoleId, status })
-                    });
+                // Update row data
+                table.row(row).data([
+                    rowData[0], // ID remains the same
+                    $('#editFirstName').val(),
+                    $('#editLastName').val(),
+                    $('#editUserName').val(),
+                    $("#editPassword").val() || rowData[4], // Keep old password if not changed
+                    $('#editEmail').val(),
+                    $('#editPhone').val(),
+                    $('#editRole').val(),
+                    $('#editStatus').val(),
+                    rowData[9], // Created At remains the same
+                    formattedDate,
+                    action
+                ]).draw();
 
-                    if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.message || 'Failed to update user');
-                    }
-
-                    const modalEl = bootstrap.Modal.getInstance(document.getElementById('editRowModal'));
-                    modalEl.hide();
-                    document.body.classList.remove('modal-open');
-                    const backdrop = document.querySelector('.modal-backdrop');
-                    if (backdrop) backdrop.remove();
-                    table.ajax.reload();
-                    alert('User updated successfully');
-                } catch (err) {
-                    console.error(err);
-                    alert('Error: ' + err.message);
-                }
+                // Reset and close modal
+                $("#editUserForm")[0].reset();
+                $("#editRowModal").modal("hide");
             });
 
-            // Delete User
-            $('#add-row').on('click', '.remove-user', async function () {
-                const id = $(this).data('id');
+            // Remove User
+            $('#add-row').on('click', '.remove-user', function () {
                 if (confirm('Are you sure you want to delete this user?')) {
-                    try {
-                        const response = await fetch(`/api/users/${id}`, {
-                            method: 'DELETE'
-                        });
-
-                        if (!response.ok) {
-                            const errorData = await response.json();
-                            throw new Error(errorData.message || 'Failed to delete user');
-                        }
-
-                        table.ajax.reload();
-                        alert('User deleted successfully');
-                    } catch (err) {
-                        console.error(err);
-                        alert('Error: ' + err.message);
-                    }
+                    table.row($(this).closest('tr')).remove().draw();
                 }
             });
         });
     </script>
+
 </body>
+
 </html>

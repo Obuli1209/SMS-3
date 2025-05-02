@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Admin Dashboard</title>
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link rel="icon" href="/img/kaiadmin/favicon.ico" type="image/x-icon" />
 
-
+  <!-- DataTables and Bootstrap CSS -->
   <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <!-- Fonts and icons -->
   <script src="/js/plugin/webfont/webfont.min.js"></script>
@@ -36,8 +36,6 @@
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/plugins.min.css" />
   <link rel="stylesheet" href="/css/kaiadmin.min.css" />
-
-  <!-- CSS Just for demo purpose, don't include it in your project -->
   <link rel="stylesheet" href="/css/demo.css" />
 </head>
 
@@ -46,7 +44,6 @@
     <!-- Sidebar -->
     <div class="sidebar" data-background-color="dark">
       <div class="sidebar-logo">
-        <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
           <a href="index.html" class="logo">
             <img src="#" alt="navbar brand" class="navbar-brand" height="20" />
@@ -64,7 +61,6 @@
             <i class="gg-more-vertical-alt"></i>
           </button>
         </div>
-        <!-- End Logo Header -->
       </div>
       <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
@@ -81,8 +77,6 @@
               </span>
               <h4 class="text-section">Components</h4>
             </li>
-            <!--  -->
-
             <!-- Master -->
             <li class="nav-item">
               <a data-bs-toggle="collapse" href="#master">
@@ -136,7 +130,6 @@
     <div class="main-panel">
       <div class="main-header">
         <div class="main-header-logo">
-          <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
             <a href="index.html" class="logo">
               <img src="/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20" />
@@ -153,7 +146,6 @@
               <i class="gg-more-vertical-alt"></i>
             </button>
           </div>
-          <!-- End Logo Header -->
         </div>
         <!-- Navbar Header -->
         <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
@@ -220,7 +212,7 @@
         <!-- End Navbar -->
       </div>
 
-      <!-- Userrole Datatable -->
+      <!-- User Roles Datatable -->
       <div class="container">
         <div class="page-inner">
           <div class="page-header">
@@ -258,99 +250,14 @@
                   </button>
                 </div>
               </div>
-              <div class="card-body">
-                <!-- Add Role Modal -->
-                <!-- <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true"
-                  data-bs-backdrop="static" data-bs-keyboard="false">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header border-0">
-                        <h5 class="modal-title">
-                          <span class="fw-mediumbold"> New</span>
-                          <span class="fw-light"> Role </span>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <form id="addRoleForm">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <div class="form-group form-group-default">
-                                <label>Role Name</label>
-                                <input id="addRoleName" type="text" class="form-control" placeholder="Enter role name"
-                                  required />
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer border-0">
-                        <button type="button" id="addRowButton" class="btn btn-primary">
-                          Add
-                        </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
-                <!-- Edit Role Modal -->
-                <!-- <div class="modal fade" id="editRowModal" tabindex="-1" role="dialog" aria-hidden="true"
-                  data-bs-backdrop="static" data-bs-keyboard="false">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header border-0">
-                        <h5 class="modal-title">
-                          <span class="fw-mediumbold"> Edit</span>
-                          <span class="fw-light"> Role </span>
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                      </div>
-                      <div class="modal-body">
-                        <form id="editRoleForm">
-                          <div class="row">
-                            <div class="col-sm-12">
-                              <div class="form-group form-group-default">
-                                <label>Role Name</label>
-                                <input id="editRoleName" type="text" class="form-control" placeholder="Enter role name"
-                                  required />
-                              </div>
-                            </div>
-                            <div class="col-sm-12">
-                              <div class="form-group form-group-default">
-                                <label>Status</label>
-                                <select id="editStatus" class="form-control" required>
-                                  <option value="Active">Active</option>
-                                  <option value="Inactive">Inactive</option>
-                                </select>
-                              </div>
-                            </div>
-                          </div>
-                        </form>
-                      </div>
-                      <div class="modal-footer border-0">
-                        <button type="button" id="editRowButton" class="btn btn-primary">
-                          Save
-                        </button>
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
-                          Close
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
-
+              <!-- <div class="card-body">
                 <div class="table-responsive">
-                  <table id="add-row" class="display table table-striped table-hover">
+                  <table id="rolesTable" class="display table table-striped table-hover">
                     <thead>
                       <tr>
                         <th>ID</th>
                         <th>Role</th>
                         <th>Status</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
                         <th style="width: 10%">Action</th>
                       </tr>
                     </thead>
@@ -359,347 +266,239 @@
                         <th>ID</th>
                         <th>Role</th>
                         <th>Status</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
                         <th>Action</th>
                       </tr>
                     </tfoot>
-                    <!-- <tbody>
+                  </table>
+                </div>
+              </div> -->
+              <div class="card-body p-2">
+                <div class="table-responsive p-0">
+                  <table id="rolesTable" class="table table-sm table-bordered table-striped table-hover text-nowrap small w-100" style="table-layout: fixed;">
+                    <thead>
                       <tr>
-                        <td>1</td>
-                        <td>Admin</td>
-                        <td>Active</td>
-                        <td>2025-04-01 10:00:00</td>
-                        <td>2025-04-01 10:00:00</td>
-                        <td>
-                          <div class="form-button-action">
-                            <button type="button" data-bs-toggle="tooltip" title=""
-                              class="btn btn-link btn-primary btn-lg edit-role" data-original-title="Edit Role">
-                              <i class="fa fa-edit"></i>
-                            </button>
-                            <button type="button" data-bs-toggle="tooltip" title=""
-                              class="btn btn-link btn-danger remove-role" data-original-title="Remove">
-                              <i class="fa fa-times"></i>
-                            </button>
-                          </div>
-                        </td>
+                        <th style="width: 25%;">ID</th>
+                        <th style="width: 25%;">Role</th>
+                        <th style="width: 25%;">Status</th>
+                        <th style="width: 25%;">Action</th>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>Manager</td>
-                        <td>Active</td>
-                        <td>2025-04-02 09:30:00</td>
-                        <td>2025-04-02 09:30:00</td>
-                        <td>
-                          <div class="form-button-action">
-                            <button type="button" data-bs-toggle="tooltip" title=""
-                              class="btn btn-link btn-primary btn-lg edit-role" data-original-title="Edit Role">
-                              <i class="fa fa-edit"></i>
-                            </button>
-                            <button type="button" data-bs-toggle="tooltip" title=""
-                              class="btn btn-link btn-danger remove-role" data-original-title="Remove">
-                              <i class="fa fa-times"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>Employee</td>
-                        <td>Inactive</td>
-                        <td>2025-04-03 14:20:00</td>
-                        <td>2025-04-03 14:20:00</td>
-                        <td>
-                          <div class="form-button-action">
-                            <button type="button" data-bs-toggle="tooltip" title=""
-                              class="btn btn-link btn-primary btn-lg edit-role" data-original-title="Edit Role">
-                              <i class="fa fa-edit"></i>
-                            </button>
-                            <button type="button" data-bs-toggle="tooltip" title=""
-                              class="btn btn-link btn-danger remove-role" data-original-title="Remove">
-                              <i class="fa fa-times"></i>
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody> -->
+                    </thead>
                   </table>
                 </div>
               </div>
+              
+              
             </div>
           </div>
         </div>
       </div>
 
-
       <!-- Add Modal -->
-<div class="modal fade" id="addRowModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Role</h5>
-        <button class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form id="addRoleForm">
-          <div class="mb-3">
-            <label>Role Name</label>
-            <input type="text" class="form-control" id="addRoleName" required>
+      <div class="modal fade" id="addRowModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Role</h5>
+              <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <form id="addRoleForm">
+                <div class="mb-3">
+                  <label>Role Name</label>
+                  <input type="text" class="form-control" id="addRoleName" required>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" id="addRowButton">Save</button>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" id="addRowButton">Add</button>
-        <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+
+      <!-- Edit Modal -->
+      <div class="modal fade" id="editRowModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Edit Role</h5>
+              <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+              <form id="editRoleForm">
+                <input type="hidden" id="editRoleId">
+                <div class="mb-3">
+                  <label>Role Name</label>
+                  <input type="text" class="form-control" id="editRoleName" required>
+                </div>
+                <div class="mb-3">
+                  <label>Status</label>
+                  <select class="form-select" id="editStatus" required>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                  </select>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" id="editRowButton">Save</button>
+              <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Edit Modal -->
-<div class="modal fade" id="editRowModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edit Role</h5>
-        <button class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <form id="editRoleForm">
-          <input type="hidden" id="editRoleId">
-          <div class="mb-3">
-            <label>Role Name</label>
-            <input type="text" class="form-control" id="editRoleName" required>
-          </div>
-          <div class="mb-3">
-            <label>Status</label>
-            <select class="form-select" id="editStatus" required>
-              <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
-            </select>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" id="editRowButton">Save</button>
-        <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-  </div>
-  </div>
-  </div>
-  <!--   Core JS Files   -->
+  <!-- Core JS Files -->
   <script src="/js/core/jquery-3.7.1.min.js"></script>
   <script src="/js/core/popper.min.js"></script>
   <script src="/js/core/bootstrap.min.js"></script>
-
-  <!-- Datatables -->
   <script src="/js/plugin/datatables/datatables.min.js"></script>
-
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-  <!-- <script>
-    $(document).ready(function () {
-      // Initialize DataTable
-      var table = $("#add-row").DataTable({
-        pageLength: 5,
-      });
-
-      // Action buttons template
-      var action = '<td> <div class="form-button-action"> ' +
-        '<button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-primary btn-lg edit-role" data-original-title="Edit Role"> ' +
-        '<i class="fa fa-edit"></i> </button> ' +
-        '<button type="button" data-bs-toggle="tooltip" title="" class="btn btn-link btn-danger remove-role" data-original-title="Remove"> ' +
-        '<i class="fa fa-times"></i> </button> ' +
-        '</div> </td>';
-
-      // Function to get the highest ID
-      function getNextId() {
-        var maxId = 0;
-        table.rows().every(function () {
-          var id = parseInt(this.data()[0], 10);
-          if (id > maxId) maxId = id;
-        });
-        return maxId + 1;
-      }
-
-      // Add Role
-      $("#addRowButton").click(function () {
-        // Get current date/time
-        var now = new Date();
-        var formattedDate = now.getFullYear() + '-' +
-          ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
-          ('0' + now.getDate()).slice(-2) + ' ' +
-          ('0' + now.getHours()).slice(-2) + ':' +
-          ('0' + now.getMinutes()).slice(-2) + ':' +
-          ('0' + now.getSeconds()).slice(-2);
-
-        // Get next sequential ID
-        var newId = getNextId();
-
-        // Validate form
-        if ($("#addRoleName").val().trim() === '') {
-          alert('Please enter a role name');
-          return;
-        }
-
-        table.row.add([
-          newId,
-          $("#addRoleName").val(),
-          'Active', // Default status for new roles
-          formattedDate,
-          formattedDate,
-          action
-        ]).draw();
-
-        // Reset and close modal
-        $("#addRoleForm")[0].reset();
-        $("#addRowModal").modal("hide");
-      });
-
-      // Edit Role
-      $('#add-row').on('click', '.edit-role', function () {
-        var row = $(this).closest('tr');
-        var rowData = table.row(row).data();
-
-        // Populate edit modal with current data
-        $('#editRoleName').val(rowData[1]);
-        $('#editStatus').val(rowData[2]);
-
-        // Show edit modal
-        $('#editRowModal').modal('show');
-
-        // Store row reference for updating
-        $('#editRowButton').data('row', row);
-      });
-
-      // Save Edited Role
-      $('#editRowButton').click(function () {
-        var row = $(this).data('row');
-        var rowData = table.row(row).data();
-
-        // Get current date/time for updated_at
-        var now = new Date();
-        var formattedDate = now.getFullYear() + '-' +
-          ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
-          ('0' + now.getDate()).slice(-2) + ' ' +
-          ('0' + now.getHours()).slice(-2) + ':' +
-          ('0' + now.getMinutes()).slice(-2) + ':' +
-          ('0' + now.getSeconds()).slice(-2);
-
-        // Validate form
-        if ($("#editRoleName").val().trim() === '') {
-          alert('Please enter a role name');
-          return;
-        }
-
-        // Update row data
-        table.row(row).data([
-          rowData[0], // ID remains the same
-          $('#editRoleName').val(),
-          $('#editStatus').val(),
-          rowData[3], // Created At remains the same
-          formattedDate,
-          action
-        ]).draw();
-
-        // Reset and close modal
-        $("#editRoleForm")[0].reset();
-        $("#editRowModal").modal("hide");
-      });
-
-      // Remove Role
-      $('#add-row').on('click', '.remove-role', function () {
-        if (confirm('Are you sure you want to delete this role?')) {
-          table.row($(this).closest('tr')).remove().draw();
-        }
-      });
-    });
-  </script> -->
-
+  <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>
-    document.getElementById('addRowButton').addEventListener('click', async () => {
-      const roleName = document.getElementById('addRoleName').value;
-  
-      if (!roleName.trim()) {
-        alert("Role name is required");
-        return;
-      }
-  
-      try {
-        const response = await fetch('/api/userRole/addrole', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ roleName })  // field name must match your model
-        });
-  
-        if (!response.ok) throw new Error("Failed to add role");
-  
-        const result = await response.json();
-  
-        // Hide modal
-        const modalEl = bootstrap.Modal.getInstance(document.getElementById('addRowModal'));
-        modalEl.hide();
-  
-        // Reset form
-        document.getElementById('addRoleForm').reset();
-  
-        // Reload DataTable
-        $('#rolesTable').DataTable().ajax.reload();
-  
-      } catch (err) {
-        console.error(err);
-        alert("Error: " + err.message);
-      }
-    });
-
-    $(document).ready(function () {
-    $('#rolesTable').DataTable({
+  $(document).ready(function () {
+    // Initialize DataTable
+    const table = $('#rolesTable').DataTable({
       ajax: {
         url: '/api/userRole/getroles',
         dataSrc: 'data'
       },
       columns: [
         { data: 'id' },
-        { data: 'roleName' }
+        { data: 'roleName' },
+        { data: 'status' },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return `
+              <button class="btn btn-link text-primary btn-lg edit-btn" data-id="${row.id}"><i class="fa fa-pencil"></i></button>
+              <button class="btn btn-link text-danger btn-lg delete-btn" data-id="${row.id}"><i class="fa fa-trash"></i></button>
+            `;
+          }
+        }
       ]
     });
+
+    // Add Role
+    document.getElementById('addRowButton').addEventListener('click', async () => {
+      const roleName = document.getElementById('addRoleName').value;
+
+      if (!roleName.trim()) {
+        alert("Role name is required");
+        return;
+      }
+
+      try {
+        const response = await fetch('/api/userRole/addrole', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ roleName, status: 'Active' })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to add role');
+        }
+
+        const result = await response.json();
+        const modalEl = bootstrap.Modal.getInstance(document.getElementById('addRowModal'));
+        modalEl.hide();
+
+        // Ensure the backdrop is removed
+        document.body.classList.remove('modal-open');
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+          backdrop.remove();
+        }
+
+        // Reset form and refresh table
+        document.getElementById('addRoleForm').reset();
+        table.ajax.reload();
+      } catch (err) {
+        console.error(err);
+        alert("Error: " + err.message);
+      }
+    });
+
+    // Edit Role - Populate Modal
+    $('#rolesTable').on('click', '.edit-btn', function () {
+      const id = $(this).data('id');
+      const rowData = table.row($(this).parents('tr')).data();
+      
+      document.getElementById('editRoleId').value = rowData.id;
+      document.getElementById('editRoleName').value = rowData.roleName;
+      document.getElementById('editStatus').value = rowData.status;
+
+      const editModal = new bootstrap.Modal(document.getElementById('editRowModal'));
+      editModal.show();
+    });
+
+    // Edit Role - Save Changes
+    document.getElementById('editRowButton').addEventListener('click', async () => {
+      const id = document.getElementById('editRoleId').value;
+      const roleName = document.getElementById('editRoleName').value;
+      const status = document.getElementById('editStatus').value;
+
+      if (!roleName.trim()) {
+        alert("Role name is required");
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/userRole/updaterole/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ roleName, status })
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.error || 'Failed to update role');
+        }
+
+        const result = await response.json();
+        const modalEl = bootstrap.Modal.getInstance(document.getElementById('editRowModal'));
+        modalEl.hide();
+
+        // Ensure the backdrop is removed
+        document.body.classList.remove('modal-open');
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+          backdrop.remove();
+        }
+
+        table.ajax.reload();
+      } catch (err) {
+        console.error(err);
+        alert("Error: " + err.message);
+      }
+    });
+
+    // Delete Role
+    $('#rolesTable').on('click', '.delete-btn', async function () {
+      const id = $(this).data('id');
+      if (confirm('Are you sure you want to delete this role?')) {
+        try {
+          const response = await fetch(`/api/userRole/deleterole/${id}`, {
+            method: 'DELETE'
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to delete role');
+          }
+
+          table.ajax.reload();
+        } catch (err) {
+          console.error(err);
+          alert("Error: " + err.message);
+        }
+      }
+    });
   });
-  </script>
-  
-
-
+</script>
 </body>
-
 </html>

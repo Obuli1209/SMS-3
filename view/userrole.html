@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Dashboard - User Roles</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    
+  <!-- DataTables and Bootstrap CSS -->
+  <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h1>SMS</h1>
+        
+        <ul>
+            <li>Dashboard</li>
+        </ul>
+        <h2>Components</h2>
+        
+        <ul>
+            <li onclick="toggleDropdown(this, 'master-dropdown')">
+                Master <i class="fas fa-chevron-right dropdown-icon"></i>
+                <ul class="submenu" id="master-dropdown">
+                    <li>
+                        <a href="/userroleslist">
+                            <span class="sub-item">User roles</span>
+                          </a>
+                    </li>
+                    <li>
+                        <a href="/users">
+                          <span class="sub-item">Users</span>
+                        </a>
+                      </li>
+                </ul>
+            </li>
+            <li onclick="toggleDropdown(this, 'tables-dropdown')">
+                Tables <i class="fas fa-chevron-right dropdown-icon"></i>
+                <ul class="submenu" id="tables-dropdown">
+                    <li>
+                        <a href='/tables'>
+                          <span class="sub-item">Basic Table</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="/datatables">
+                          <span class="sub-item">Datatables</span>
+                        </a>
+                      </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="main-content">
+        <div class="profile-section">
+            <div class="profile-container" onclick="toggleProfileDropdown()">
+                <div class="profile-image">O</div>
+                <div class="profile-name">Obull image profile</div>
+                <i class="fas fa-chevron-down"></i>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <a href="#"><i class="fas fa-user"></i> My Profile</a>
+                    <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+
+
+<!-- User Roles Datatable -->
+<div class="container">
+    <div class="page-inner">
+      <div class="page-header">
+        <h3 class="fw-bold mb-3">User Roles List</h3>
+        <ul class="breadcrumbs mb-3">
+          <li class="nav-home">
+            <a href="#">
+              <i class="icon-home"></i>
+            </a>
+          </li>
+          <li class="separator">
+            <i class="icon-arrow-right"></i>
+          </li>
+          <li class="nav-item">
+            <a href="#">Master</a>
+          </li>
+          <li class="separator">
+            <i class="icon-arrow-right"></i>
+          </li>
+          <li class="nav-item">
+            <a href="#">User Roles</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            <div class="d-flex align-items-center">
+              <h4 class="card-title">User Roles</h4>
+              <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
+                data-bs-target="#addRowModal">
+                <i class="fa fa-plus"></i>
+                New Role
+              </button>
+            </div>
+          </div>
+          <!-- <div class="card-body">
+            <div class="table-responsive">
+              <table id="rolesTable" class="display table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th style="width: 10%">Action</th>
+                  </tr>
+                </thead>
+                <tfoot>
+                  <tr>
+                    <th>ID</th>
+                    <th>Role</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div> -->
+          <div class="card-body p-2">
+            <div class="table-responsive p-0">
+              <table id="rolesTable" class="table table-sm table-bordered table-striped table-hover text-nowrap small w-100" style="table-layout: fixed;">
+                <thead>
+                  <tr>
+                    <th style="width: 25%;">ID</th>
+                    <th style="width: 25%;">Role</th>
+                    <th style="width: 25%;">Status</th>
+                    <th style="width: 25%;">Action</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+          
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Modal -->
+  <div class="modal fade" id="addRowModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add Role</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="addRoleForm">
+            <div class="mb-3">
+              <label>Role Name</label>
+              <input type="text" class="form-control" id="addRoleName" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="addRowButton">Add</button>
+          <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <div class="modal fade" id="editRowModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Edit Role</h5>
+          <button class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <form id="editRoleForm">
+            <input type="hidden" id="editRoleId">
+            <div class="mb-3">
+              <label>Role Name</label>
+              <input type="text" class="form-control" id="editRoleName" required>
+            </div>
+            <div class="mb-3">
+              <label>Status</label>
+              <select class="form-select" id="editStatus" required>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="editRowButton">Save</button>
+          <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+        // Toggle sidebar dropdowns
+        function toggleDropdown(element, dropdownId) {
+            // Close all other dropdowns first
+            document.querySelectorAll('.submenu').forEach(menu => {
+                if (menu.id !== dropdownId) {
+                    menu.classList.remove('show');
+                    menu.parentElement.classList.remove('active');
+                }
+            });
+            
+            const dropdown = document.getElementById(dropdownId);
+            const isActive = element.classList.contains('active');
+            
+            if (isActive) {
+                dropdown.classList.remove('show');
+                element.classList.remove('active');
+            } else {
+                dropdown.classList.add('show');
+                element.classList.add('active');
+            }
+        }
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.sidebar ul li')) {
+                document.querySelectorAll('.submenu').forEach(menu => {
+                    menu.classList.remove('show');
+                });
+                document.querySelectorAll('.sidebar ul li').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+        });
+
+        // Initialize sidebar state for User Roles
+        document.addEventListener('DOMContentLoaded', function() {
+            // Activate Master menu and show its dropdown
+            const masterMenu = document.querySelector('#master-dropdown').parentElement;
+            masterMenu.classList.add('active');
+            document.getElementById('master-dropdown').classList.add('show');
+            
+            // Highlight User Roles
+            const userRolesItem = document.querySelector('#master-dropdown li:nth-child(1)');
+            userRolesItem.classList.add('active');
+        });
+    </script>
+</body>
+</html>

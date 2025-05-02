@@ -30,6 +30,11 @@ module.exports = (sequelize) => {
       type: DataTypes.BIGINT,
       allowNull: false
     },
+    status: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1, // Active-1, Inactive-2
+      allowNull: false 
+    }
   });
 
   User.associate = (models ) => {

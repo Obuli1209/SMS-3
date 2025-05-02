@@ -23,12 +23,12 @@ router.get('/datatables', (req, res) => {
 });
 
 
-router.get('/UserRoles', (req, res) => {
+router.get('/userroleslist', (req, res) => {
     res.sendFile(path.join(__dirname, '../view', 'UserRoles.html'));
  });
 
 
-router.get('/Users', (req, res) => {
+router.get('/users', (req, res) => {
     res.sendFile(path.join(__dirname, '../view', 'Users.html'));
  });
 
