@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
       primaryKey: true,
       autoIncrement: true
     },
-    role: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false
     },

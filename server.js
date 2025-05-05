@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const path = require('path');
-const cors = require('cors'); // Add CORS
+const cors = require('cors'); // Add CORS - cross origin resource sharing
 const app = express();
 const { sequelize } = require('./models/index');
 
@@ -20,7 +20,7 @@ const connectDB = async () => {
     await sequelize.authenticate();
     console.log('DB connected successfully');
 
-    await sequelize.sync({ alter: true});
+    await sequelize.sync({ force: false});
     console.log('Tables created');
   } catch (err) {
     console.error('Error:', err);
@@ -46,8 +46,7 @@ app.use('/api/user', require('./api/user'));
 app.use('/api/userRole', require('./api/userRole'));
 
 // Use your routes from api/index.js (optional, if you want to include all API routes)
-const routes = require('./api/index');
-app.use('/', routes);
+app.use('/', require('./api/index'));
 
 // Global Error Handling Middleware
 app.use((err, req, res, next) => {

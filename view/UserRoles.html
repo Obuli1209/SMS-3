@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="/css/demo.css" />
 </head>
 
-<body style="background-color: rgb(197, 197, 197);">
+<body style="background-color: f1f1f1;">
   <div class="wrapper">
     <!-- Sidebar -->
     <div class="sidebar" data-background-color="dark">
@@ -149,33 +149,9 @@
         </div>
         <!-- Navbar Header -->
         <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
-          style="background-color: rgb(179, 176, 176);">
+          style="background-color: rgb(221, 212, 212);">
           <div class="container-fluid">
-            <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
-              <div class="input-group">
-                <div class="input-group-prepend">
-                  <button type="submit" class="btn btn-search pe-1">
-                    <i class="fa fa-search search-icon"></i>
-                  </button>
-                </div>
-                <input type="text" placeholder="Search ..." class="form-control" />
-              </div>
-            </nav>
-
             <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-              <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
-                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
-                  aria-expanded="false" aria-haspopup="true">
-                  <i class="fa fa-search"></i>
-                </a>
-                <ul class="dropdown-menu dropdown-search animated fadeIn">
-                  <form class="navbar-left navbar-form nav-search">
-                    <div class="input-group">
-                      <input type="text" placeholder="Search ..." class="form-control" />
-                    </div>
-                  </form>
-                </ul>
-              </li>
               <li class="nav-item topbar-user dropdown hidden-caret">
                 <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
                   <div class="avatar-sm">
@@ -187,23 +163,19 @@
                   </span>
                 </a>
                 <ul class="dropdown-menu dropdown-user animated fadeIn">
-                  <div class="dropdown-user-scroll scrollbar-outer">
-                    <li>
-                      <div class="user-box">
-                        <div class="avatar-lg">
-                          <img src="/img/profile.jpg" alt="image profile" class="avatar-img rounded" />
-                        </div>
-                        <div class="u-text">
-                          <h4>Obuli</h4>
-                          <p class="text-muted">hello@example.com</p>
-                        </div>
+                  <li class="dropdown-item">
+                    <div class="user-box">
+                      <div class="avatar-lg">
+                        <img src="/img/profile.jpg" alt="image profile" class="avatar-img rounded" />
                       </div>
-                    </li>
-                    <li>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="/login">Logout</a>
-                    </li>
-                  </div>
+                      <div class="u-text">
+                        <h4>Obuli</h4>
+                        <p class="text-muted">hello@example.com</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/login">Logout</a></li>
                 </ul>
               </li>
             </ul>
@@ -239,46 +211,34 @@
           </div>
 
           <div class="col-md-12">
-            <div class="card">
+            <div class="card" style="background-color: rgb(221, 212, 212);">
               <div class="card-header">
                 <div class="d-flex align-items-center">
                   <h4 class="card-title">User Roles</h4>
-                  <button class="btn btn-primary btn-round ms-auto" data-bs-toggle="modal"
-                    data-bs-target="#addRowModal">
-                    <i class="fa fa-plus"></i>
-                    New Role
-                  </button>
+                  <div class="ms-auto">
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary btn-round dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-download"></i> Download
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#" id="downloadCsv">Download Excel</a></li>
+                        <li><a class="dropdown-item" href="#" id="downloadPdf">Download PDF</a></li>
+                      </ul>
+                    </div>
+                    <button class="btn btn-primary btn-round" data-bs-toggle="modal" data-bs-target="#addRowModal">
+                      <i class="fa fa-plus"></i>
+                      New Role
+                    </button>
+                  </div>
                 </div>
               </div>
-              <!-- <div class="card-body">
-                <div class="table-responsive">
-                  <table id="rolesTable" class="display table table-striped table-hover">
-                    <thead>
-                      <tr>
-                        <th>ID</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th style="width: 10%">Action</th>
-                      </tr>
-                    </thead>
-                    <tfoot>
-                      <tr>
-                        <th>ID</th>
-                        <th>Role</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                      </tr>
-                    </tfoot>
-                  </table>
-                </div>
-              </div> -->
               <div class="card-body p-2">
                 <div class="table-responsive p-0">
                   <table id="rolesTable" class="table table-sm table-bordered table-striped table-hover text-nowrap small w-100" style="table-layout: fixed;">
                     <thead>
                       <tr>
                         <th style="width: 25%;">ID</th>
-                        <th style="width: 25%;">Role</th>
+                        <th style="width: 25%;">Name</th>
                         <th style="width: 25%;">Status</th>
                         <th style="width: 25%;">Action</th>
                       </tr>
@@ -286,54 +246,53 @@
                   </table>
                 </div>
               </div>
-              
-              
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Add Modal -->
-      <div class="modal fade" id="addRowModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <!-- Add Role Modal -->
+      <div class="modal fade" id="addRowModal" tabindex="-1" aria-labelledby="addRowModalLabel" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Add Role</h5>
-              <button class="btn-close" data-bs-dismiss="modal"></button>
+              <h5 class="modal-title" id="addRowModalLabel">Add Role</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <form id="addRoleForm">
                 <div class="mb-3">
-                  <label>Role Name</label>
-                  <input type="text" class="form-control" id="addRoleName" required>
+                  <label for="addRoleName" class="form-label">Name</label>
+                  <input type="text" class="form-control" id="addRoleName" required style="border: 2px solid black;">
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" id="addRowButton">Save</button>
+              <button type="button" class="btn btn-primary" id="addRowButton">Add Role</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" style="border: 1px solid transparent;">Close</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Edit Modal -->
-      <div class="modal fade" id="editRowModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false">
+      <!-- Edit Role Modal -->
+      <div class="modal fade" id="editRowModal" tabindex="-1" aria-labelledby="editRowModalLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Edit Role</h5>
-              <button class="btn-close" data-bs-dismiss="modal"></button>
+              <h5 class="modal-title" id="editRowModalLabel">Edit Role</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <form id="editRoleForm">
                 <input type="hidden" id="editRoleId">
                 <div class="mb-3">
-                  <label>Role Name</label>
-                  <input type="text" class="form-control" id="editRoleName" required>
+                  <label for="editRoleName" class="form-label">Role Name</label>
+                  <input type="text" class="form-control" id="editRoleName" required style="border: 2px solid black;">
                 </div>
                 <div class="mb-3">
-                  <label>Status</label>
-                  <select class="form-select" id="editStatus" required>
+                  <label for="editStatus" class="form-label">Status</label>
+                  <select class="form-control" id="editStatus" style="border: 2px solid black;">
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
                   </select>
@@ -341,8 +300,8 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button class="btn btn-primary" id="editRowButton">Save</button>
-              <button class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="editRowButton">Save Changes</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             </div>
           </div>
         </div>
@@ -357,14 +316,26 @@
   <script src="/js/plugin/datatables/datatables.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- jsPDF for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
   <script>
   $(document).ready(function () {
     // Initialize DataTable
     const table = $('#rolesTable').DataTable({
       ajax: {
-        url: '/api/userRole/getroles',
-        dataSrc: 'data'
+        url: '/api/userRole/',
+        dataSrc: 'data',
+        error: function (xhr, error, thrown) {
+          console.error('DataTables AJAX error:', {
+            status: xhr.status,
+            statusText: xhr.statusText,
+            responseText: xhr.responseText,
+            error,
+            thrown
+          });
+          alert('Failed to load roles. Please check the server or network connection.');
+        }
       },
       columns: [
         { data: 'id' },
@@ -382,44 +353,81 @@
       ]
     });
 
+    // Download CSV
+    $('#downloadCsv').on('click', function (e) {
+      e.preventDefault();
+      const data = table.data().toArray();
+      const csvRows = [
+        ['ID', 'Name', 'Status'].join(','),
+        ...data.map(row => [row.id, `"${row.roleName.replace(/"/g, '""')}"`, row.status].join(','))
+      ];
+      const csvString = csvRows.join('\n');
+      const blob = new Blob([csvString], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', 'User_roles_list.csv');
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+
+    // Download PDF
+    $('#downloadPdf').on('click', function (e) {
+      e.preventDefault();
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.text('User Roles List', 10, 10);
+      doc.setFontSize(12);
+      const data = table.data().toArray();
+      let y = 20;
+      doc.text(['ID', 'Name', 'Status'].join('  |  '), 10, y);
+      y += 10;
+      doc.line(10, y - 5, 200, y - 5);
+      data.forEach(row => {
+        doc.text([row.id, row.roleName, row.status].join('  |  '), 10, y);
+        y += 10;
+      });
+      doc.save('User_roles_list.pdf');
+    });
+
     // Add Role
     document.getElementById('addRowButton').addEventListener('click', async () => {
-      const roleName = document.getElementById('addRoleName').value;
-
-      if (!roleName.trim()) {
-        alert("Role name is required");
+      const roleName = document.getElementById('addRoleName').value.trim();
+      if (!roleName || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
+        alert('Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.');
         return;
       }
-
       try {
-        const response = await fetch('/api/userRole/addrole', {
+        const response = await fetch('/api/userRole/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ roleName, status: 'Active' })
         });
-
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Failed to add role');
+          let errorData;
+          try {
+            errorData = await response.json();
+          } catch (e) {
+            throw new Error(`Server returned an unexpected response (status: ${response.status})`);
+          }
+          throw new Error(errorData.error || `Failed to add role (status: ${response.status})`);
         }
-
         const result = await response.json();
         const modalEl = bootstrap.Modal.getInstance(document.getElementById('addRowModal'));
         modalEl.hide();
-
-        // Ensure the backdrop is removed
         document.body.classList.remove('modal-open');
         const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-          backdrop.remove();
-        }
-
-        // Reset form and refresh table
+        if (backdrop) backdrop.remove();
         document.getElementById('addRoleForm').reset();
-        table.ajax.reload();
+        table.row.add({
+          id: result.id,
+          roleName: result.roleName,
+          status: result.status
+        }).draw();
       } catch (err) {
-        console.error(err);
-        alert("Error: " + err.message);
+        console.error('Add role error:', err);
+        alert('Error: ' + err.message);
       }
     });
 
@@ -427,11 +435,9 @@
     $('#rolesTable').on('click', '.edit-btn', function () {
       const id = $(this).data('id');
       const rowData = table.row($(this).parents('tr')).data();
-      
       document.getElementById('editRoleId').value = rowData.id;
       document.getElementById('editRoleName').value = rowData.roleName;
       document.getElementById('editStatus').value = rowData.status;
-
       const editModal = new bootstrap.Modal(document.getElementById('editRowModal'));
       editModal.show();
     });
@@ -439,41 +445,37 @@
     // Edit Role - Save Changes
     document.getElementById('editRowButton').addEventListener('click', async () => {
       const id = document.getElementById('editRoleId').value;
-      const roleName = document.getElementById('editRoleName').value;
+      const roleName = document.getElementById('editRoleName').value.trim();
       const status = document.getElementById('editStatus').value;
-
-      if (!roleName.trim()) {
-        alert("Role name is required");
+      if (!roleName || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
+        alert('Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.');
         return;
       }
-
       try {
-        const response = await fetch(`/api/userRole/updaterole/${id}`, {
+        const response = await fetch(`/api/userRole/${id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ roleName, status })
         });
-
         if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.error || 'Failed to update role');
+          let errorData;
+          try {
+            errorData = await response.json();
+          } catch (e) {
+            throw new Error(`Server returned an unexpected response (status: ${response.status})`);
+          }
+          throw new Error(errorData.error || `Failed to update role (status: ${response.status})`);
         }
-
         const result = await response.json();
         const modalEl = bootstrap.Modal.getInstance(document.getElementById('editRowModal'));
         modalEl.hide();
-
-        // Ensure the backdrop is removed
         document.body.classList.remove('modal-open');
         const backdrop = document.querySelector('.modal-backdrop');
-        if (backdrop) {
-          backdrop.remove();
-        }
-
+        if (backdrop) backdrop.remove();
         table.ajax.reload();
       } catch (err) {
-        console.error(err);
-        alert("Error: " + err.message);
+        console.error('Update role error:', err);
+        alert('Error: ' + err.message);
       }
     });
 
@@ -482,23 +484,26 @@
       const id = $(this).data('id');
       if (confirm('Are you sure you want to delete this role?')) {
         try {
-          const response = await fetch(`/api/userRole/deleterole/${id}`, {
+          const response = await fetch(`/api/userRole/${id}`, {
             method: 'DELETE'
           });
-
           if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || 'Failed to delete role');
+            let errorData;
+            try {
+              errorData = await response.json();
+            } catch (e) {
+              throw new Error(`Server returned an unexpected response (status: ${response.status})`);
+            }
+            throw new Error(errorData.error || `Failed to delete role (status: ${response.status})`);
           }
-
           table.ajax.reload();
         } catch (err) {
-          console.error(err);
-          alert("Error: " + err.message);
+          console.error('Delete role error:', err);
+          alert('Error: ' + err.message);
         }
       }
     });
   });
-</script>
+  </script>
 </body>
 </html>

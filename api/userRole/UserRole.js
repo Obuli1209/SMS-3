@@ -1,101 +1,131 @@
-const express = require('express');
-const router = express.Router();
-const { UserRole } = require('../../models');
+const { UserRole, sequelize } = require('../../models');
 
 // Helper functions to map status between integer and string
 const statusToString = (status) => (status === 1 ? 'Active' : 'Inactive');
 const statusToInteger = (status) => {
-  const validStatuses = { 'Active': 1, 'Inactive': 2 };
-  if (!(status in validStatuses)) throw new Error('Invalid status value');
-  return validStatuses[status];
+  const validStatuses = { Active: 1, Inactive: 2 };
+  const normalizedStatus = status.charAt(0).toUpperCase() + status.slice(1).toLowerCase();
+  if (!(normalizedStatus in validStatuses)) throw new Error('Invalid status value');
+  return validStatuses[normalizedStatus];
 };
 
 // Add Role
-const addRole =  async (req, res) => {
+module.exports.create = async (req, res) => {
   console.log('Request body:', req.body);
   try {
     const { roleName, status = 'Active' } = req.body;
-    if (!roleName || !roleName.trim()) {
-      return res.status(400).json({ error: 'Role name is required' });
+    if (!roleName || !roleName.trim() || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
+      return res.status(400).send({ status: false, error: 'Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.' });
     }
     const role = await UserRole.create({
-      role: roleName,
+      name: roleName,
       status: statusToInteger(status)
     });
     res.status(201).json({
       id: role.id,
-      roleName: role.role,
+      roleName: role.name,
       status: statusToString(role.status)
     });
   } catch (error) {
     console.error('Error adding role:', error);
-    res.status(400).json({ error: error.message || 'Failed to add role' });
+    res.status(400).send({ status: false, error: error.message });
   }
 };
 
 // Get All Roles
-const getRole =  async (req, res) => {
+module.exports.getRole = async (req, res) => {
   try {
     const roles = await UserRole.findAll({
-      attributes: ['id', 'role', 'status']
+      attributes: ['id', 'name', 'status']
     });
     const mappedRoles = roles.map(role => ({
       id: role.id,
-      roleName: role.role,
+      roleName: role.name,
       status: statusToString(role.status)
     }));
     res.json({ data: mappedRoles });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error fetching roles:', error);
+    res.status(500).send({ status: false, error: error.message });
+  }
+};
+
+// Get Role by ID
+module.exports.getById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!/^\d+$/.test(id) || parseInt(id) <= 0) {
+      return res.status(400).send({ status: false, error: 'Invalid role ID. ID must be a positive integer.' });
+    }
+    const role = await UserRole.findByPk(id, {
+      attributes: ['id', 'name', 'status']
+    });
+    if (!role) {
+      return res.status(404).send({ status: false, error: 'Role not found' });
+    }
+    res.json({
+      status: true,
+      data: {
+        id: role.id,
+        roleName: role.name,
+        status: statusToString(role.status)
+      }
+    });
+  } catch (error) {
+    console.error('Error fetching role by ID:', error);
+    res.status(500).send({ status: false, error: error.message });
   }
 };
 
 // Update Role
-const updateRole =  async (req, res) => {
+module.exports.updateRole = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!/^\d+$/.test(id) || parseInt(id) <= 0) {
+      return res.status(400).send({ status: false, error: 'Invalid role ID. ID must be a positive integer.' });
+    }
     const { roleName, status } = req.body;
-    if (!roleName || !roleName.trim()) {
-      return res.status(400).json({ error: 'Role name is required' });
+    if (!roleName || !roleName.trim() || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
+      return res.status(400).send({ status: false, error: 'Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.' });
     }
     const role = await UserRole.findByPk(id);
     if (!role) {
-      return res.status(404).json({ error: 'Role not found' });
+      return res.status(404).send({ status: false, error: 'Role not found' });
     }
     await role.update({
-      role: roleName,
+      name: roleName,
       status: statusToInteger(status)
     });
     res.json({
       id: role.id,
-      roleName: role.role,
+      roleName: role.name,
       status: statusToString(role.status)
     });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error('Error updating role:', error);
+    res.status(400).send({ status: false, error: error.message });
   }
 };
 
 // Delete Role
-const deleteRole =  async (req, res) => {
+module.exports.deleteRole = async (req, res) => {
   try {
     const { id } = req.params;
+    if (!/^\d+$/.test(id) || parseInt(id) <= 0) {
+      return res.status(400).send({ status: false, error: 'Invalid role ID. ID must be a positive integer.' });
+    }
     const role = await UserRole.findByPk(id);
     if (!role) {
-      return res.status(404).json({ error: 'Role not found' });
+      return res.status(404).send({ status: false, error: 'Role not found' });
     }
     await role.destroy();
-
-    // Check if table is empty and reset sequence if so
-    const remainingRoles = await UserRole.count();
-    if (remainingRoles === 0) {
-      await req.sequelize.query('ALTER SEQUENCE "UserRoles_id_seq" RESTART WITH 1;');
-    }
-
+    // const remainingRoles = await UserRole.count();
+    // if (remainingRoles === 0) {
+    //   await sequelize.query('ALTER SEQUENCE "UserRoles_id_seq" RESTART WITH 1;');
+    // }
     res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Error deleting role:', error);
+    res.status(500).send({ status: false, error: error.message });
   }
 };
-
-module.exports = {addRole, getRole, updateRole, deleteRole};
