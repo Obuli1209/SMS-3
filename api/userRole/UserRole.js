@@ -17,13 +17,23 @@ module.exports.create = async (req, res) => {
     if (!roleName || !roleName.trim() || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
       return res.status(400).send({ status: false, error: 'Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.' });
     }
+    // Check for existing role (case-insensitive)
+    const existingRole = await UserRole.findOne({
+      where: sequelize.where(
+        sequelize.fn('LOWER', sequelize.col('roleName')),
+        roleName.trim().toLowerCase()
+      )
+    });
+    if (existingRole) {
+      return res.status(400).send({ status: false, error: `User role '${roleName}' already exists.` });
+    }
     const role = await UserRole.create({
-      name: roleName,
+      roleName: roleName.trim(),
       status: statusToInteger(status)
     });
     res.status(201).json({
       id: role.id,
-      roleName: role.name,
+      roleName: role.roleName,
       status: statusToString(role.status)
     });
   } catch (error) {
@@ -32,18 +42,19 @@ module.exports.create = async (req, res) => {
   }
 };
 
+
 // Get All Roles
 module.exports.getRole = async (req, res) => {
   try {
     const roles = await UserRole.findAll({
-      attributes: ['id', 'name', 'status']
+      attributes: ['id', 'roleName', 'status']
     });
     const mappedRoles = roles.map(role => ({
       id: role.id,
-      roleName: role.name,
+      roleName: role.roleName,
       status: statusToString(role.status)
     }));
-    res.json({ data: mappedRoles });
+    res.send({ data: mappedRoles });
   } catch (error) {
     console.error('Error fetching roles:', error);
     res.status(500).send({ status: false, error: error.message });
@@ -58,16 +69,16 @@ module.exports.getById = async (req, res) => {
       return res.status(400).send({ status: false, error: 'Invalid role ID. ID must be a positive integer.' });
     }
     const role = await UserRole.findByPk(id, {
-      attributes: ['id', 'name', 'status']
+      attributes: ['id', 'roleName', 'status']
     });
     if (!role) {
       return res.status(404).send({ status: false, error: 'Role not found' });
     }
-    res.json({
+    res.send({
       status: true,
       data: {
         id: role.id,
-        roleName: role.name,
+        roleName: role.roleName,
         status: statusToString(role.status)
       }
     });
@@ -88,17 +99,32 @@ module.exports.updateRole = async (req, res) => {
     if (!roleName || !roleName.trim() || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
       return res.status(400).send({ status: false, error: 'Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.' });
     }
+    // Check for existing role with same name (case-insensitive), excluding current role
+    const existingRole = await UserRole.findOne({
+      where: {
+        id: { [sequelize.Op.ne]: id },
+        [sequelize.Op.or]: [
+          sequelize.where(
+            sequelize.fn('LOWER', sequelize.col('roleName')),
+            roleName.trim().toLowerCase()
+          )
+        ]
+      }
+    });
+    if (existingRole) {
+      return res.status(400).send({ status: false, error: `User role '${roleName}' already exists.` });
+    }
     const role = await UserRole.findByPk(id);
     if (!role) {
       return res.status(404).send({ status: false, error: 'Role not found' });
     }
     await role.update({
-      name: roleName,
+      roleName: roleName.trim(),
       status: statusToInteger(status)
     });
     res.json({
       id: role.id,
-      roleName: role.name,
+      roleName: role.roleName,
       status: statusToString(role.status)
     });
   } catch (error) {

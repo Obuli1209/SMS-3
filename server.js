@@ -6,6 +6,8 @@ const path = require('path');
 const cors = require('cors'); // Add CORS - cross origin resource sharing
 const app = express();
 const { sequelize } = require('./models/index');
+const userRoutes = require('./api/user');
+
 
 // Load environment variables from .env file
 const dotenv = require('dotenv');
@@ -20,7 +22,7 @@ const connectDB = async () => {
     await sequelize.authenticate();
     console.log('DB connected successfully');
 
-    await sequelize.sync({ force: false});
+    await sequelize.sync({ alter: true});
     console.log('Tables created');
   } catch (err) {
     console.error('Error:', err);
@@ -33,7 +35,7 @@ connectDB();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(session({
-  secret: process.env.SESSION_SECRET || '6574839201', // Use environment variable or fallback
+  secret: process.env.SESSION_SECRET || '6574839201',
   resave: false,
   saveUninitialized: true
 }));
@@ -42,10 +44,15 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // API Routes
+app.use('/api', userRoutes);
 app.use('/api/user', require('./api/user'));
 app.use('/api/userRole', require('./api/userRole'));
 
-// Use your routes from api/index.js (optional, if you want to include all API routes)
+// app.get('/users', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'view', 'Users.html'));
+// });
+
+// Use your routes from api/index.js
 app.use('/', require('./api/index'));
 
 // Global Error Handling Middleware

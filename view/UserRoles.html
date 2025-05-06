@@ -9,6 +9,7 @@
   <!-- DataTables and Bootstrap CSS -->
   <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -39,16 +40,16 @@
   <link rel="stylesheet" href="/css/demo.css" />
 </head>
 
-<body style="background-color: f1f1f1;">
+<body style="background-color: rgb(197, 197, 197);">
   <div class="wrapper">
     <!-- Sidebar -->
     <div class="sidebar" data-background-color="dark">
       <div class="sidebar-logo">
         <div class="logo-header" data-background-color="dark">
-          <a href="index.html" class="logo">
+          <h4 style="color: white; padding-left: 10px;">SMS</h4>
+          <!-- <a href="index.html" class="logo">
             <img src="#" alt="navbar brand" class="navbar-brand" height="20" />
-            <h4 style="color: white; padding-left: 10px;">SMS</h4>
-          </a>
+          </a> -->
           <div class="nav-toggle">
             <button class="btn btn-toggle toggle-sidebar">
               <i class="gg-menu-right"></i>
@@ -216,15 +217,12 @@
                 <div class="d-flex align-items-center">
                   <h4 class="card-title">User Roles</h4>
                   <div class="ms-auto">
-                    <div class="btn-group">
-                      <button type="button" class="btn btn-primary btn-round dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa fa-download"></i> Download
+                      <button type="button" class="btn btn-primary btn-round " id="downloadCsv" aria-expanded="false">
+                        <i class="fa fa-download"></i> Download Excel
                       </button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#" id="downloadCsv">Download Excel</a></li>
-                        <li><a class="dropdown-item" href="#" id="downloadPdf">Download PDF</a></li>
-                      </ul>
-                    </div>
+                      <button type="button" class="btn btn-primary btn-round " id="downloadPdf" aria-expanded="false">
+                        <i class="fa fa-download"></i> Download Pdf
+                      </button>
                     <button class="btn btn-primary btn-round" data-bs-toggle="modal" data-bs-target="#addRowModal">
                       <i class="fa fa-plus"></i>
                       New Role
@@ -316,6 +314,7 @@
   <script src="/js/plugin/datatables/datatables.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <!-- jsPDF for PDF export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 

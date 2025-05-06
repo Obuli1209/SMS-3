@@ -1,18 +1,3 @@
-// const { Sequelize } = require('sequelize');
-
-// const sequelize = new Sequelize('sms', 'postgres', '1209', {
-//   host: 'localhost',
-//   dialect: 'postgres',
-// });
-
-// const User = require('./user')(sequelize);
-// const UserRole = require('./UserRole')(sequelize);
-
-// User.associate({UserRole});
-// UserRole.associate({User});
-
-// module.exports = { sequelize, User, UserRole };
-
 const fs = require('fs');
 const path = require('path');
 const { Sequelize } = require('sequelize');
