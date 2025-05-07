@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Admin Dashboard</title>
+    <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
+    <link rel="icon" href="/img/kaiadmin/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-RXf+QSDCUQs6Y6lfN8Eghs1n6U4P1GdJW1P8N9AgZsMa2VNBOJsh75eD9n67ON0Gp1DfDztVbLOOrJ6C7+MT0w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Fonts and icons -->
+    <script src="/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { families: ["Public Sans:300,400,500,600,700"] },
+            custom: {
+                families: [
+                    "Font Awesome 5 Solid",
+                    "Font Awesome 5 Regular",
+                    "Font Awesome 5 Brands",
+                    "simple-line-icons",
+                ],
+                urls: ["/css/fonts.min.css"],
+            },
+            active: function () {
+                sessionStorage.fonts = true;
+            },
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/plugins.min.css" />
+    <link rel="stylesheet" href="/css/kaiadmin.min.css" />
+    <link rel="stylesheet" href="/css/demo.css" />
+</head>
+
+<body style="background-color: rgb(197, 197, 197);">
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <div class="sidebar" data-background-color="dark">
+            <div class="sidebar-logo">
+                <div class="logo-header" data-background-color="dark">
+                    <h4 style="color: white; padding-left: 10px;">SMS</h4>
+                    <!-- <a href="index.html" class="logo">
+                        <img src="#" alt="navbar brand" class="navbar-brand" height="20" />
+                    </a> -->
+                    <div class="nav-toggle">
+                        <button class="btn btn-toggle toggle-sidebar">
+                            <i class="gg-menu-right"></i>
+                        </button>
+                        <button class="btn btn-toggle sidenav-toggler">
+                            <i class="gg-menu-left"></i>
+                        </button>
+                    </div>
+                    <button class="topbar-toggler more">
+                        <i class="gg-more-vertical-alt"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="sidebar-wrapper scrollbar scrollbar-inner">
+                <div class="sidebar-content">
+                    <ul class="nav nav-secondary">
+                        <li class="nav-item">
+                            <a href="/index" class="nav-link">
+                                <i class="fas fa-home"></i>
+                                <p>Dashboard</p>
+                            </a>
+                        </li>
+                        <li class="nav-section">
+                            <span class="sidebar-mini-icon">
+                                <i class="fa fa-ellipsis-h"></i>
+                            </span>
+                            <h4 class="text-section">Components</h4>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#master">
+                                <i class="fas fa-users"></i>
+                                <p>Master</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="master">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="/userroleslist">
+                                            <span class="sub-item">User roles</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/users">
+                                            <span class="sub-item">Users</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <!-- Shifts -->
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="/shifts">
+                                <i class="fas fa-industry"></i>
+                                <p>Shifts</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a data-bs-toggle="collapse" href="#tables">
+                                <i class="fas fa-table"></i>
+                                <p>Tables</p>
+                                <span class="caret"></span>
+                            </a>
+                            <div class="collapse" id="tables">
+                                <ul class="nav nav-collapse">
+                                    <li>
+                                        <a href="/tables">
+                                            <span class="sub-item">Basic Table</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/datatables">
+                                            <span class="sub-item">Datatables</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- End Sidebar -->
+
+        <div class="main-panel">
+            <div class="main-header">
+                <div class="main-header-logo">
+                    <div class="logo-header" data-background-color="dark">
+                        <a href="index.html" class="logo">
+                            <img src="/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand"
+                                height="20" />
+                        </a>
+                        <div class="nav-toggle">
+                            <button class="btn btn-toggle toggle-sidebar">
+                                <i class="gg-menu-right"></i>
+                            </button>
+                            <button class="btn btn-toggle sidenav-toggler">
+                                <i class="gg-menu-left"></i>
+                            </button>
+                        </div>
+                        <button class="topbar-toggler more">
+                            <i class="gg-more-vertical-alt"></i>
+                        </button>
+                    </div>
+                </div>
+                <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+                    style="background-color: rgb(221, 212, 212);">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                            <li class="nav-item topbar-user dropdown hidden-caret">
+                                <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#"
+                                    aria-expanded="false">
+                                    <div class="avatar-sm">
+                                        <img src="/img/profile.jpg" alt="..." class="avatar-img rounded-circle" />
+                                    </div>
+                                    <span class="profile-username">
+                                        <span class="op-7">Hi,</span>
+                                        <span class="fw-bold">Obuli</span>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-user animated fadeIn">
+                                    <div class="dropdown-user-scroll scrollbar-outer">
+                                        <li>
+                                            <div class="user-box">
+                                                <div class="avatar-lg">
+                                                    <img src="/img/profile.jpg" alt="image profile"
+                                                        class="avatar-img rounded" />
+                                                </div>
+                                                <div class="u-text">
+                                                    <h4>Obuli</h4>
+                                                    <p class="text-muted">hello@example.com</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="/login">Logout</a>
+                                        </li>
+                                    </div>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!-- User Datatable -->
+            <div class="container">
+                <div class="page-inner">
+                    <div class="page-header">
+                        <h3 class="fw-bold mb-3">Shifts</h3>
+                        <ul class="breadcrumbs mb-3">
+                            <li class="nav-home">
+                                <a href="/index"><i class="icon-home"></i></a>
+                            </li>
+                            <li class="separator"><i class="icon-arrow-right"></i></li>
+                            <li class="nav-item"><a href="/users">Shifts</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card" style="background-color: rgb(221, 212, 212);">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center">
+                                    <h4 class="card-title">Shifts</h4>
+                                    <div class="ms-auto">
+                                        <button type="button" class="btn btn-primary btn-round " id="downloadCsv"
+                                            aria-expanded="false">
+                                            <i class="fa fa-download"></i> Download Excel
+                                        </button>
+                                        <button type="button" class="btn btn-primary btn-round " id="downloadPdf"
+                                            aria-expanded="false">
+                                            <i class="fa fa-download"></i> Download Pdf
+                                        </button>
+                                        <button class="btn btn-primary btn-round" data-bs-toggle="modal"
+                                            data-bs-target="#addRowModal">
+                                            <i class="fa fa-plus"></i>
+                                            New Shift
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <!-- Add Record Modal -->
+                                <div class="modal fade" id="addRowModal" tabindex="-1" role="dialog" aria-hidden="true"
+                                    data-bs-backdrop="static" data-bs-keyboard="false">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+
+                                            <div class="modal-header border-0">
+                                                <h5 class="modal-title">
+                                                    <span class="fw-bold">Shifts</span>
+                                                </h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <form id="addRecordForm">
+                                                    <div class="row">
+
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group form-group-default">
+                                                                <label>Name</label>
+                                                                <input type="text" id="name" class="form-control"
+                                                                    placeholder="Enter shift name" required
+                                                                    pattern="[A-Za-z ]+"
+                                                                    style="border: 2px solid black;" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group form-group-default">
+                                                                <label>Start Time</label>
+                                                                <input type="time" id="startTime" class="form-control"
+                                                                    required style="border: 2px solid black;" />
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-sm-6">
+                                                            <div class="form-group form-group-default">
+                                                                <label>End Time</label>
+                                                                <input type="time" id="endTime" class="form-control"
+                                                                    required style="border: 2px solid black;" />
+                                                            </div>
+                                                        </div>
+
+                                                        
+
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div class="modal-footer border-0">
+                                                <button type="submit" form="addRecordForm"
+                                                    class="btn btn-primary">Add</button>
+                                                <button type="button" class="btn btn-danger"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Edit User Modal -->
+                                <div class="modal fade" id="editRowModal" tabindex="-1" role="dialog" aria-hidden="true"
+                                data-bs-backdrop="static" data-bs-keyboard="false">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header border-0">
+                                            <h5 class="modal-title">
+                                                <span class="fw-mediumbold">Edit</span>
+                                                <span class="fw-light">Shift</span>
+                                            </h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="editShiftForm">
+                                                <input type="hidden" id="editShiftId">
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="form-group form-group-default">
+                                                            <label>Shift Name</label>
+                                                            <input id="editShiftName" type="text" class="form-control"
+                                                                placeholder="Enter shift name" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group form-group-default">
+                                                            <label>Start Time</label>
+                                                            <input id="editStartTime" type="time" class="form-control" required />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group form-group-default">
+                                                            <label>End Time</label>
+                                                            <input id="editEndTime" type="time" class="form-control" required />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer border-0">
+                                            <button type="button" id="editRowButton" class="btn btn-primary">Save</button>
+                                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                                <div class="table-responsive">
+                                    <table id="add-row" class="display table table-striped table-hover">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Name</th>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <th>CreatedBy</th>
+                                                <th>UpdatedBy</th>
+                                                <th style="width: 10%">Action</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core JS Files -->
+        <script src="/js/core/jquery-3.7.1.min.js"></script>
+        <script src="/js/core/popper.min.js"></script>
+        <script src="/js/core/bootstrap.min.js"></script>
+        <script src="/js/plugin/datatables/datatables.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+
+</html>

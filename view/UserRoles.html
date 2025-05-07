@@ -5,6 +5,7 @@
   <title>Admin Dashboard</title>
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link rel="icon" href="/img/kaiadmin/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-RXf+QSDCUQs6Y6lfN8Eghs1n6U4P1GdJW1P8N9AgZsMa2VNBOJsh75eD9n67ON0Gp1DfDztVbLOOrJ6C7+MT0w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- DataTables and Bootstrap CSS -->
   <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
@@ -88,18 +89,27 @@
               <div class="collapse" id="master">
                 <ul class="nav nav-collapse">
                   <li>
-                    <a href="/UserRoles">
+                    <a href="/Userroleslist">
                       <span class="sub-item">User Roles</span>
                     </a>
                   </li>
                   <li>
-                    <a href="/Users">
+                    <a href="/users">
                       <span class="sub-item">Users</span>
                     </a>
                   </li>
                 </ul>
               </div>
             </li>
+
+            <!-- Shifts -->
+            <li class="nav-item">
+              <a data-bs-toggle="collapse" href="/shifts">
+                <i class="fas fa-industry"></i>
+                 <p>Shifts</p>
+              </a>
+            </li>
+
             <!-- Tables -->
             <li class="nav-item">
               <a data-bs-toggle="collapse" href="#tables">
@@ -171,7 +181,7 @@
                       </div>
                       <div class="u-text">
                         <h4>Obuli</h4>
-                        <p class="text-muted">hello@example.com</p>
+                        <p class="text-muted">obuli@gmail.com</p>
                       </div>
                     </div>
                   </li>
@@ -192,7 +202,7 @@
             <h3 class="fw-bold mb-3">User Roles List</h3>
             <ul class="breadcrumbs mb-3">
               <li class="nav-home">
-                <a href="#">
+                <a href="/index">
                   <i class="icon-home"></i>
                 </a>
               </li>
@@ -200,13 +210,13 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">Master</a>
+                <a href="/index">Master</a>
               </li>
               <li class="separator">
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="#">User Roles</a>
+                <a href="/userrolelist">User Roles</a>
               </li>
             </ul>
           </div>

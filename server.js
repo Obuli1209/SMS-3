@@ -47,6 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', userRoutes);
 app.use('/api/user', require('./api/user'));
 app.use('/api/userRole', require('./api/userRole'));
+// app.use('/api/shifts', require('./api/shifts'));
 
 // app.get('/users', (req, res) => {
 //   res.sendFile(path.join(__dirname, 'view', 'Users.html'));
