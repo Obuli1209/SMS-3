@@ -99,7 +99,7 @@
 
                         <!-- Shifts -->
                         <li class="nav-item">
-                            <a data-bs-toggle="collapse" href="/shifts">
+                            <a href="/shifts">
                                 <i class="fas fa-industry"></i>
                                 <p>Shifts</p>
                             </a>
@@ -204,7 +204,7 @@
                                 <a href="/index"><i class="icon-home"></i></a>
                             </li>
                             <li class="separator"><i class="icon-arrow-right"></i></li>
-                            <li class="nav-item"><a href="/index">Master</a></li>
+                            <li class="nav-item"><a href="/users">Master</a></li>
                             <li class="separator"><i class="icon-arrow-right"></i></li>
                             <li class="nav-item"><a href="/users">Users</a></li>
                         </ul>
@@ -565,7 +565,7 @@
                 loadRoles($('#editRole'));
             });
 
-            // Handle add user form submission
+            // Add user
             $('#addRowButton').click(function () {
                 const form = $('#addUserForm');
                 if (form[0].checkValidity()) {
@@ -597,7 +597,7 @@
                 }
             });
 
-            // Handle edit user button click
+            // Edit user button
             $('#add-row').on('click', '.edit-user', function () {
                 const userId = $(this).data('id');
                 $.ajax({
@@ -625,7 +625,7 @@
                 });
             });
 
-            // Handle edit user form submission
+            // Edit user
             $('#editRowButton').click(function () {
                 const form = $('#editUserForm');
                 if (form[0].checkValidity()) {
@@ -658,7 +658,7 @@
                 }
             });
 
-            // Handle delete user button click
+            // Delete user
             $('#add-row').on('click', '.delete-user', function () {
                 const userId = $(this).data('id');
                 if (confirm('Are you sure you want to delete this user?')) {

@@ -20,9 +20,11 @@ router.get('/userroleslist', (req, res) => {
     res.sendFile(path.join(__dirname, '../view', 'UserRoles.html'));
  });
 
-router.get('/shifts', (req, res)=>{
-  res.sendFile(path.join(__dirname, '../view','shifts.html'));
-});
+ // shifts.html
+ router.get('/shifts', (req, res) => {
+   res.sendFile(path.join(__dirname, '../view', 'shifts.html'));
+ });
+
 
 router.get('/tables', (req, res) => {
     res.sendFile(path.join(__dirname, '../view', 'tables.html'));
@@ -33,10 +35,9 @@ router.get('/datatables', (req, res) => {
    res.sendFile(path.join(__dirname, '../view', 'datatables.html'));
 });
 
-
-
-
-
+router.get('/error_500', (req, res) => {
+  res.sendFile(path.join(__dirname, '../view', 'error_500.html'));
+});
 
 // Protected index page
 router.get('/index', (req, res) => {

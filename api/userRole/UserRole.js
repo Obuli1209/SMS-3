@@ -31,7 +31,7 @@ module.exports.create = async (req, res) => {
       roleName: roleName.trim(),
       status: statusToInteger(status)
     });
-    res.status(201).json({
+    res.status(201).send({
       id: role.id,
       roleName: role.roleName,
       status: statusToString(role.status)
@@ -122,7 +122,7 @@ module.exports.updateRole = async (req, res) => {
       roleName: roleName.trim(),
       status: statusToInteger(status)
     });
-    res.json({
+    res.send({
       id: role.id,
       roleName: role.roleName,
       status: statusToString(role.status)

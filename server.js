@@ -6,14 +6,12 @@ const path = require('path');
 const cors = require('cors'); // Add CORS - cross origin resource sharing
 const app = express();
 const { sequelize } = require('./models/index');
-const userRoutes = require('./api/user');
-
 
 // Load environment variables from .env file
 const dotenv = require('dotenv');
 dotenv.config();
 
-// Enable CORS (optional, if frontend is on a different domain/port)
+// Enable CORS (if frontend is on a different domain/port)
 app.use(cors());
 
 // DB connection
@@ -44,14 +42,11 @@ app.use(session({
 app.use(express.static(path.join(__dirname, 'public')));
 
 // API Routes
-app.use('/api', userRoutes);
+app.use('/api', require('./api/user'));
 app.use('/api/user', require('./api/user'));
 app.use('/api/userRole', require('./api/userRole'));
-// app.use('/api/shifts', require('./api/shifts'));
+app.use('/api/shifts', require('./api/shifts/index'));
 
-// app.get('/users', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'view', 'Users.html'));
-// });
 
 // Use your routes from api/index.js
 app.use('/', require('./api/index'));
@@ -59,7 +54,7 @@ app.use('/', require('./api/index'));
 // Global Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).json({ error: 'Something went wrong!' });
+  res.status(500).send({ error: 'Something went wrong!' });
 });
 
 // Start server
