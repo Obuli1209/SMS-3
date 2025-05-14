@@ -1,3 +1,4 @@
+const { Sequelize, Op } = require('sequelize');
 const { UserRole, sequelize } = require('../../models');
 
 // Helper functions to map status between integer and string
@@ -102,14 +103,14 @@ module.exports.updateRole = async (req, res) => {
     // Check for existing role with same name (case-insensitive), excluding current role
     const existingRole = await UserRole.findOne({
       where: {
-        id: { [sequelize.Op.ne]: id },
-        [sequelize.Op.or]: [
+        id: { [Op.ne]: id },
+        [Op.or]: [
           sequelize.where(
             sequelize.fn('LOWER', sequelize.col('roleName')),
             roleName.trim().toLowerCase()
-          )
-        ]
-      }
+          ),
+        ],
+      },
     });
     if (existingRole) {
       return res.status(400).send({ status: false, error: `User role '${roleName}' already exists.` });
@@ -120,12 +121,12 @@ module.exports.updateRole = async (req, res) => {
     }
     await role.update({
       roleName: roleName.trim(),
-      status: statusToInteger(status)
+      status: statusToInteger(status),
     });
     res.send({
       id: role.id,
       roleName: role.roleName,
-      status: statusToString(role.status)
+      status: statusToString(role.status),
     });
   } catch (error) {
     console.error('Error updating role:', error);

@@ -11,7 +11,8 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- DataTables and Bootstrap CSS -->
-  <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+  <!-- <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet"> -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- Font Awesome for Icons -->
@@ -39,9 +40,9 @@
 
   <!-- CSS Files -->
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/css/plugins.min.css" />
   <link rel="stylesheet" href="/css/kaiadmin.min.css" />
-  <link rel="stylesheet" href="/css/demo.css" />
+  <!-- <link rel="stylesheet" href="/css/plugins.min.css" /> -->
+  <!-- <link rel="stylesheet" href="/css/demo.css" /> -->
 </head>
 
 <body style="background-color: rgb(197, 197, 197);">
@@ -51,9 +52,6 @@
       <div class="sidebar-logo">
         <div class="logo-header" data-background-color="dark">
           <h4 style="color: white; padding-left: 10px;">SMS</h4>
-          <!-- <a href="index.html" class="logo">
-            <img src="#" alt="navbar brand" class="navbar-brand" height="20" />
-          </a> -->
           <div class="nav-toggle">
             <button class="btn btn-toggle toggle-sidebar">
               <i class="gg-menu-right"></i>
@@ -108,32 +106,17 @@
             <!-- Shifts -->
             <li class="nav-item">
               <a href="/shifts">
-                <i class="fas fa-industry"></i>
+                <i class="fa-solid fa-clock"></i>
                 <p>Shifts</p>
               </a>
             </li>
 
-            <!-- Tables -->
+            <!-- Shift Logs -->
             <li class="nav-item">
-              <a data-bs-toggle="collapse" href="#tables">
-                <i class="fas fa-table"></i>
-                <p>Tables</p>
-                <span class="caret"></span>
+              <a href="/shiftLogs">
+                <i class="fas fa-industry"></i>
+                <p>Shift Logs</p>
               </a>
-              <div class="collapse" id="tables">
-                <ul class="nav nav-collapse">
-                  <li>
-                    <a href="/tables">
-                      <span class="sub-item">Basic Table</span>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="/datatables">
-                      <span class="sub-item">Datatables</span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
             </li>
           </ul>
         </div>
@@ -162,41 +145,12 @@
           </div>
         </div>
         <!-- Navbar Header -->
-        <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
-          style="background-color: rgb(221, 212, 212);">
-          <div class="container-fluid">
-            <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
-              <li class="nav-item topbar-user dropdown hidden-caret">
-                <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
-                  <div class="avatar-sm">
-                    <img src="/img/profile.jpg" alt="..." class="avatar-img rounded-circle" />
-                  </div>
-                  <span class="profile-username">
-                    <span class="op-7">Hi,</span>
-                    <span class="fw-bold">Obuli</span>
-                  </span>
-                </a>
-                <ul class="dropdown-menu dropdown-user animated fadeIn">
-                  <li class="dropdown-item">
-                    <div class="user-box">
-                      <div class="avatar-lg">
-                        <img src="/img/profile.jpg" alt="image profile" class="avatar-img rounded" />
-                      </div>
-                      <div class="u-text">
-                        <h4>Obuli</h4>
-                        <p class="text-muted">obuli@gmail.com</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li><a class="dropdown-item" href="/login">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </nav>
+        <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+  <div class="container-fluid justify-content-end">
+    <a class="btn btn-danger" href="/login">Logout</a>
+  </div>
+</nav>
+
         <!-- End Navbar -->
       </div>
 
@@ -278,8 +232,8 @@
             <div class="modal-body">
               <form id="addRoleForm">
                 <div class="mb-3">
-                  <label for="addRoleName" class="form-label">Name</label>
-                  <input type="text" class="form-control" id="addRoleName" required style="border: 2px solid black;">
+                  <label for="addRoleName" class="form-label">Name</label><span style="color: red;">*</span>
+                  <input type="text" class="form-control" id="addRoleName" required style="border: 1px solid black;">
                 </div>
               </form>
             </div>
@@ -305,11 +259,11 @@
                 <input type="hidden" id="editRoleId">
                 <div class="mb-3">
                   <label for="editRoleName" class="form-label">Role Name</label>
-                  <input type="text" class="form-control" id="editRoleName" required style="border: 2px solid black;">
+                  <input type="text" class="form-control" id="editRoleName" required style="border: 1px solid black;">
                 </div>
                 <div class="mb-3">
                   <label for="editStatus" class="form-label">Status</label>
-                  <select class="form-control" id="editStatus" style="border: 2px solid black;">
+                  <select class="form-control" id="editStatus" style="border: 1px solid black;">
                     <option value="Active">Active</option>
                     <option value="Inactive">Inactive</option>
                   </select>

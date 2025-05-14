@@ -46,7 +46,7 @@ app.use('/api', require('./api/user'));
 app.use('/api/user', require('./api/user'));
 app.use('/api/userRole', require('./api/userRole'));
 app.use('/api/shifts', require('./api/shifts/index'));
-
+app.use('/api/shiftLogs', require('./api/shiftLogs'));
 
 // Use your routes from api/index.js
 app.use('/', require('./api/index'));

@@ -20,7 +20,7 @@
             padding: 30px;
             background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
         }
 
         .login-container h2 {
@@ -52,13 +52,13 @@
         <h2>Login</h2>
         <form id="login-form">
             <div class="form-group">
-                <label for="email">Username</label>
-                <input type="text" class="form-control" id="username" name="username"
+                <label for="email">Username</label><span style="color: red;">*</span>
+                <input type="text" class="form-control" id="username" name="username" style="border: 1px solid black;"
                      placeholder="Enter your username" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" name="password" maxlength="10"
+                <label for="password">Password</label><span style="color: red;">*</span>
+                <input type="password" class="form-control" id="password" name="password" maxlength="10" style="border: 1px solid black;"
                     placeholder="Enter your password" required>
             </div>
             <div class="form-group">

@@ -26,6 +26,11 @@ router.get('/userroleslist', (req, res) => {
  });
 
 
+ // Add this route with other routes in api/index.js
+router.get('/shiftLogs', (req, res) => {
+  res.sendFile(path.join(__dirname, '../view', 'shiftLogs.html'));
+});
+
 router.get('/tables', (req, res) => {
     res.sendFile(path.join(__dirname, '../view', 'tables.html'));
 });

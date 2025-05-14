@@ -3,6 +3,7 @@ const { User, UserRole } = require("../../models");
 const express = require("express");
 const router = express.Router();
 
+// Login
 module.exports.loginUser = async (req, res) => {
   const { username, password } = req.body;
 
@@ -27,9 +28,14 @@ module.exports.loginUser = async (req, res) => {
         .send("Invalid Password");
     }
 
+    const roleName = user.UserRole ? user.UserRole.roleName : "N/A";
+    if (roleName !== "Admin" && roleName !== "N/A") {
+      return res.status(403).send("Access denied: Only admins or users with no role can log in");
+    }
+
     req.session.userId = user.id;
     req.session.userRole = user.userRoleId;
-    console.log("Login successful, session.userId:", req.session.userId);
+    // console.log("Login successful, session.userId:", req.session.userId);
 
     res.send({
       success: true,
@@ -37,7 +43,7 @@ module.exports.loginUser = async (req, res) => {
       data: { id: user.id, firstName: user.firstName },
     });
   } catch (error) {
-    console.error("Error during login:", error);
+    // console.error("Error during login:", error);
     res.status(500).send({ success: false, message: "Server error" });
   }
 };
@@ -46,9 +52,10 @@ module.exports.loginUser = async (req, res) => {
 module.exports.getAllUSers = async (req, res) => {
   try {
     const users = await User.findAll({
-      include: [{ model: UserRole, attributes: ["roleName"] }],
+      include: [{ model: UserRole, attributes: ["roleName"]}],
     });
     res.send({
+      success: true,
       data: users.map((user) => ({
         id: user.id,
         firstName: user.firstName,
@@ -62,7 +69,7 @@ module.exports.getAllUSers = async (req, res) => {
     });
   } catch (error) {
     res.status(501).send({ success: false, message: "Not implemented" });
-    console.error("Error fetching users:", error);
+    // console.error("Error fetching users:", error);
     res.status(500).send({ error: "Internal server error" });
   }
 };
@@ -75,7 +82,7 @@ module.exports.getAllRoles = async (req, res) => {
     });
     res.send(roles);
   } catch (error) {
-    console.error("Error fetching roles:", error);
+    // console.error("Error fetching roles:", error);
     res.status(500).send({ error: "Internal server error" });
   }
 };
@@ -98,7 +105,7 @@ module.exports.createUser = async (req, res) => {
     res.send({ message: "User added successfully", user });
   } catch (error) {
     res.status(501).send({ success: false, message: "Not implemented" });
-    console.error("Error adding user:", error);
+    // console.error("Error adding user:", error);
     res.status(500).send({ error: "Internal server error" });
   }
 };
@@ -134,7 +141,7 @@ module.exports.updateUser = async (req, res) => {
     res.send({ message: "User updated successfully" });
   } catch (error) {
     res.status(501).send({ success: false, message: "Not implemented" });
-    console.error("Error updating user:", error);
+    // console.error("Error updating user:", error);
     res.status(500).send({ error: "Internal server error" });
   }
 };
@@ -155,7 +162,7 @@ module.exports.deleteUser = async (req, res) => {
     res.status(204).send();
   } catch (error) {
     res.status(501).send({ success: false, message: "Not implemented" });
-    console.error("Error deleting user:", error);
+    // console.error("Error deleting user:", error);
     res.status(500).send({ error: "Internal server error" });
   }
 };
