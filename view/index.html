@@ -9,8 +9,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     integrity="sha512-RXf+QSDCUQs6Y6lfN8Eghs1n6U4P1GdJW1P8N9AgZsMa2VNBOJsh75eD9n67ON0Gp1DfDztVbLOOrJ6C7+MT0w=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Fonts and icons -->
   <script src="/js/plugin/webfont/webfont.min.js"></script>
@@ -31,25 +30,155 @@
       },
     });
   </script>
-
   <!-- CSS Files -->
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/plugins.min.css" />
   <link rel="stylesheet" href="/css/kaiadmin.min.css" />
-
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link rel="stylesheet" href="/css/demo.css" />
+  <!-- Custom Styles -->
+  <style>
+    body {
+      background: linear-gradient(135deg, #e0e7ff 0%, #c3e8ff 100%);
+      background-attachment: fixed;
+      position: relative;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('data:image/svg+xml,%3Csvg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.1"%3E%3Cpath d="M0 0h20v20H0z"/%3E%3Ccircle cx="10" cy="10" r="2"/%3E%3C/g%3E%3C/svg%3E');
+      z-index: -1;
+    }
+    .page-inner {
+      padding: 2rem;
+    }
+    .section-heading {
+      color: #1e3a8a;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-heading::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 50%;
+      height: 3px;
+      background: linear-gradient(to right, #3b82f6, #10b981);
+      border-radius: 2px;
+    }
+    .card-stats {
+      background: #ffffff;
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInUp 0.5s ease-out forwards;
+      margin-bottom: 1.5rem;
+    }
+    .card-stats:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    }
+    .icon-big {
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      border-radius: 12px;
+      color: #fff;
+      font-size: 24px;
+      transition: transform 0.3s ease;
+    }
+    .icon-big:hover {
+      transform: rotate(10deg);
+    }
+    .users .icon-big {
+      background: linear-gradient(45deg, #3b82f6, #60a5fa);
+    }
+    .user-roles .icon-big {
+      background: linear-gradient(45deg, #8b5cf6, #a78bfa);
+    }
+    .available-shifts .icon-big {
+      background: linear-gradient(45deg, #10b981, #34d399);
+    }
+    .shift-assignments .icon-big {
+      background: linear-gradient(45deg, #f59e0b, #fbbf24);
+    }
+    .numbers p.card-category {
+      color: #6b7280;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    .numbers h4.card-title {
+      color: #1e3a8a;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+    }
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .card-stats:nth-child(1) { animation-delay: 0.1s; }
+    .card-stats:nth-child(2) { animation-delay: 0.2s; }
+    .card-stats:nth-child(3) { animation-delay: 0.3s; }
+    .card-stats:nth-child(4) { animation-delay: 0.4s; }
+    .btn-primary, .btn-label-info {
+      border-radius: 25px;
+      padding: 0.5rem 1.5rem;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover, .btn-label-info:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .loading {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #1e3a8a;
+      border-top: 2px solid transparent;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin-right: 5px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .error-message {
+      color: #dc3545;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+  </style>
 </head>
 
-<body style="background-color: rgb(197, 197, 197);">
+<body>
   <div class="wrapper">
     <!-- Sidebar -->
     <div class="sidebar" data-background-color="dark">
       <div class="sidebar-logo">
-        <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
           <a href="index.html" class="logo">
-            <!-- <img src="#" alt="navbar brand" class="navbar-brand" height="20" /> -->
             <h4 style="color: white; padding-left: 10px;">SMS</h4>
           </a>
           <div class="nav-toggle">
@@ -64,7 +193,6 @@
             <i class="gg-more-vertical-alt"></i>
           </button>
         </div>
-        <!-- End Logo Header -->
       </div>
       <div class="sidebar-wrapper scrollbar scrollbar-inner">
         <div class="sidebar-content">
@@ -81,9 +209,6 @@
               </span>
               <h4 class="text-section">Components</h4>
             </li>
-            <!--  -->
-
-            <!-- Master -->
             <li class="nav-item">
               <a data-bs-toggle="collapse" href="#master">
                 <i class="fas fa-users"></i>
@@ -105,16 +230,12 @@
                 </ul>
               </div>
             </li>
-
-            <!-- Shifts -->
             <li class="nav-item">
               <a href="/shifts">
                 <i class="fa-solid fa-clock"></i>
                 <p>Shifts</p>
               </a>
             </li>
-
-            <!-- Shift Logs -->
             <li class="nav-item">
               <a href="/shiftLogs">
                 <i class="fas fa-industry"></i>
@@ -126,11 +247,9 @@
       </div>
     </div>
     <!-- End Sidebar -->
-
     <div class="main-panel">
       <div class="main-header">
         <div class="main-header-logo">
-          <!-- Logo Header -->
           <div class="logo-header" data-background-color="dark">
             <a href="index.html" class="logo">
               <img src="/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20" />
@@ -147,122 +266,311 @@
               <i class="gg-more-vertical-alt"></i>
             </button>
           </div>
-          <!-- End Logo Header -->
         </div>
-        <!-- Navbar Header -->
         <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
-  <div class="container-fluid justify-content-end">
-    <a class="btn btn-danger" href="/login">Logout</a>
-  </div>
-</nav>
-
-        <!-- End Navbar -->
+          <div class="container-fluid justify-content-end">
+            <a class="btn btn-danger" href="/logout">Logout</a>
+          </div>
+        </nav>
       </div>
-
       <div class="container">
         <div class="page-inner">
           <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
             <div id="dashboard">
-              <h3 class="fw-bold mb-3">Dashboard</h3>
+              <h3 class="fw-bold mb-3" style="color: #1e3a8a;">Dashboard</h3>
             </div>
             <div class="ms-md-auto py-2 py-md-0">
-              <a href="#" class="btn btn-label-info btn-round me-2">Manage</a>
+              <button id="refresh-btn" class="btn btn-info btn-round me-2">Refresh</button>
+              <a href="/shifts" class="btn btn-label-info btn-round me-2">Manage</a>
               <a href="/users" class="btn btn-primary btn-round">+ New User</a>
             </div>
           </div>
-          <div class="row">
-            <div class="col-sm-6 col-md-3">
-              <div class="card card-stats card-round">
+          <!-- Users Section -->
+          <div class="row users">
+            <div class="col-12">
+              <h4 class="section-heading">Users</h4>
+            </div>
+            <div class="col-sm-6 col-md-3" id="total-users-card">
+              <div class="card card-stats card-round loading">
                 <div class="card-body">
                   <div class="row align-items-center">
                     <div class="col-icon">
-                      <div class="icon-big text-center icon-primary bubble-shadow-small">
+                      <div class="icon-big text-center">
                         <i class="fas fa-users"></i>
                       </div>
                     </div>
                     <div class="col col-stats ms-3 ms-sm-0">
                       <div class="numbers">
-                        <p class="card-category">Employees</p>
-                        <h4 class="card-title">1,294</h4>
+                        <p class="card-category">Total Users</p>
+                        <h4 class="card-title"><span class="spinner"></span>Loading...</h4>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="card card-stats card-round">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col-icon">
-                      <div class="icon-big text-center icon-info bubble-shadow-small">
-                        <i class="fas fa-user-check"></i>
-                      </div>
-                    </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category">Leave Request</p>
-                        <h4 class="card-title">3</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          </div>
+          <!-- User Roles Section -->
+          <div class="row mt-4 user-roles">
+            <div class="col-12">
+              <h4 class="section-heading">User Roles</h4>
             </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="card card-stats card-round">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col-icon">
-                      <div class="icon-big text-center icon-success bubble-shadow-small">
-                        <i class="fas fa-luggage-cart"></i>
-                      </div>
-                    </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category">Absentees</p>
-                        <h4 class="card-title">14</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div class="col-12" id="user-roles-container">
+              <div class="loading"><span class="spinner"></span>Loading...</div>
             </div>
-            <div class="col-sm-6 col-md-3">
-              <div class="card card-stats card-round">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col-icon">
-                      <div class="icon-big text-center icon-secondary bubble-shadow-small">
-                        <i class="far fa-check-circle"></i>
-                      </div>
-                    </div>
-                    <div class="col col-stats ms-3 ms-sm-0">
-                      <div class="numbers">
-                        <p class="card-category">Present</p>
-                        <h4 class="card-title">25</h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+          </div>
+          <!-- Available Shifts Section -->
+          <div class="row mt-4 available-shifts">
+            <div class="col-12">
+              <h4 class="section-heading">Available Shifts</h4>
+            </div>
+            <div class="col-12" id="available-shifts-container">
+              <div class="loading"><span class="spinner"></span>Loading...</div>
+            </div>
+          </div>
+          <!-- Shift Assignments Section -->
+          <div class="row mt-4 shift-assignments">
+            <div class="col-12">
+              <h4 class="section-heading">Shift Assignments</h4>
+            </div>
+            <div class="col-12" id="shift-assignments-container">
+              <div class="loading"><span class="spinner"></span>Loading...</div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <!-- End Custom template -->
-  </div>
-  <!--   Core JS Files   -->
+  <!-- Core JS Files -->
   <script src="/js/core/jquery-3.7.1.min.js"></script>
   <script src="/js/core/popper.min.js"></script>
   <script src="/js/core/bootstrap.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
- 
-  <!-- Datatables -->
-  <script src="/js/plugin/datatables/datatables.min.js"></script>
+  <!-- Dynamic Data Script -->
+  <script>
+    $(document).ready(function() {
+      // Check session on page load
+      $.ajax({
+        url: '/check-session',
+        method: 'GET',
+        success: function(response) {
+          if (!response.success) {
+            window.location.href = '/login';
+          } else {
+            loadDashboard();
+          }
+        },
+        error: function(err) {
+          console.error('Session check failed:', err);
+          window.location.href = '/login';
+        }
+      });
 
+      // Function to load all dashboard data
+      function loadDashboard() {
+        fetchTotalUsers();
+        fetchUserRoles();
+        fetchAvailableShifts();
+        fetchShiftAssignments();
+      }
+
+      // Function to fetch and update Total Users
+      function fetchTotalUsers() {
+        $('#total-users-card').addClass('loading').find('.card-title').html('<span class="spinner"></span>Loading...');
+        $.ajax({
+          url: '/api/user/count',
+          method: 'GET',
+          success: function(data) {
+            $('#total-users-card').removeClass('loading').html(`
+              <div class="card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-icon">
+                      <div class="icon-big text-center">
+                        <i class="fas fa-users"></i>
+                      </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category">Total Users</p>
+                        <h4 class="card-title">${data.count || 0}</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `);
+          },
+          error: function(err) {
+            console.error('Error fetching total users:', err.responseJSON || err);
+            $('#total-users-card').removeClass('loading').html(`
+              <div class="card card-stats card-round">
+                <div class="card-body">
+                  <div class="row align-items-center">
+                    <div class="col-icon">
+                      <div class="icon-big text-center">
+                        <i class="fas fa-users"></i>
+                      </div>
+                    </div>
+                    <div class="col col-stats ms-3 ms-sm-0">
+                      <div class="numbers">
+                        <p class="card-category">Total Users</p>
+                        <h4 class="card-title">N/A</h4>
+                        <p class="error-message">Failed to load data</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `);
+          }
+        });
+      }
+
+      // Function to fetch and update User Roles
+      function fetchUserRoles() {
+        $('#user-roles-container').addClass('loading').html('<span class="spinner"></span>Loading...');
+        $.ajax({
+          url: '/api/userroles',
+          method: 'GET',
+          success: function(data) {
+            if (!data || data.length === 0) {
+              $('#user-roles-container').removeClass('loading').html('<p>No user roles found</p>');
+              return;
+            }
+            let html = '';
+            data.forEach((role, index) => {
+              const icon = role.name === 'Admin' ? 'fa-user-shield' : 
+                           role.name === 'Manager' ? 'fa-user-tie' : 'fa-user';
+              html += `
+                <div class="col-sm-6 col-md-4">
+                  <div class="card card-stats card-round">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-icon">
+                          <div class="icon-big text-center">
+                            <i class="fas ${icon}"></i>
+                          </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                          <div class="numbers">
+                            <p class="card-category">${role.name}</p>
+                            <h4 class="card-title">${role.userCount} Users</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            });
+            $('#user-roles-container').removeClass('loading').html('<div class="row">' + html + '</div>');
+          },
+          error: function(err) {
+            console.error('Error fetching user roles:', err.responseJSON || err);
+            $('#user-roles-container').removeClass('loading').html('<p class="error-message">Failed to load user roles</p>');
+          }
+        });
+      }
+
+      // Function to fetch and update Available Shifts
+      function fetchAvailableShifts() {
+        $('#available-shifts-container').addClass('loading').html('<span class="spinner"></span>Loading...');
+        $.ajax({
+          url: '/api/shifts',
+          method: 'GET',
+          success: function(response) {
+            const data = response.data || [];
+            if (!data || data.length === 0) {
+              $('#available-shifts-container').removeClass('loading').html('<p>No shifts found</p>');
+              return;
+            }
+            let html = '';
+            data.forEach((shift, index) => {
+              html += `
+                <div class="col-sm-6 col-md-3">
+                  <div class="card card-stats card-round">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-icon">
+                          <div class="icon-big text-center">
+                            <i class="fa-solid fa-clock"></i>
+                          </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                          <div class="numbers">
+                            <p class="card-category">${shift.name}</p>
+                            <h4 class="card-title">${shift.startTime} - ${shift.endTime}</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            });
+            $('#available-shifts-container').removeClass('loading').html('<div class="row">' + html + '</div>');
+          },
+          error: function(err) {
+            console.error('Error fetching shifts:', err.responseJSON || err);
+            $('#available-shifts-container').removeClass('loading').html('<p class="error-message">Failed to load shifts</p>');
+          }
+        });
+      }
+
+      // Function to fetch and update Shift Assignments
+      function fetchShiftAssignments() {
+        $('#shift-assignments-container').addClass('loading').html('<span class="spinner"></span>Loading...');
+        $.ajax({
+          url: '/api/shiftlogs/assignments',
+          method: 'GET',
+          success: function(data) {
+            if (!data || data.length === 0) {
+              $('#shift-assignments-container').removeClass('loading').html('<p>No shift assignments found</p>');
+              return;
+            }
+            let html = '';
+            data.forEach((assignment, index) => {
+              html += `
+                <div class="col-sm-6 col-md-3">
+                  <div class="card card-stats card-round">
+                    <div class="card-body">
+                      <div class="row align-items-center">
+                        <div class="col-icon">
+                          <div class="icon-big text-center">
+                            <i class="fas fa-user-clock"></i>
+                          </div>
+                        </div>
+                        <div class="col col-stats ms-3 ms-sm-0">
+                          <div class="numbers">
+                            <p class="card-category">${assignment.shiftName}</p>
+                            <h4 class="card-title">${assignment.employeeCount} Employees</h4>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `;
+            });
+            $('#shift-assignments-container').removeClass('loading').html('<div class="row">' + html + '</div>');
+          },
+          error: function(err) {
+            console.error('Error fetching shift assignments:', err.responseJSON || err);
+            $('#shift-assignments-container').removeClass('loading').html('<p class="error-message">Failed to load shift assignments</p>');
+          }
+        });
+      }
+
+      // Polling every 30 seconds for real-time updates
+      // setInterval(loadDashboard, 30000); // 30 seconds
+
+      // Manual refresh button
+      $('#refresh-btn').click(function() {
+        loadDashboard();
+      });
+    });
+  </script>
 </body>
 
 </html>

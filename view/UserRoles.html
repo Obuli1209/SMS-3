@@ -11,10 +11,9 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
 
   <!-- DataTables and Bootstrap CSS -->
-  <!-- <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet"> -->
+  <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
@@ -41,8 +40,6 @@
   <!-- CSS Files -->
   <link rel="stylesheet" href="/css/bootstrap.min.css" />
   <link rel="stylesheet" href="/css/kaiadmin.min.css" />
-  <!-- <link rel="stylesheet" href="/css/plugins.min.css" /> -->
-  <!-- <link rel="stylesheet" href="/css/demo.css" /> -->
 </head>
 
 <body style="background-color: rgb(197, 197, 197);">
@@ -90,7 +87,7 @@
               <div class="collapse" id="master">
                 <ul class="nav nav-collapse">
                   <li>
-                    <a href="/Userroleslist">
+                    <a href="/userroleslist">
                       <span class="sub-item">User Roles</span>
                     </a>
                   </li>
@@ -146,11 +143,10 @@
         </div>
         <!-- Navbar Header -->
         <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
-  <div class="container-fluid justify-content-end">
-    <a class="btn btn-danger" href="/login">Logout</a>
-  </div>
-</nav>
-
+          <div class="container-fluid justify-content-end">
+            <a class="btn btn-danger" href="/logout">Logout</a>
+          </div>
+        </nav>
         <!-- End Navbar -->
       </div>
 
@@ -169,13 +165,13 @@
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="/Userroleslist">Master</a>
+                <a href="/userroleslist">Master</a>
               </li>
               <li class="separator">
                 <i class="icon-arrow-right"></i>
               </li>
               <li class="nav-item">
-                <a href="/Userroleslist">User Roles</a>
+                <a href="/userroleslist">User Roles</a>
               </li>
             </ul>
           </div>
@@ -186,10 +182,10 @@
                 <div class="d-flex align-items-center">
                   <h4 class="card-title">User Roles</h4>
                   <div class="ms-auto">
-                    <button type="button" class="btn btn-primary btn-round " id="downloadCsv" aria-expanded="false">
+                    <button type="button" class="btn btn-primary btn-round" id="downloadCsv" aria-expanded="false">
                       <i class="fa fa-download"></i> Download Excel
                     </button>
-                    <button type="button" class="btn btn-primary btn-round " id="downloadPdf" aria-expanded="false">
+                    <button type="button" class="btn btn-primary btn-round" id="downloadPdf" aria-expanded="false">
                       <i class="fa fa-download"></i> Download Pdf
                     </button>
                     <button class="btn btn-primary btn-round" data-bs-toggle="modal" data-bs-target="#addRowModal">
@@ -281,200 +277,189 @@
   </div>
 
   <!-- Core JS Files -->
-  <script src="/js/core/jquery-3.7.1.min.js"></script>
-  <script src="/js/core/popper.min.js"></script>
-  <script src="/js/core/bootstrap.min.js"></script>
-  <script src="/js/plugin/datatables/datatables.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
   <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
   <!-- jsPDF for PDF export -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
-    $(document).ready(function () {
-      // Initialize DataTable
-      const table = $('#rolesTable').DataTable({
-        ajax: {
-          url: '/api/userRole/',
-          dataSrc: 'data',
-          error: function (xhr, error, thrown) {
-            console.error('DataTables AJAX error:', {
-              status: xhr.status,
-              statusText: xhr.statusText,
-              responseText: xhr.responseText,
-              error,
-              thrown
-            });
-            alert('Failed to load roles. Please check the server or network connection.');
+    // Initialize DataTable
+    const table = $('#rolesTable').DataTable({
+      ajax: {
+        url: '/api/userroles/list',
+        dataSrc: '',
+        error: function(xhr, error, thrown) {
+          console.error('DataTable error:', xhr.responseText, error, thrown);
+          alert('Failed to load roles. Please check the server or network connection.');
+        }
+      },
+      columns: [
+        { data: 'id' },
+        { data: 'roleName' },
+        { data: 'status' },
+        {
+          data: null,
+          render: function(data, type, row) {
+            return `
+              <button class="btn btn-link text-primary btn-lg edit-btn" onclick="editRole(${row.id})"><i class="fa fa-pencil"></i></button>
+              <button class="btn btn-link text-danger btn-lg delete-btn" onclick="deleteRole(${row.id})"><i class="fa fa-trash"></i></button>
+            
+            `;
+          }
+        }
+      ]
+    });
+
+    // Edit Role - Populate Modal
+    function editRole(id) {
+      $.ajax({
+        url: `/api/userroles/${id}`,
+        method: 'GET',
+        success: function(response) {
+          if (response.status) {
+            const rowData = response.data;
+            document.getElementById('editRoleId').value = rowData.id;
+            document.getElementById('editRoleName').value = rowData.roleName;
+            document.getElementById('editStatus').value = rowData.status;
+            const editModal = new bootstrap.Modal(document.getElementById('editRowModal'));
+            editModal.show();
+          } else {
+            alert('Failed to fetch role: ' + response.error);
           }
         },
-        columns: [
-          { data: 'id' },
-          { data: 'roleName' },
-          { data: 'status' },
-          {
-            data: null,
-            render: function (data, type, row) {
-              return `
-              <button class="btn btn-link text-primary btn-lg edit-btn" data-id="${row.id}"><i class="fa fa-pencil"></i></button>
-              <button class="btn btn-link text-danger btn-lg delete-btn" data-id="${row.id}"><i class="fa fa-trash"></i></button>
-            `;
-            }
-          }
-        ]
-      });
-
-      // Download CSV
-      $('#downloadCsv').on('click', function (e) {
-        e.preventDefault();
-        const data = table.data().toArray();
-        const csvRows = [
-          ['ID', 'Name', 'Status'].join(','),
-          ...data.map(row => [row.id, `"${row.roleName.replace(/"/g, '""')}"`, row.status].join(','))
-        ];
-        const csvString = csvRows.join('\n');
-        const blob = new Blob([csvString], { type: 'text/csv' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.setAttribute('href', url);
-        a.setAttribute('download', 'User_roles_list.csv');
-        a.click();
-        window.URL.revokeObjectURL(url);
-      });
-
-      // Download PDF
-      $('#downloadPdf').on('click', function (e) {
-        e.preventDefault();
-        const { jsPDF } = window.jspdf;
-        const doc = new jsPDF();
-        doc.setFontSize(16);
-        doc.text('User Roles List', 10, 10);
-        doc.setFontSize(12);
-        const data = table.data().toArray();
-        let y = 20;
-        doc.text(['ID', 'Name', 'Status'].join('  |  '), 10, y);
-        y += 10;
-        doc.line(10, y - 5, 200, y - 5);
-        data.forEach(row => {
-          doc.text([row.id, row.roleName, row.status].join('  |  '), 10, y);
-          y += 10;
-        });
-        doc.save('User_roles_list.pdf');
-      });
-
-      // Add Role
-      document.getElementById('addRowButton').addEventListener('click', async () => {
-        const roleName = document.getElementById('addRoleName').value.trim();
-        if (!roleName || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
-          alert('Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.');
-          return;
-        }
-        try {
-          const response = await fetch('/api/userRole/', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ roleName, status: 'Active' })
-          });
-          if (!response.ok) {
-            let errorData;
-            try {
-              errorData = await response.json();
-            } catch (e) {
-              throw new Error(`Server returned an unexpected response (status: ${response.status})`);
-            }
-            throw new Error(errorData.error || `Failed to add role (status: ${response.status})`);
-          }
-          const result = await response.json();
-          const modalEl = bootstrap.Modal.getInstance(document.getElementById('addRowModal'));
-          modalEl.hide();
-          document.body.classList.remove('modal-open');
-          const backdrop = document.querySelector('.modal-backdrop');
-          if (backdrop) backdrop.remove();
-          document.getElementById('addRoleForm').reset();
-          table.row.add({
-            id: result.id,
-            roleName: result.roleName,
-            status: result.status
-          }).draw();
-        } catch (err) {
-          console.error('Add role error:', err);
-          alert('Error: ' + err.message);
+        error: function(xhr) {
+          alert('Failed to fetch role: ' + (xhr.responseJSON?.error || 'Unknown error'));
         }
       });
+    }
 
-      // Edit Role - Populate Modal
-      $('#rolesTable').on('click', '.edit-btn', function () {
-        const id = $(this).data('id');
-        const rowData = table.row($(this).parents('tr')).data();
-        document.getElementById('editRoleId').value = rowData.id;
-        document.getElementById('editRoleName').value = rowData.roleName;
-        document.getElementById('editStatus').value = rowData.status;
-        const editModal = new bootstrap.Modal(document.getElementById('editRowModal'));
-        editModal.show();
-      });
-
-      // Edit Role - Save Changes
-      document.getElementById('editRowButton').addEventListener('click', async () => {
-        const id = document.getElementById('editRoleId').value;
-        const roleName = document.getElementById('editRoleName').value.trim();
-        const status = document.getElementById('editStatus').value;
-        if (!roleName || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
-          alert('Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.');
-          return;
-        }
-        try {
-          const response = await fetch(`/api/userRole/${id}`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ roleName, status })
-          });
-          if (!response.ok) {
-            let errorData;
-            try {
-              errorData = await response.json();
-            } catch (e) {
-              throw new Error(`Server returned an unexpected response (status: ${response.status})`);
-            }
-            throw new Error(errorData.error || `Failed to update role (status: ${response.status})`);
-          }
-          const result = await response.json();
-          const modalEl = bootstrap.Modal.getInstance(document.getElementById('editRowModal'));
-          modalEl.hide();
-          document.body.classList.remove('modal-open');
-          const backdrop = document.querySelector('.modal-backdrop');
-          if (backdrop) backdrop.remove();
-          table.ajax.reload();
-        } catch (err) {
-          console.error('Update role error:', err);
-          alert('Error: ' + err.message);
-        }
-      });
-
-      // Delete Role
-      $('#rolesTable').on('click', '.delete-btn', async function () {
-        const id = $(this).data('id');
-        if (confirm('Are you sure you want to delete this role?')) {
-          try {
-            const response = await fetch(`/api/userRole/${id}`, {
-              method: 'DELETE'
-            });
-            if (!response.ok) {
-              let errorData;
-              try {
-                errorData = await response.json();
-              } catch (e) {
-                throw new Error(`Server returned an unexpected response (status: ${response.status})`);
-              }
-              throw new Error(errorData.error || `Failed to delete role (status: ${response.status})`);
-            }
+    // Delete Role
+    function deleteRole(id) {
+      if (confirm('Are you sure you want to delete this role?')) {
+        $.ajax({
+          url: `/api/userroles/${id}`,
+          method: 'DELETE',
+          success: function() {
             table.ajax.reload();
-          } catch (err) {
-            console.error('Delete role error:', err);
-            alert('Error: ' + err.message);
+          },
+          error: function(xhr) {
+            alert('Failed to delete role: ' + (xhr.responseJSON?.error || 'Unknown error'));
           }
-        }
+        });
+      }
+    }
+
+    // Download CSV
+    $('#downloadCsv').on('click', function (e) {
+      e.preventDefault();
+      const data = table.data().toArray();
+      const csvRows = [
+        ['ID', 'Name', 'Status'].join(','),
+        ...data.map(row => [row.id, `"${row.roleName.replace(/"/g, '""')}"`, row.status].join(','))
+      ];
+      const csvString = csvRows.join('\n');
+      const blob = new Blob([csvString], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.setAttribute('href', url);
+      a.setAttribute('download', 'User_roles_list.csv');
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+
+    // Download PDF
+    $('#downloadPdf').on('click', function (e) {
+      e.preventDefault();
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.text('User Roles List', 10, 10);
+      doc.setFontSize(12);
+      const data = table.data().toArray();
+      let y = 20;
+      doc.text(['ID', 'Name', 'Status'].join('  |  '), 10, y);
+      y += 10;
+      doc.line(10, y - 5, 200, y - 5);
+      data.forEach(row => {
+        doc.text([row.id, row.roleName, row.status].join('  |  '), 10, y);
+        y += 10;
       });
+      doc.save('User_roles_list.pdf');
+    });
+
+    // Add Role
+    document.getElementById('addRowButton').addEventListener('click', async () => {
+      const roleName = document.getElementById('addRoleName').value.trim();
+      if (!roleName || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
+        alert('Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.');
+        return;
+      }
+      try {
+        const response = await fetch('/api/userroles/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ roleName, status: 'Active' })
+        });
+        if (!response.ok) {
+          let errorData;
+          try {
+            errorData = await response.json();
+          } catch (e) {
+            throw new Error(`Server returned an unexpected response (status: ${response.status})`);
+          }
+          throw new Error(errorData.error || `Failed to add role (status: ${response.status})`);
+        }
+        const result = await response.json();
+        const modalEl = bootstrap.Modal.getInstance(document.getElementById('addRowModal'));
+        modalEl.hide();
+        document.body.classList.remove('modal-open');
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) backdrop.remove();
+        document.getElementById('addRoleForm').reset();
+        table.ajax.reload();
+      } catch (err) {
+        console.error('Add role error:', err);
+        alert('Error: ' + err.message);
+      }
+    });
+
+    // Edit Role - Save Changes
+    document.getElementById('editRowButton').addEventListener('click', async () => {
+      const id = document.getElementById('editRoleId').value;
+      const roleName = document.getElementById('editRoleName').value.trim();
+      const status = document.getElementById('editStatus').value;
+      if (!roleName || !/^[a-zA-Z0-9\s-_]{1,50}$/.test(roleName)) {
+        alert('Role name is required and must be 1-50 alphanumeric characters, spaces, hyphens, or underscores.');
+        return;
+      }
+      try {
+        const response = await fetch(`/api/userroles/${id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ roleName, status })
+        });
+        if (!response.ok) {
+          let errorData;
+          try {
+            errorData = await response.json();
+          } catch (e) {
+            throw new Error(`Server returned an unexpected response (status: ${response.status})`);
+          }
+          throw new Error(errorData.error || `Failed to update role (status: ${response.status})`);
+        }
+        const result = await response.json();
+        const modalEl = bootstrap.Modal.getInstance(document.getElementById('editRowModal'));
+        modalEl.hide();
+        document.body.classList.remove('modal-open');
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) backdrop.remove();
+        table.ajax.reload();
+      } catch (err) {
+        console.error('Update role error:', err);
+        alert('Error: ' + err.message);
+      }
     });
   </script>
 </body>

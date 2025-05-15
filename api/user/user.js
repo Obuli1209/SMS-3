@@ -166,3 +166,16 @@ module.exports.deleteUser = async (req, res) => {
     res.status(500).send({ error: "Internal server error" });
   }
 };
+
+
+
+// Get user count for dashboard
+module.exports.getUserCount = async (req, res) => {
+  try {
+    const count = await User.count();
+    res.json({ count });
+  } catch (error) {
+    console.error('Error fetching user count:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};

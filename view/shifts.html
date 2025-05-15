@@ -6,13 +6,21 @@
   <title>Admin Dashboard</title>
   <meta content="width=device-width, initial-scale=1.0, shrink-to-fit=no" name="viewport" />
   <link rel="icon" href="/img/kaiadmin/favicon.ico" type="image/x-icon" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" /> -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" /> -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" /> -->
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /> -->
+ <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"> -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-RXf+QSDCUQs6Y6lfN8Eghs1n6U4P1GdJW1P8N9AgZsMa2VNBOJsh75eD9n67ON0Gp1DfDztVbLOOrJ6C7+MT0w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
 
   <!-- Fonts and icons -->
   <script src="/js/plugin/webfont/webfont.min.js"></script>
@@ -293,92 +301,122 @@
     </div>
 
     <!-- Core JS Files -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> -->
+    <!-- <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script> -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     
     <script>
-      $(document).ready(function () {
-        // Initialize DataTable
-        var table = $('#add-row').DataTable({
-          ajax: {
-            url: '/api/shifts',
-            dataSrc: 'data',
-            xhrFields: { withCredentials: true },
-            error: function (xhr, error, thrown) {
-              console.error('DataTables AJAX error:', {
-                status: xhr.status,
-                statusText: xhr.statusText,
-                responseText: xhr.responseText,
-                error: error,
-                thrown: thrown,
-              });
-              alert('Failed to load shifts. Check the console for details.');
-            },
-          },
-          columns: [
-            { data: 'id' },
-            { data: 'name' },
-            { data: 'startTime' },
-            { data: 'endTime' },
-            {
-              data: null,
-              render: function (data, type, row) {
-                return `
-                    <div class="form-button-action">
-                      <button class="btn btn-primary btn-link edit-btn" data-id="${row.id}"> <i class="fa fa-edit"></i></button>
-                      <button class="btn btn-danger btn-link delete-btn" data-id="${row.id}"><i class="fa fa-trash"></i></button>
-                    </div>
-                    `;
-              },
-            },
-          ],
-        });
+function convertTo12Hour(time24) {
+  // Check if already in 12-hour format
+  if (time24.toUpperCase().includes('AM') || time24.toUpperCase().includes('PM')) {
+    return time24; // Already in 12-hour format
+  }
 
-        // Download CSV
-        $('#downloadCsv').on('click', function (e) {
-          e.preventDefault();
-          const data = table.data().toArray();
-          const csvRows = [
-            ['ID', 'Name', 'Start Time', 'End Time'].join(','),
-            ...data.map(row => [row.id,
-            `"${row.name.replace(/"/g, '""')}"`,
-            `"${row.startTime.replace(/"/g, '""')}"`,
-            `"${row.endTime.replace(/"/g, '""')}"`,
-            row.status].join(','))
-          ];
-          const csvString = csvRows.join('\n');
-          const blob = new Blob([csvString], { type: 'text/csv' });
-          const url = window.URL.createObjectURL(blob);
-          const a = document.createElement('a');
-          a.setAttribute('href', url);
-          a.setAttribute('download', 'Shift_Details.csv');
-          a.click();
-          window.URL.revokeObjectURL(url);
-        });
+  const [hourStr, minute] = time24.split(':');
+  let hour = parseInt(hourStr, 10);
+  const ampm = hour >= 12 ? 'PM' : 'AM';
+  hour = hour % 12 || 12;
+  return `${hour.toString().padStart(2, '0')}:${minute} ${ampm}`;
+}
 
-        // Download PDF
-        $('#downloadPdf').on('click', function (e) {
-          e.preventDefault();
-          const { jsPDF } = window.jspdf;
-          const doc = new jsPDF();
-          doc.setFontSize(16);
-          doc.text('Shift Details', 10, 10);
-          doc.setFontSize(12);
-          const data = table.data().toArray();
-          let y = 20;
-          doc.text(['ID', 'Name', 'Start Time', 'End Time'].join('  |  '), 10, y);
-          y += 10;
-          doc.line(10, y - 5, 200, y - 5);
-          data.forEach(row => {
-            doc.text([row.id, row.name, row.startTime, row.endTime].join('  |  '), 10, y);
-            y += 10;
-          });
-          doc.save('Shift_Details.pdf');
-        });
+
+  $(document).ready(function () {
+    var table = $('#add-row').DataTable({
+      ajax: {
+        url: '/api/shifts',
+        dataSrc: 'data',
+        xhrFields: { withCredentials: true },
+        error: function (xhr, error, thrown) {
+          console.error('DataTables AJAX error:', xhr);
+          alert('Failed to load shifts.');
+        },
+      },
+      columns: [
+        { data: 'id' },
+        { data: 'name' },
+        {
+          data: 'startTime',
+          render: function (data) {
+            return convertTo12Hour(data);
+          }
+        },
+        {
+          data: 'endTime',
+          render: function (data) {
+            return convertTo12Hour(data);
+          }
+        },
+        {
+          data: null,
+          render: function (data, type, row) {
+            return `
+              <div class="form-button-action">
+                <button class="btn btn-primary btn-link edit-btn" data-id="${row.id}">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-link delete-btn" data-id="${row.id}">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </div>
+            `;
+          }
+        }
+      ]
+    });
+
+    $('#downloadCsv').on('click', function (e) {
+      e.preventDefault();
+      const data = table.data().toArray();
+      const csvRows = [
+        ['ID', 'Name', 'Start Time', 'End Time'].join(','),
+        ...data.map(row => [
+          row.id,
+          `"${row.name.replace(/"/g, '""')}"`,
+          `"${convertTo12Hour(row.startTime)}"`,
+          `"${convertTo12Hour(row.endTime)}"`
+        ].join(','))
+      ];
+      const csvString = csvRows.join('\n');
+      const blob = new Blob([csvString], { type: 'text/csv' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Shift_Details.csv';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+
+    $('#downloadPdf').on('click', function (e) {
+      e.preventDefault();
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      doc.setFontSize(16);
+      doc.text('Shift Details', 10, 10);
+      doc.setFontSize(12);
+      const data = table.data().toArray();
+      let y = 20;
+      doc.text(['ID', 'Name', 'Start Time', 'End Time'].join('  |  '), 10, y);
+      y += 10;
+      doc.line(10, y - 5, 200, y - 5);
+      data.forEach(row => {
+        doc.text([
+          row.id,
+          row.name,
+          convertTo12Hour(row.startTime),
+          convertTo12Hour(row.endTime)
+        ].join('  |  '), 10, y);
+        y += 10;
+      });
+      doc.save('Shift_Details.pdf');
+    });
 
 
         // Add Shift

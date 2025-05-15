@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-RXf+QSDCUQs6Y6lfN8Eghs1n6U4P1GdJW1P8N9AgZsMa2VNBOJsh75eD9n67ON0Gp1DfDztVbLOOrJ6C7+MT0w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
+
     <!-- Fonts and icons -->
     <script src="/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -204,64 +207,64 @@
                                                 <form id="addUserForm">
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <div class="form-group form-group-default">
+                                                            <div class="form-group ">
                                                                 <label>Role</label>
                                                                 <select id="addRole" class="form-control" required
-                                                                    style="border: 2px solid black;">
+                                                                    style="border: 1px solid black; padding: 10px;">
                                                                     <option value="">Select Role</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
-                                                                <label>First Name</label>
+                                                            <div class="form-group ">
+                                                                <label>First Name<span style="color: red;">*</span></label>
                                                                 <input id="addFirstName" type="text" pattern="[A-Za-z]+"
                                                                     class="form-control" placeholder="Enter first name"
-                                                                    required style="border: 2px solid black;" />
+                                                                    required style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
-                                                                <label>Last Name</label>
+                                                            <div class="form-group ">
+                                                                <label>Last Name<span style="color: red;">*</span></label>
                                                                 <input id="addLastName" type="text" class="form-control"
                                                                     placeholder="Enter last name" required
                                                                     pattern="[A-Za-z]+"
-                                                                    style="border: 2px solid black;" />
+                                                                   style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
-                                                                <label>User Name</label>
+                                                            <div class="form-group ">
+                                                                <label>User Name<span style="color: red;">*</span></label>
                                                                 <input id="addUserName" type="text" class="form-control"
                                                                     placeholder="Enter user name" required
-                                                                    style="border: 2px solid black;" />
+                                                                   style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
-                                                                <label>Password</label>
+                                                            <div class="form-group ">
+                                                                <label>Password<span style="color: red;">*</span></label>
                                                                 <input id="addPassword" type="password"
                                                                     class="form-control" placeholder="Enter password"
                                                                     minlength="6" maxlength="10" required
-                                                                    style="border: 2px solid black;" />
+                                                                    style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
-                                                                <label>Email Id</label>
+                                                            <div class="form-group ">
+                                                                <label>Email Id<span style="color: red;">*</span></label>
                                                                 <input id="addEmail" type="email" class="form-control"
                                                                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$"
                                                                     placeholder="Enter email" required
-                                                                    style="border: 2px solid black;" />
+                                                                    style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
-                                                                <label>Phone Number</label>
+                                                            <div class="form-group ">
+                                                                <label>Phone Number<span style="color: red;">*</span></label>
                                                                 <input id="addPhone" type="tel" class="form-control"
                                                                     placeholder="Enter phone number"
                                                                     pattern="[6-9][0-9]{9}" required
-                                                                    style="border: 2px solid black;" />
+                                                                    style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
 
@@ -296,65 +299,65 @@
                                                     <input type="hidden" id="editUserId">
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
+                                                            <div class="form-group ">
                                                                 <label>First Name</label>
                                                                 <input id="editFirstName" type="text"
                                                                     pattern="[A-Za-z]+" class="form-control"
-                                                                    placeholder="Enter first name" required />
+                                                                    placeholder="Enter first name" required style="border: 1px solid black; padding: 10px;"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
+                                                            <div class="form-group ">
                                                                 <label>Last Name</label>
                                                                 <input id="editLastName" type="text" pattern="[A-Za-z]+"
                                                                     class="form-control" placeholder="Enter last name"
-                                                                    required />
+                                                                    required style="border: 1px solid black; padding: 10px;"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
+                                                            <div class="form-group ">
                                                                 <label>User Name</label>
                                                                 <input id="editUserName" type="text"
                                                                     class="form-control" placeholder="Enter user name"
-                                                                    required />
+                                                                    required style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
+                                                            <div class="form-group ">
                                                                 <label>Password</label>
                                                                 <input id="editPassword" type="password"
                                                                     class="form-control" minlength="6" maxlength="10"
-                                                                    placeholder="Enter new password (optional)" />
+                                                                    placeholder="Enter new password (optional)" style="border: 1px solid black; padding: 10px;"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
+                                                            <div class="form-group ">
                                                                 <label>Email Id</label>
                                                                 <input id="editEmail" type="email" class="form-control"
                                                                     pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$"
-                                                                    placeholder="Enter email" required />
+                                                                    placeholder="Enter email" required style="border: 1px solid black; padding: 10px;"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group form-group-default">
+                                                            <div class="form-group ">
                                                                 <label>Phone Number</label>
                                                                 <input id="editPhone" type="tel" class="form-control"
                                                                     pattern="[6-9][0-9]{9}"
-                                                                    placeholder="Enter phone number" required />
+                                                                    placeholder="Enter phone number" required style="border: 1px solid black; padding: 10px;"/>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12">
-                                                            <div class="form-group form-group-default">
+                                                            <div class="form-group ">
                                                                 <label>Role</label>
-                                                                <select id="editRole" class="form-control" required>
+                                                                <select id="editRole" class="form-control" required style="border: 1px solid black; padding: 10px;">
                                                                     <option value="">Select Role</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12">
-                                                            <div class="form-group form-group-default">
+                                                            <div class="form-group ">
                                                                 <label>Status</label>
-                                                                <select id="editStatus" class="form-control" required>
+                                                                <select id="editStatus" class="form-control" required style="border: 1px solid black; padding: 10px;">
                                                                     <option value="Active">Active</option>
                                                                     <option value="Inactive">Inactive</option>
                                                                 </select>
@@ -399,240 +402,259 @@
     </div>
 
     <!-- Core JS Files -->
-    <script src="/js/core/jquery-3.7.1.min.js"></script>
+    <!-- <script src="/js/core/jquery-3.7.1.min.js"></script>
     <script src="/js/core/popper.min.js"></script>
     <script src="/js/core/bootstrap.min.js"></script>
-    <script src="/js/plugin/datatables/datatables.min.js"></script>
+    <script src="/js/plugin/datatables/datatables.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script>
-        $(document).ready(function () {
-            // Initialize DataTable
-            const table = $('#add-row').DataTable({
-                ajax: {
-                    url: '/api/user',
-                    dataSrc: 'data',
-                    error: function (xhr, error, thrown) {
-                        console.error('DataTables AJAX error:', {
-                            status: xhr.status,
-                            statusText: xhr.statusText,
-                            responseText: xhr.responseText,
-                            error,
-                            thrown
-                        });
-                        alert('Failed to load users. Please check the server or network connection.');
-                    }
-                },
-                columns: [
-                    { data: 'id' },
-                    { data: 'firstName' },
-                    { data: 'lastName' },
-                    { data: 'username' },
-                    { data: 'email' },
-                    { data: 'phone' },
-                    { data: 'role' },
-                    { data: 'status' },
-                    {
-                        data: null,
-                        render: function (data, type, row) {
-                            return `
-                  <div class="form-button-action">
-                    <button type="button" class="btn btn-link btn-primary edit-user" data-id="${row.id}">
-                      <i class="fa fa-edit"></i>
-                    </button>
-                    <button type="button" class="btn btn-link btn-danger delete-user" data-id="${row.id}">
-                      <i class="fa fa-trash"></i>
-                    </button>
-                  </div>
-                `;
-                        },
-                    },
-                ],
-            });
-            // Download CSV
-            $('#downloadCsv').on('click', function (e) {
-                e.preventDefault();
-                const data = table.data().toArray();
-                const csvRows = [
-                    ['ID', 'First Name', 'Last Name', 'User Name', 'Email', 'Phone No', 'Role', 'Status'].join(','),
-                    ...data.map(row => [row.id,
-                    `"${row.firstName.replace(/"/g, '""')}"`,
-                    `"${row.lastName.replace(/"/g, '""')}"`,
-                    `"${row.username.replace(/"/g, '""')}"`,
-                    `"${row.email.replace(/"/g, '""')}"`,
-                    `"${row.phone.replace(/"/g, '""')}"`,
-                    `"${row.role.replace(/"/g, '""')}"`,
-                    row.status].join(','))
-                ];
-                const csvString = csvRows.join('\n');
-                const blob = new Blob([csvString], { type: 'text/csv' });
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.setAttribute('href', url);
-                a.setAttribute('download', 'Users_list.csv');
-                a.click();
-                window.URL.revokeObjectURL(url);
-            });
-
-            // Download PDF
-            $('#downloadPdf').on('click', function (e) {
-                e.preventDefault();
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                doc.setFontSize(16);
-                doc.text('Users List', 10, 10);
-                doc.setFontSize(12);
-                const data = table.data().toArray();
-                let y = 20;
-                doc.text(['ID', 'First Name', 'Last Name', 'User Name', 'Email', 'Phone No', 'Role', 'Status'].join('  |  '), 10, y);
-                y += 10;
-                doc.line(10, y - 5, 200, y - 5);
-                data.forEach(row => {
-                    doc.text([row.id, row.firstName, row.lastName, row.username, row.email, row.phone, row.role, row.status].join('  |  '), 10, y);
-                    y += 10;
+$(document).ready(function () {
+    // Initialize DataTable
+    const table = $('#add-row').DataTable({
+        ajax: {
+            url: '/api/user',
+            dataSrc: 'data',
+            error: function (xhr, error, thrown) {
+                console.error('DataTables AJAX error:', {
+                    status: xhr.status,
+                    statusText: xhr.statusText,
+                    responseText: xhr.responseText,
+                    error,
+                    thrown
                 });
-                doc.save('Users_list.pdf');
-            });
-
-            // Fetch roles for add/edit modals
-            function loadRoles(selectElement) {
-                $.ajax({
-                    url: '/api/user/roles',
-                    method: 'GET',
-                    success: function (roles) {
-                        selectElement.empty().append('<option value="">Select Role</option>');
-                        roles.forEach(role => {
-                            selectElement.append(`<option value="${role.id}">${role.roleName}</option>`);
-                        });
-                    },
-                    error: function () {
-                        alert('Error loading roles');
-                    },
-                });
+                alert('Failed to load users. Please check the server or network connection.');
             }
+        },
+        columns: [
+            { data: 'id' },
+            { data: 'firstName' },
+            { data: 'lastName' },
+            { data: 'username' },
+            { data: 'email' },
+            { data: 'phone' },
+            { data: 'role' },
+            { data: 'status' },
+            {
+                data: null,
+                render: function (data, type, row) {
+                    return `
+                      <div class="form-button-action">
+                        <button type="button" class="btn btn-link btn-primary edit-user" data-id="${row.id}">
+                          <i class="fa fa-edit"></i>
+                        </button>
+                        <button type="button" class="btn btn-link btn-danger delete-user" data-id="${row.id}">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                    `;
+                },
+            },
+        ],
+    });
 
-            // Load roles for add modal
-            $('#addRowModal').on('show.bs.modal', function () {
-                loadRoles($('#addRole'));
-            });
+    // Download CSV
+    $('#downloadCsv').on('click', function (e) {
+        e.preventDefault();
+        const data = table.data().toArray();
+        const csvRows = [
+            ['ID', 'First Name', 'Last Name', 'User Name', 'Email', 'Phone No', 'Role', 'Status'].join(','),
+            ...data.map(row => [
+                row.id,
+                `"${row.firstName.replace(/"/g, '""')}"`,
+                `"${row.lastName.replace(/"/g, '""')}"`,
+                `"${row.username.replace(/"/g, '""')}"`,
+                `"${row.email.replace(/"/g, '""')}"`,
+                `"${row.phone.replace(/"/g, '""')}"`,
+                `"${row.role.replace(/"/g, '""')}"`,
+                row.status
+            ].join(','))
+        ];
+        const csvString = csvRows.join('\n');
+        const blob = new Blob([csvString], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'Users_list.csv');
+        a.click();
+        window.URL.revokeObjectURL(url);
+    });
 
-            // Load roles for edit modal
-            $('#editRowModal').on('show.bs.modal', function () {
-                loadRoles($('#editRole'));
-            });
-
-            // Add user
-            $('#addRowButton').click(function () {
-                const form = $('#addUserForm');
-                if (form[0].checkValidity()) {
-                    $.ajax({
-                        url: '/api/user',
-                        method: 'POST',
-                        contentType: 'application/json', // Use JSON for consistency
-                        data: JSON.stringify({
-                            roleId: $('#addRole').val(),
-                            firstName: $('#addFirstName').val().trim(),
-                            lastName: $('#addLastName').val().trim(),
-                            username: $('#addUserName').val().trim(),
-                            password: $('#addPassword').val(),
-                            email: $('#addEmail').val().trim(),
-                            phone: $('#addPhone').val().trim(),
-                        }),
-                        success: function () {
-                            $('#addRowModal').modal('hide');
-                            form[0].reset();
-                            table.ajax.reload();
-                            alert('User added successfully');
-                        },
-                        error: function (xhr) {
-                            alert('Error adding user: ' + (xhr.responseJSON?.error || 'Unknown error'));
-                        },
-                    });
-                } else {
-                    form[0].reportValidity();
-                }
-            });
-
-            // Edit user button
-            $('#add-row').on('click', '.edit-user', function () {
-                const userId = $(this).data('id');
-                $.ajax({
-                    url: `/api/user`,
-                    method: 'GET',
-                    success: function (response) {
-                        const user = response.data.find(u => u.id === userId);
-                        if (user) {
-                            $('#editUserId').val(user.id);
-                            $('#editFirstName').val(user.firstName);
-                            $('#editLastName').val(user.lastName);
-                            $('#editUserName').val(user.username);
-                            $('#editEmail').val(user.email);
-                            $('#editPhone').val(user.phone);
-                            $('#editStatus').val(user.status);
-                            loadRoles($('#editRole')).promise().then(() => {
-                                $('#editRole').val(user.roleId); // Set roleId after roles load
-                            });
-                            $('#editRowModal').modal('show');
-                        }
-                    },
-                    error: function () {
-                        alert('Error fetching user data');
-                    },
-                });
-            });
-
-            // Edit user
-            $('#editRowButton').click(function () {
-                const form = $('#editUserForm');
-                if (form[0].checkValidity()) {
-                    $.ajax({
-                        url: `/api/user/${$('#editUserId').val()}`,
-                        method: 'PUT',
-                        contentType: 'application/json', // Use JSON for consistency
-                        data: JSON.stringify({
-                            roleId: $('#editRole').val(),
-                            firstName: $('#editFirstName').val().trim(),
-                            lastName: $('#editLastName').val().trim(),
-                            username: $('#editUserName').val().trim(),
-                            password: $('#editPassword').val(),
-                            email: $('#editEmail').val().trim(),
-                            phone: $('#editPhone').val().trim(),
-                            status: $('#editStatus').val(),
-                        }),
-                        success: function () {
-                            $('#editRowModal').modal('hide');
-                            form[0].reset();
-                            table.ajax.reload();
-                            alert('User updated successfully');
-                        },
-                        error: function (xhr) {
-                            alert('Error updating user: ' + (xhr.responseJSON?.error || 'Unknown error'));
-                        },
-                    });
-                } else {
-                    form[0].reportValidity();
-                }
-            });
-
-            // Delete user
-            $('#add-row').on('click', '.delete-user', function () {
-                const userId = $(this).data('id');
-                if (confirm('Are you sure you want to delete this user?')) {
-                    $.ajax({
-                        url: `/api/user/${userId}`,
-                        method: 'DELETE',
-                        success: function () {
-                            table.ajax.reload();
-                            alert('User deleted successfully');
-                        },
-                        error: function (xhr) {
-                            alert('Error deleting user: ' + (xhr.responseJSON?.error || 'Unknown error'));
-                        },
-                    });
-                }
-            });
+    // Download PDF (basic, can be enhanced)
+    $('#downloadPdf').on('click', function (e) {
+        e.preventDefault();
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+        doc.setFontSize(16);
+        doc.text('Users List', 10, 10);
+        doc.setFontSize(12);
+        const data = table.data().toArray();
+        let y = 20;
+        doc.text(['ID', 'First Name', 'Last Name', 'User Name', 'Email', 'Phone No', 'Role', 'Status'].join('  |  '), 10, y);
+        y += 10;
+        doc.line(10, y - 5, 200, y - 5);
+        data.forEach(row => {
+            const line = [row.id, row.firstName, row.lastName, row.username, row.email, row.phone, row.role, row.status].join('  |  ');
+            doc.text(line, 10, y);
+            y += 10;
+            // Add page break if near bottom (optional)
+            if (y > 280) {
+                doc.addPage();
+                y = 20;
+            }
         });
-    </script>
+        doc.save('Users_list.pdf');
+    });
+
+    // Fetch roles for add/edit modals, optionally select a roleId after loading
+    function loadRoles(selectElement, selectedRoleId = null) {
+        return $.ajax({
+            url: '/api/user/roles',
+            method: 'GET',
+            success: function (roles) {
+                selectElement.empty().append('<option value="">Select Role</option>');
+                roles.forEach(role => {
+                    const selected = role.id === selectedRoleId ? 'selected' : '';
+                    selectElement.append(`<option value="${role.id}" ${selected}>${role.roleName}</option>`);
+                });
+            },
+            error: function () {
+                alert('Error loading roles');
+            },
+        });
+    }
+
+    // Load roles for add modal
+    $('#addRowModal').on('show.bs.modal', function () {
+        loadRoles($('#addRole'));
+    });
+
+    // Load roles for edit modal
+    $('#editRowModal').on('show.bs.modal', function () {
+        // You can also clear/editRole here if needed
+    });
+
+    // Add user
+    $('#addRowButton').click(function () {
+        const form = $('#addUserForm');
+        if (form[0].checkValidity()) {
+            $.ajax({
+                url: '/api/user',
+                method: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    roleId: $('#addRole').val(),
+                    firstName: $('#addFirstName').val().trim(),
+                    lastName: $('#addLastName').val().trim(),
+                    username: $('#addUserName').val().trim(),
+                    password: $('#addPassword').val(),
+                    email: $('#addEmail').val().trim(),
+                    phone: $('#addPhone').val().trim(),
+                }),
+                success: function () {
+                    $('#addRowModal').modal('hide');
+                    form[0].reset();
+                    table.ajax.reload();
+                    alert('User added successfully');
+                },
+                error: function (xhr) {
+                    console.error('Add user error:', xhr);
+                    alert('Error adding user: ' + (xhr.responseJSON?.error || 'Unknown error'));
+                },
+            });
+        } else {
+            form[0].reportValidity();
+        }
+    });
+
+    // Edit user button click
+    $('#add-row').on('click', '.edit-user', function () {
+        const userId = $(this).data('id');
+        $.ajax({
+            url: `/api/user`,
+            method: 'GET',
+            success: function (response) {
+                const user = response.data.find(u => u.id === userId);
+                if (user) {
+                    $('#editUserId').val(user.id);
+                    $('#editFirstName').val(user.firstName);
+                    $('#editLastName').val(user.lastName);
+                    $('#editUserName').val(user.username);
+                    $('#editEmail').val(user.email);
+                    $('#editPhone').val(user.phone);
+                    $('#editStatus').val(user.status);
+                    loadRoles($('#editRole'), user.roleId);
+                    $('#editPassword').val(''); // clear password field on edit
+                    $('#editRowModal').modal('show');
+                }
+            },
+            error: function () {
+                alert('Error fetching user data');
+            },
+        });
+    });
+
+    // Edit user save
+    $('#editRowButton').click(function () {
+        const form = $('#editUserForm');
+        if (form[0].checkValidity()) {
+            const password = $('#editPassword').val();
+            const data = {
+                roleId: $('#editRole').val(),
+                firstName: $('#editFirstName').val().trim(),
+                lastName: $('#editLastName').val().trim(),
+                username: $('#editUserName').val().trim(),
+                email: $('#editEmail').val().trim(),
+                phone: $('#editPhone').val().trim(),
+                status: $('#editStatus').val(),
+            };
+            if (password) {
+                data.password = password;
+            }
+            $.ajax({
+                url: `/api/user/${$('#editUserId').val()}`,
+                method: 'PUT',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function () {
+                    $('#editRowModal').modal('hide');
+                    form[0].reset();
+                    table.ajax.reload();
+                    alert('User updated successfully');
+                },
+                error: function (xhr) {
+                    console.error('Edit user error:', xhr);
+                    alert('Error updating user: ' + (xhr.responseJSON?.error || 'Unknown error'));
+                },
+            });
+        } else {
+            form[0].reportValidity();
+        }
+    });
+
+    // Delete user
+    $('#add-row').on('click', '.delete-user', function () {
+        const userId = $(this).data('id');
+        if (confirm('Are you sure you want to delete this user?')) {
+            $.ajax({
+                url: `/api/user/${userId}`,
+                method: 'DELETE',
+                success: function () {
+                    table.ajax.reload();
+                    alert('User deleted successfully');
+                },
+                error: function (xhr) {
+                    console.error('Delete user error:', xhr);
+                    alert('Error deleting user: ' + (xhr.responseJSON?.error || 'Unknown error'));
+                },
+            });
+        }
+    });
+});
+</script>
+
 </body>
 
 </html>

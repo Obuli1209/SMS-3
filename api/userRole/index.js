@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('./userRole');
+const userRoleController  = require('./UserRole');
 
-router.post('/', controller.create);
-router.get('/', controller.getRole);
-router.get('/:id', controller.getById);
-router.put('/:id', controller.updateRole); 
-router.delete('/:id', controller.deleteRole);
+// Define routes for user roles
+router.get('/', userRoleController.getRolesWithUserCount); // dashboard
+router.get('/list', userRoleController.getAllRoles); // datatable
+router.post('/', userRoleController.create); 
+router.get('/:id', userRoleController.getById); 
+router.put('/:id', userRoleController.updateRole); 
+router.delete('/:id', userRoleController.deleteRole); 
 
 module.exports = router;

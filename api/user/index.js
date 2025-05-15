@@ -8,5 +8,5 @@ router.get('/roles', controller.getAllRoles);
 router.post('/', controller.createUser);
 router.put('/:id', controller.updateUser);
 router.delete('/:id', controller.deleteUser);
-
+router.get('/count', controller.getUserCount);
 module.exports = router;
