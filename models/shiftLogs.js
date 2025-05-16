@@ -11,6 +11,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    userId: {            
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
     user: {
       type: DataTypes.JSONB,
       allowNull: false, // Stores { createdBy: { id: userId, firstName: "FirstName" }, updatedBy: { id: userId, firstName: "FirstName" } }

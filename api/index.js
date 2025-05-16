@@ -1,8 +1,13 @@
 // api/index.js
 const express = require('express');
 const path = require('path');
-
 const router = express.Router();
+
+// Middleware
+const isAuthenticated = (req, res, next) => {
+  if (!req.session.userId) return res.redirect('/login');
+  next();
+};
 
 // Redirect to login
 router.get('/', (req, res) => res.redirect('/login'));
@@ -12,36 +17,23 @@ router.get('/login', (req, res) => {
   res.sendFile(path.join(__dirname, '../view', 'login.html'));
 });
 
-router.get('/users', (req, res) => {
+router.get('/users',  isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, '../view', 'Users.html'));
 });
 
-router.get('/userroleslist', (req, res) => {
+router.get('/userroleslist', isAuthenticated,  (req, res) => {
     res.sendFile(path.join(__dirname, '../view', 'UserRoles.html'));
  });
 
  // shifts.html
- router.get('/shifts', (req, res) => {
+ router.get('/shifts',  isAuthenticated,  (req, res) => {
    res.sendFile(path.join(__dirname, '../view', 'shifts.html'));
  });
 
 
  // Add this route with other routes in api/index.js
-router.get('/shiftLogs', (req, res) => {
+router.get('/shiftLogs',  isAuthenticated, (req, res) => {
   res.sendFile(path.join(__dirname, '../view', 'shiftLogs.html'));
-});
-
-router.get('/tables', (req, res) => {
-    res.sendFile(path.join(__dirname, '../view', 'tables.html'));
-});
-
-
-router.get('/datatables', (req, res) => {
-   res.sendFile(path.join(__dirname, '../view', 'datatables.html'));
-});
-
-router.get('/error_500', (req, res) => {
-  res.sendFile(path.join(__dirname, '../view', 'error_500.html'));
 });
 
 // Protected index page

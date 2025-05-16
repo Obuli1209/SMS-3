@@ -111,7 +111,7 @@
             <!-- Shift Logs -->
             <li class="nav-item">
               <a href="/shiftLogs">
-                <i class="fas fa-industry"></i>
+                <i class="fas fa-clipboard-list"></i>
                 <p>Shift Logs</p>
               </a>
             </li>
@@ -195,7 +195,7 @@
                   </div>
                 </div>
               </div>
-              <div class="card-body p-2">
+              <!-- <div class="card-body p-2">
                 <div class="table-responsive p-0">
                   <table id="rolesTable"
                     class="table table-sm table-bordered table-striped table-hover text-nowrap small w-100"
@@ -210,7 +210,27 @@
                     </thead>
                   </table>
                 </div>
+              </div> -->
+              <div class="card-body p-2">
+                <div class="table-responsive p-0">
+                  <table id="rolesTable"
+                    class="table table-sm table-bordered table-striped table-hover text-nowrap small w-100"
+                    style="table-layout: fixed;">
+                    <thead>
+                      <tr>
+                        <th class="text-center align-middle" style="width: 25%;">ID</th>
+                        <th class="text-center align-middle" style="width: 25%;">Name</th>
+                        <th class="text-center align-middle" style="width: 25%;">Status</th>
+                        <th class="text-center align-middle" style="width: 25%;">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="text-center align-middle">
+                      <!-- Rows go here -->
+                    </tbody>
+                  </table>
+                </div>
               </div>
+
             </div>
           </div>
         </div>
@@ -290,7 +310,7 @@
       ajax: {
         url: '/api/userroles/list',
         dataSrc: '',
-        error: function(xhr, error, thrown) {
+        error: function (xhr, error, thrown) {
           console.error('DataTable error:', xhr.responseText, error, thrown);
           alert('Failed to load roles. Please check the server or network connection.');
         }
@@ -301,7 +321,7 @@
         { data: 'status' },
         {
           data: null,
-          render: function(data, type, row) {
+          render: function (data, type, row) {
             return `
               <button class="btn btn-link text-primary btn-lg edit-btn" onclick="editRole(${row.id})"><i class="fa fa-pencil"></i></button>
               <button class="btn btn-link text-danger btn-lg delete-btn" onclick="deleteRole(${row.id})"><i class="fa fa-trash"></i></button>
@@ -317,7 +337,7 @@
       $.ajax({
         url: `/api/userroles/${id}`,
         method: 'GET',
-        success: function(response) {
+        success: function (response) {
           if (response.status) {
             const rowData = response.data;
             document.getElementById('editRoleId').value = rowData.id;
@@ -329,7 +349,7 @@
             alert('Failed to fetch role: ' + response.error);
           }
         },
-        error: function(xhr) {
+        error: function (xhr) {
           alert('Failed to fetch role: ' + (xhr.responseJSON?.error || 'Unknown error'));
         }
       });
@@ -341,10 +361,10 @@
         $.ajax({
           url: `/api/userroles/${id}`,
           method: 'DELETE',
-          success: function() {
+          success: function () {
             table.ajax.reload();
           },
-          error: function(xhr) {
+          error: function (xhr) {
             alert('Failed to delete role: ' + (xhr.responseJSON?.error || 'Unknown error'));
           }
         });

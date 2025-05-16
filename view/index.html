@@ -39,7 +39,7 @@
   <!-- Custom Styles -->
   <style>
     body {
-      background: linear-gradient(135deg, #e0e7ff 0%, #c3e8ff 100%);
+      background-color: rgb(197, 197, 197);
       background-attachment: fixed;
       position: relative;
       overflow-x: hidden;
@@ -85,7 +85,7 @@
     }
     .card-stats:hover {
       transform: translateY(-5px) scale(1.02);
-      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
     }
     .icon-big {
       width: 60px;
@@ -94,10 +94,10 @@
       border-radius: 12px;
       color: #fff;
       font-size: 24px;
-      transition: transform 0.3s ease;
+      transition: transform 3s ease;
     }
     .icon-big:hover {
-      transform: rotate(10deg);
+      transform: rotate(360deg);
     }
     .users .icon-big {
       background: linear-gradient(45deg, #3b82f6, #60a5fa);
@@ -238,7 +238,7 @@
             </li>
             <li class="nav-item">
               <a href="/shiftLogs">
-                <i class="fas fa-industry"></i>
+                <i class="fas fa-clipboard-list"></i>
                 <p>Shift Logs</p>
               </a>
             </li>
@@ -281,7 +281,7 @@
             </div>
             <div class="ms-md-auto py-2 py-md-0">
               <button id="refresh-btn" class="btn btn-info btn-round me-2">Refresh</button>
-              <a href="/shifts" class="btn btn-label-info btn-round me-2">Manage</a>
+              <a href="/shifts" class="btn btn-label-info btn-round me-2">Shift Manage</a>
               <a href="/users" class="btn btn-primary btn-round">+ New User</a>
             </div>
           </div>
