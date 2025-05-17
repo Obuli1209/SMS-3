@@ -1,58 +1,174 @@
-//api/user/user.js
-const { User, UserRole } = require("../../models");
-const express = require("express");
-const router = express.Router();
+const { User, UserRole } = require('../../models');
+const bcrypt = require('bcrypt');
 
-// Login
-module.exports.loginUser = async (req, res) => {
-  const { username, password } = req.body;
+// Validation patterns
+const namePattern = /^[A-Za-z]{2,30}$/;
+const emailPattern = /^[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/i;
+const phonePattern = /^[1-9][0-9]{9}$/;
+const usernamePattern = /^[A-Za-z0-9]{3,20}$/;
+const passwordMinLength = 6;
 
-  if (!username || !password) {
-    return res
-      .status(400)
-      .send("Username and password are required");
+// Middleware to check if user is authenticated and an Admin
+exports.isAdmin = async (req, res, next) => {
+  if (!req.session.userId) {
+    return res.status(401).send({ success: false, error: 'Unauthorized: Please log in' });
   }
+  const user = await User.findByPk(req.session.userId, {
+    include: [{ model: UserRole, attributes: ['roleName'] }],
+  });
+  const roleName = user?.UserRole?.roleName || 'N/A';
+  if (roleName !== 'Admin') {
+    return res.status(403).send({ success: false, error: 'Access denied: Admins only' });
+  }
+  next();
+};
 
+// Create a new user
+exports.create = async (req, res) => {
   try {
-    const user = await User.findOne({ where: { username } });
+    const { firstName, lastName, username, email, phone, password, role, id } = req.body;
+
+    console.log('Create user request:', { firstName, lastName, username, email, phone, role, id }); // Debugging
+
+    // Check for missing fields
+    if (!firstName || !lastName || !username || !email || !phone || !password || !role) {
+      return res.status(400).send({ success: false, error: 'All fields are required' });
+    }
+
+    // Warn if id is provided
+    if (id) {
+      console.warn('Ignoring provided id:', id);
+    }
+
+    // Validate inputs
+    if (!namePattern.test(firstName)) {
+      return res.status(400).send({ success: false, error: 'First name must be 2-30 characters long and contain only letters' });
+    }
+    if (!namePattern.test(lastName)) {
+      return res.status(400).send({ success: false, error: 'Last name must be 2-30 characters long and contain only letters' });
+    }
+    if (!usernamePattern.test(username)) {
+      return res.status(400).send({ success: false, error: 'Username must be 3-20 characters long and contain only letters and numbers' });
+    }
+    if (!emailPattern.test(email)) {
+      return res.status(400).send({ success: false, error: 'Invalid email format. Must be like user@domain.com, supporting multiple subdomains and TLDs (e.g., .com, .org, .co.uk)' });
+    }
+    if (!phonePattern.test(phone)) {
+      return res.status(400).send({ success: false, error: 'Phone number must be a 10-digit number starting with 1-9' });
+    }
+    if (password.length < passwordMinLength) {
+      return res.status(400).send({ success: false, error: 'Password must be at least 6 characters long' });
+    }
+
+    // Validate role (accept roleName or roleId)
+    let userRole;
+    if (typeof role === 'number' || !isNaN(parseInt(role))) {
+      userRole = await UserRole.findByPk(parseInt(role));
+    } else {
+      userRole = await UserRole.findOne({ where: { roleName: role } });
+    }
+
+    if (!userRole) {
+      console.log('Invalid role:', role); // Debugging
+      return res.status(400).send({ success: false, error: `Invalid role: ${role}. Must be a valid role from the database.` });
+    }
+
+    // Check for duplicates
+    if (await User.findOne({ where: { email } })) {
+      return res.status(400).send({ success: false, error: 'Email already exists' });
+    }
+    if (await User.findOne({ where: { username } })) {
+      return res.status(400).send({ success: false, error: 'Username already exists' });
+    }
+
+    // Hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    // Create user (explicitly exclude id)
+    const user = await User.create({
+      firstName,
+      lastName,
+      username,
+      email,
+      phone,
+      password: hashedPassword,
+      UserRoleId: userRole.id,
+      status: 1,
+    });
+
+    res.status(201).send({
+      success: true,
+      message: 'User created successfully',
+      data: {
+        id: user.id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        username: user.username,
+        email: user.email,
+        phone: user.phone,
+        role: userRole.roleName,
+      },
+    });
+  } catch (error) {
+    console.error('Error creating user:', error);
+    res.status(500).send({ success: false, error: 'Server error' });
+  }
+};
+
+// Login user (temporary plaintext support)
+exports.loginUser = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    if (!username || !password) {
+      return res.status(400).send({ success: false, error: 'Username and password are required' });
+    }
+
+    const user = await User.findOne({
+      where: { username },
+      include: [{ model: UserRole, attributes: ['roleName'] }],
+    });
+
     if (!user) {
-      return res
-        .status(401)
-        .send( "Invalid Username");
+      return res.status(401).send({ success: false, error: 'Invalid credentials' });
     }
 
-    if (password !== user.password) {
-      // Replace with bcrypt in production
-      return res
-        .status(401)
-        .send("Invalid Password");
+    const isHashed = user.password.startsWith('$2b$');
+    let isValidPassword;
+
+    if (isHashed) {
+      isValidPassword = await bcrypt.compare(password, user.password);
+    } else {
+      isValidPassword = password === user.password;
+      if (isValidPassword) {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        await user.update({ password: hashedPassword });
+        console.log(`Updated plaintext password to hash for user: ${username}`);
+      }
     }
 
-    const roleName = user.UserRole ? user.UserRole.roleName : "N/A";
-    if (roleName !== "Admin" && roleName !== "N/A") {
-      return res.status(403).send("Access denied: Only admins or users with no role can log in");
+    if (!isValidPassword) {
+      return res.status(401).send({ success: false, error: 'Invalid credentials' });
     }
 
     req.session.userId = user.id;
-    req.session.userRole = user.userRoleId;
-    // console.log("Login successful, session.userId:", req.session.userId);
+    req.session.userRole = user.UserRoleId;
 
     res.send({
       success: true,
-      message: "Login successful",
+      message: 'Login successful',
       data: { id: user.id, firstName: user.firstName },
     });
   } catch (error) {
-    // console.error("Error during login:", error);
-    res.status(500).send({ success: false, message: "Server error" });
+    console.error('Error during login:', error);
+    res.status(500).send({ success: false, error: 'Server error' });
   }
 };
 
 // Get all users
-module.exports.getAllUSers = async (req, res) => {
+exports.getAllUSers = async (req, res) => {
   try {
     const users = await User.findAll({
-      include: [{ model: UserRole, attributes: ["roleName"]}],
+      include: [{ model: UserRole, attributes: ['roleName'] }],
     });
     res.send({
       success: true,
@@ -63,55 +179,40 @@ module.exports.getAllUSers = async (req, res) => {
         username: user.username,
         email: user.email,
         phone: user.phone,
-        role: user.UserRole ? user.UserRole.roleName : "N/A",
-        status: user.status === 1 ? "Active" : "Inactive",
+        role: user.UserRole ? user.UserRole.roleName : 'N/A',
+        status: user.status === 1 ? 'Active' : 'Inactive',
       })),
     });
   } catch (error) {
-    res.status(501).send({ success: false, message: "Not implemented" });
-    // console.error("Error fetching users:", error);
-    res.status(500).send({ error: "Internal server error" });
+    console.error('Error fetching users:', error);
+    res.status(500).send({ success: false, error: 'Server error' });
   }
 };
 
 // Get all roles for dropdown
-module.exports.getAllRoles = async (req, res) => {
+exports.getAllRoles = async (req, res) => {
   try {
     const roles = await UserRole.findAll({
-      attributes: ["id", "roleName"],
+      attributes: ['id', 'roleName'],
     });
+    console.log('Roles fetched:', roles); // Debugging
+    if (roles.length === 0) {
+      return res.status(404).send({ success: false, error: 'No roles found in the database.' });
+    }
     res.send(roles);
   } catch (error) {
-    // console.error("Error fetching roles:", error);
-    res.status(500).send({ error: "Internal server error" });
+    console.error('Error fetching roles:', error);
+    res.status(500).send({ success: false, error: 'Server error' });
   }
 };
 
-// Add a new user
-module.exports.createUser = async (req, res) => {
-  try {
-    const { roleId, firstName, lastName, username, password, email, phone } = req.body;
-    const user = await User.create({
-      id: (await User.max("id")) + 1,
-      firstName,
-      lastName,
-      username,
-      password,
-      email,
-      phone,
-      UserRoleId: roleId,
-      status: 1, // Default to Active
-    });
-    res.send({ message: "User added successfully", user });
-  } catch (error) {
-    res.status(501).send({ success: false, message: "Not implemented" });
-    // console.error("Error adding user:", error);
-    res.status(500).send({ error: "Internal server error" });
-  }
+// Deprecated: Redirect to create
+exports.createUser = async (req, res) => {
+  return res.status(400).send({ success: false, error: 'Use /create endpoint for user creation' });
 };
 
 // Update a user
-module.exports.updateUser = async (req, res) => {
+exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -122,60 +223,114 @@ module.exports.updateUser = async (req, res) => {
       password,
       email,
       phone,
-      status,
+      status
     } = req.body;
+
     const user = await User.findByPk(id);
     if (!user) {
-      return res.status(404).send({ error: "User not found" });
+      return res.status(404).send({ success: false, error: 'User not found' });
     }
-    await user.update({
-      firstName,
-      lastName,
-      username,
-      password: password || user.password, // Update password only if provided
-      email,
-      phone,
-      UserRoleId: roleId,
-      status: status === "Active" ? 1 : 2,
-    });
-    res.send({ message: "User updated successfully" });
+
+    // Validate fields
+    if (firstName && !namePattern.test(firstName)) {
+      return res.status(400).send({ success: false, error: 'First name must be 2-30 characters long and contain only letters' });
+    }
+    if (lastName && !namePattern.test(lastName)) {
+      return res.status(400).send({ success: false, error: 'Last name must be 2-30 characters long and contain only letters' });
+    }
+    if (username && !usernamePattern.test(username)) {
+      return res.status(400).send({ success: false, error: 'Username must be 3-20 characters long and contain only letters and numbers' });
+    }
+    if (email && !emailPattern.test(email)) {
+      return res.status(400).send({ success: false, error: 'Invalid email format' });
+    }
+    if (phone && !phonePattern.test(phone)) {
+      return res.status(400).send({ success: false, error: 'Phone number must be a 10-digit number starting with 1-9' });
+    }
+    if (password && password.length < passwordMinLength) {
+      return res.status(400).send({ success: false, error: 'Password must be at least 6 characters long' });
+    }
+
+    // Check for uniqueness
+    if (email && email !== user.email) {
+      const existingEmail = await User.findOne({ where: { email } });
+      if (existingEmail) {
+        return res.status(400).send({ success: false, error: 'Email already exists' });
+      }
+    }
+
+    if (username && username !== user.username) {
+      const existingUsername = await User.findOne({ where: { username } });
+      if (existingUsername) {
+        return res.status(400).send({ success: false, error: 'Username already exists' });
+      }
+    }
+
+    // Convert status string ("Active"/"Inactive") to integer (1/2)
+    let parsedStatus = user.status;
+    if (typeof status === 'string') {
+      if (status.toLowerCase() === 'active') parsedStatus = 1;
+      else if (status.toLowerCase() === 'inactive') parsedStatus = 2;
+      else return res.status(400).send({ success: false, error: 'Invalid status value' });
+    } else if (typeof status === 'number') {
+      parsedStatus = status;
+    }
+
+    // Prepare fields to update
+    let updatedFields = {
+      firstName: firstName || user.firstName,
+      lastName: lastName || user.lastName,
+      username: username || user.username,
+      email: email || user.email,
+      phone: phone || user.phone,
+      status: parsedStatus,
+    };
+
+    if (password) {
+      updatedFields.password = await bcrypt.hash(password, 10);
+    }
+
+    if (roleId) {
+      const userRole = await UserRole.findByPk(roleId);
+      if (!userRole) {
+        return res.status(400).send({ success: false, error: 'Invalid role ID' });
+      }
+      updatedFields.UserRoleId = roleId;
+    }
+
+    await user.update(updatedFields);
+
+    res.send({ success: true, message: 'User updated successfully' });
   } catch (error) {
-    res.status(501).send({ success: false, message: "Not implemented" });
-    // console.error("Error updating user:", error);
-    res.status(500).send({ error: "Internal server error" });
+    console.error('Error updating user:', error);
+    res.status(500).send({ success: false, error: 'Server error' });
   }
 };
 
+
 // Delete a user
-module.exports.deleteUser = async (req, res) => {
+exports.deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
     const user = await User.findByPk(id);
     if (!user) {
-      return res.status(404).send({ error: "User not found" });
+      return res.status(404).send({ success: false, error: 'User not found' });
     }
     await user.destroy();
-    // const remainingRoles = await UserRole.count();
-    // if (remainingRoles === 0) {
-    //   await sequelize.query('ALTER SEQUENCE "UserRoles_id_seq" RESTART WITH 1;');
-    // }
     res.status(204).send();
   } catch (error) {
-    res.status(501).send({ success: false, message: "Not implemented" });
-    // console.error("Error deleting user:", error);
-    res.status(500).send({ error: "Internal server error" });
+    console.error('Error deleting user:', error);
+    res.status(500).send({ success: false, error: 'Server error' });
   }
 };
 
-
-
 // Get user count for dashboard
-module.exports.getUserCount = async (req, res) => {
+exports.getUserCount = async (req, res) => {
   try {
     const count = await User.count();
-    res.json({ count });
+    res.send({ success: true, count });
   } catch (error) {
     console.error('Error fetching user count:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).send({ success: false, error: 'Server error' });
   }
 };

@@ -1,44 +1,44 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const User = sequelize.define('User', {
+  const User = sequelize.define("User", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     username: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
     },
     email: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     phone: {
       type: DataTypes.BIGINT,
-      allowNull: false
+      allowNull: false,
     },
     status: {
       type: DataTypes.INTEGER,
       defaultValue: 1, // Active-1, Inactive-2
-      allowNull: false 
-    }
+      allowNull: false,
+    },
   });
 
-  User.associate = (models ) => {
+  User.associate = (models) => {
     User.belongsTo(models.UserRole);
   };
 

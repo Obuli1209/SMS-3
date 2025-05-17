@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Admin Dashboard</title>
@@ -9,12 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha512-RXf+QSDCUQs6Y6lfN8Eghs1n6U4P1GdJW1P8N9AgZsMa2VNBOJsh75eD9n67ON0Gp1DfDztVbLOOrJ6C7+MT0w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
-
-    <!-- Fonts and icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="/js/plugin/webfont/webfont.min.js"></script>
     <script>
         WebFont.load({
@@ -33,24 +30,17 @@
             },
         });
     </script>
-
-    <!-- CSS Files -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/plugins.min.css" />
     <link rel="stylesheet" href="/css/kaiadmin.min.css" />
     <link rel="stylesheet" href="/css/demo.css" />
 </head>
-
 <body style="background-color: rgb(197, 197, 197);">
     <div class="wrapper">
-        <!-- Sidebar -->
         <div class="sidebar" data-background-color="dark">
             <div class="sidebar-logo">
                 <div class="logo-header" data-background-color="dark">
                     <h4 style="color: white; padding-left: 10px;">SMS</h4>
-                    <!-- <a href="index.html" class="logo">
-                        <img src="#" alt="navbar brand" class="navbar-brand" height="20" />
-                    </a> -->
                     <div class="nav-toggle">
                         <button class="btn btn-toggle toggle-sidebar">
                             <i class="gg-menu-right"></i>
@@ -100,29 +90,22 @@
                                 </ul>
                             </div>
                         </li>
-
-                        <!-- Shifts -->
                         <li class="nav-item">
                             <a href="/shifts">
                                 <i class="fa-solid fa-clock"></i>
                                 <p>Shifts</p>
                             </a>
                         </li>
-
-                        <!-- Shift Logs -->
                         <li class="nav-item">
                             <a href="/shiftLogs">
                                 <i class="fas fa-clipboard-list"></i>
                                 <p>Shift Logs</p>
                             </a>
                         </li>
-
                     </ul>
                 </div>
             </div>
         </div>
-        <!-- End Sidebar -->
-
         <div class="main-panel">
             <div class="main-header">
                 <div class="main-header-logo">
@@ -144,15 +127,12 @@
                         </button>
                     </div>
                 </div>
-                <!-- Navbar -->
                 <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
                     <div class="container-fluid justify-content-end">
                         <a class="btn btn-danger" href="/login">Logout</a>
                     </div>
                 </nav>
             </div>
-
-            <!-- User Datatable -->
             <div class="container">
                 <div class="page-inner">
                     <div class="page-header">
@@ -173,18 +153,17 @@
                                 <div class="d-flex align-items-center">
                                     <h4 class="card-title">Users</h4>
                                     <div class="ms-auto">
-                                        <button type="button" class="btn btn-primary btn-round " id="downloadCsv"
+                                        <button type="button" class="btn btn-primary btn-round" id="downloadCsv"
                                             aria-expanded="false">
                                             <i class="fa fa-download"></i> Download Excel
                                         </button>
-                                        <button type="button" class="btn btn-primary btn-round " id="downloadPdf"
+                                        <button type="button" class="btn btn-primary btn-round" id="downloadPdf"
                                             aria-expanded="false">
                                             <i class="fa fa-download"></i> Download Pdf
                                         </button>
                                         <button class="btn btn-primary btn-round" data-bs-toggle="modal"
                                             data-bs-target="#addRowModal">
-                                            <i class="fa fa-plus"></i>
-                                            New User
+                                            <i class="fa fa-plus"></i> New User
                                         </button>
                                     </div>
                                 </div>
@@ -207,7 +186,7 @@
                                                 <form id="addUserForm">
                                                     <div class="row">
                                                         <div class="col-sm-12">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Role</label>
                                                                 <select id="addRole" class="form-control" required
                                                                     style="border: 1px solid black; padding: 10px;">
@@ -216,7 +195,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>First Name<span
                                                                         style="color: red;">*</span></label>
                                                                 <input id="addFirstName" type="text" pattern="[A-Za-z]+"
@@ -226,17 +205,17 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Last Name<span
                                                                         style="color: red;">*</span></label>
-                                                                <input id="addLastName" type="text" class="form-control"
-                                                                    placeholder="Enter last name" required
-                                                                    pattern="[A-Za-z]+"
+                                                                <input id="addLastName" type="text" pattern="[A-Za-z]+"
+                                                                    class="form-control" placeholder="Enter last name"
+                                                                    required
                                                                     style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>User Name<span
                                                                         style="color: red;">*</span></label>
                                                                 <input id="addUserName" type="text" class="form-control"
@@ -245,7 +224,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Password<span
                                                                         style="color: red;">*</span></label>
                                                                 <input id="addPassword" type="password"
@@ -255,17 +234,17 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Email Id<span
                                                                         style="color: red;">*</span></label>
                                                                 <input id="addEmail" type="email" class="form-control"
-                                                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$"
+                                                                    pattern="[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}"
                                                                     placeholder="Enter email" required
                                                                     style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Phone Number<span
                                                                         style="color: red;">*</span></label>
                                                                 <input id="addPhone" type="tel" class="form-control"
@@ -274,7 +253,6 @@
                                                                     style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </form>
                                             </div>
@@ -287,7 +265,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <!-- Edit User Modal -->
                                 <div class="modal fade" id="editRowModal" tabindex="-1" role="dialog" aria-hidden="true"
                                     data-bs-backdrop="static" data-bs-keyboard="false">
@@ -306,16 +283,16 @@
                                                     <input type="hidden" id="editUserId">
                                                     <div class="row">
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>First Name</label>
-                                                                <input id="editFirstName" type="text"
-                                                                    pattern="[A-Za-z]+" class="form-control"
-                                                                    placeholder="Enter first name" required
+                                                                <input id="editFirstName" type="text" pattern="[A-Za-z]+"
+                                                                    class="form-control" placeholder="Enter first name"
+                                                                    required
                                                                     style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Last Name</label>
                                                                 <input id="editLastName" type="text" pattern="[A-Za-z]+"
                                                                     class="form-control" placeholder="Enter last name"
@@ -324,16 +301,15 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>User Name</label>
-                                                                <input id="editUserName" type="text"
-                                                                    class="form-control" placeholder="Enter user name"
-                                                                    required
+                                                                <input id="editUserName" type="text" class="form-control"
+                                                                    placeholder="Enter user name" required
                                                                     style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Password</label>
                                                                 <input id="editPassword" type="password"
                                                                     class="form-control" minlength="6" maxlength="10"
@@ -342,16 +318,16 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Email Id</label>
                                                                 <input id="editEmail" type="email" class="form-control"
-                                                                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com$"
+                                                                    pattern="[a-z0-9._%+-]+@[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}"
                                                                     placeholder="Enter email" required
                                                                     style="border: 1px solid black; padding: 10px;" />
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Phone Number</label>
                                                                 <input id="editPhone" type="tel" class="form-control"
                                                                     pattern="[6-9][0-9]{9}"
@@ -360,7 +336,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Role</label>
                                                                 <select id="editRole" class="form-control" required
                                                                     style="border: 1px solid black; padding: 10px;">
@@ -369,7 +345,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-12">
-                                                            <div class="form-group ">
+                                                            <div class="form-group">
                                                                 <label>Status</label>
                                                                 <select id="editStatus" class="form-control" required
                                                                     style="border: 1px solid black; padding: 10px;">
@@ -390,27 +366,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- <div class="card-body p-2">
-                                    <div class="table-responsive p-0">
-                                        <table id="add-row"
-                                            class="table table-sm table-bordered table-striped table-hover text-nowrap small w-100"
-                                            style="table-layout: fixed;">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width: 3%">ID</th>
-                                                    <th style="width: 10%">First Name</th>
-                                                    <th style="width: 10%">Last Name</th>
-                                                    <th style="width: 10%">User Name</th>
-                                                    <th style="width: 10%">Email Id</th>
-                                                    <th style="width: 10%">Phone Number</th>
-                                                    <th style="width: 10%">Role</th>
-                                                    <th style="width: 10%">Status</th>
-                                                    <th style="width: 10%">Action</th>
-                                                </tr>
-                                            </thead>
-                                        </table>
-                                    </div>
-                                </div> -->
                                 <div class="card-body p-2">
                                     <div class="table-responsive p-0">
                                         <table id="add-row"
@@ -435,7 +390,6 @@
                                         </table>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -443,12 +397,6 @@
             </div>
         </div>
     </div>
-
-    <!-- Core JS Files -->
-    <!-- <script src="/js/core/jquery-3.7.1.min.js"></script>
-    <script src="/js/core/popper.min.js"></script>
-    <script src="/js/core/bootstrap.min.js"></script>
-    <script src="/js/plugin/datatables/datatables.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
@@ -484,15 +432,15 @@
                         data: null,
                         render: function (data, type, row) {
                             return `
-                      <div class="form-button-action">
-                        <button type="button" class="btn btn-link btn-primary edit-user" data-id="${row.id}">
-                          <i class="fa fa-edit"></i>
-                        </button>
-                        <button type="button" class="btn btn-link btn-danger delete-user" data-id="${row.id}">
-                          <i class="fa fa-trash"></i>
-                        </button>
-                      </div>
-                    `;
+                                <div class="form-button-action">
+                                    <button type="button" class="btn btn-link btn-primary edit-user" data-id="${row.id}">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-link btn-danger delete-user" data-id="${row.id}">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                            `;
                         },
                     },
                 ],
@@ -525,7 +473,7 @@
                 window.URL.revokeObjectURL(url);
             });
 
-            // Download PDF (basic, can be enhanced)
+            // Download PDF
             $('#downloadPdf').on('click', function (e) {
                 e.preventDefault();
                 const { jsPDF } = window.jspdf;
@@ -542,7 +490,6 @@
                     const line = [row.id, row.firstName, row.lastName, row.username, row.email, row.phone, row.role, row.status].join('  |  ');
                     doc.text(line, 10, y);
                     y += 10;
-                    // Add page break if near bottom (optional)
                     if (y > 280) {
                         doc.addPage();
                         y = 20;
@@ -551,20 +498,22 @@
                 doc.save('Users_list.pdf');
             });
 
-            // Fetch roles for add/edit modals, optionally select a roleId after loading
-            function loadRoles(selectElement, selectedRoleId = null) {
+            // Fetch roles for add/edit modals
+            function loadRoles(selectElement, selectedRoleName = null) {
                 return $.ajax({
                     url: '/api/user/roles',
                     method: 'GET',
                     success: function (roles) {
                         selectElement.empty().append('<option value="">Select Role</option>');
                         roles.forEach(role => {
-                            const selected = role.id === selectedRoleId ? 'selected' : '';
+                            const selected = role.roleName === selectedRoleName ? 'selected' : '';
                             selectElement.append(`<option value="${role.id}" ${selected}>${role.roleName}</option>`);
                         });
                     },
-                    error: function () {
-                        alert('Error loading roles');
+                    error: function (xhr) {
+                        console.error('Error loading roles:', xhr);
+                        selectElement.empty().append('<option value="">Error loading roles</option>');
+                        alert('Error loading roles: ' + (xhr.responseJSON?.error || 'Unknown error'));
                     },
                 });
             }
@@ -576,26 +525,28 @@
 
             // Load roles for edit modal
             $('#editRowModal').on('show.bs.modal', function () {
-                // You can also clear/editRole here if needed
+                // Handled in edit-user click
             });
 
             // Add user
             $('#addRowButton').click(function () {
                 const form = $('#addUserForm');
                 if (form[0].checkValidity()) {
+                    const data = {
+                        role: $('#addRole').val(),
+                        firstName: $('#addFirstName').val().trim(),
+                        lastName: $('#addLastName').val().trim(),
+                        username: $('#addUserName').val().trim(),
+                        password: $('#addPassword').val(),
+                        email: $('#addEmail').val().trim(),
+                        phone: $('#addPhone').val().trim(),
+                    };
+                    console.log('Creating user with payload:', data); // Debugging
                     $.ajax({
-                        url: '/api/user',
+                        url: '/api/user/create',
                         method: 'POST',
                         contentType: 'application/json',
-                        data: JSON.stringify({
-                            roleId: $('#addRole').val(),
-                            firstName: $('#addFirstName').val().trim(),
-                            lastName: $('#addLastName').val().trim(),
-                            username: $('#addUserName').val().trim(),
-                            password: $('#addPassword').val(),
-                            email: $('#addEmail').val().trim(),
-                            phone: $('#addPhone').val().trim(),
-                        }),
+                        data: JSON.stringify(data),
                         success: function () {
                             $('#addRowModal').modal('hide');
                             form[0].reset();
@@ -628,13 +579,14 @@
                             $('#editEmail').val(user.email);
                             $('#editPhone').val(user.phone);
                             $('#editStatus').val(user.status);
-                            loadRoles($('#editRole'), user.roleId);
-                            $('#editPassword').val(''); // clear password field on edit
+                            loadRoles($('#editRole'), user.role);
+                            $('#editPassword').val('');
                             $('#editRowModal').modal('show');
                         }
                     },
-                    error: function () {
-                        alert('Error fetching user data');
+                    error: function (xhr) {
+                        console.error('Error fetching user data:', xhr);
+                        alert('Error fetching user data: ' + (xhr.responseJSON?.error || 'Unknown error'));
                     },
                 });
             });
@@ -656,6 +608,7 @@
                     if (password) {
                         data.password = password;
                     }
+                    console.log('Updating user with payload:', data); // Debugging
                     $.ajax({
                         url: `/api/user/${$('#editUserId').val()}`,
                         method: 'PUT',
@@ -681,6 +634,7 @@
             $('#add-row').on('click', '.delete-user', function () {
                 const userId = $(this).data('id');
                 if (confirm('Are you sure you want to delete this user?')) {
+                    console.log('Deleting user with ID:', userId); // Debugging
                     $.ajax({
                         url: `/api/user/${userId}`,
                         method: 'DELETE',
@@ -697,7 +651,5 @@
             });
         });
     </script>
-
 </body>
-
 </html>
