@@ -9,57 +9,29 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
     integrity="sha512-RXf+QSDCUQs6Y6lfN8Eghs1n6U4P1GdJW1P8N9AgZsMa2VNBOJsh75eD9n67ON0Gp1DfDztVbLOOrJ6C7+MT0w=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+  <link rel="stylesheet" href="/css/d.css" />
   <!-- DataTables and Bootstrap CSS -->
   <link href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Font Awesome for Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-  <!-- Fonts and icons -->
-  <script src="/js/plugin/webfont/webfont.min.js"></script>
-  <script>
-    WebFont.load({
-      google: { families: ["Public Sans:300,400,500,600,700"] },
-      custom: {
-        families: [
-          "Font Awesome 5 Solid",
-          "Font Awesome 5 Regular",
-          "Font Awesome 5 Brands",
-          "simple-line-icons",
-        ],
-        urls: ["/css/fonts.min.css"],
-      },
-      active: function () {
-        sessionStorage.fonts = true;
-      },
-    });
-  </script>
-
-  <!-- CSS Files -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="/css/kaiadmin.min.css" />
 </head>
 
 <body style="background-color: rgb(197, 197, 197);">
   <div class="wrapper">
     <!-- Sidebar -->
-    <div class="sidebar" data-background-color="dark">
+    <div class="sidebar">
       <div class="sidebar-logo">
-        <div class="logo-header" data-background-color="dark">
-          <h4 style="color: white; padding-left: 10px;">SMS</h4>
-          <div class="nav-toggle">
-            <button class="btn btn-toggle toggle-sidebar">
-              <i class="gg-menu-right"></i>
-            </button>
-            <button class="btn btn-toggle sidenav-toggler">
-              <i class="gg-menu-left"></i>
-            </button>
-          </div>
-          <button class="topbar-toggler more">
-            <i class="gg-more-vertical-alt"></i>
+        <div class="logo-header">
+          <a href="/index" class="logo">
+            <h4>SMS</h4>
+          </a>
+          <!-- Inside your sidebar or logo-header -->
+          <button class="btn-toggle" id="sidebarToggle">
+            <i class="fas fa-angle-right"></i>
           </button>
+
         </div>
       </div>
       <div class="sidebar-wrapper scrollbar scrollbar-inner">
@@ -67,20 +39,16 @@
           <ul class="nav nav-secondary">
             <li class="nav-item">
               <a href="/index" class="nav-link">
-                <i class="fas fa-home"></i>
+                <i class="fas fa-home" title="Dashboard"></i>
                 <p>Dashboard</p>
               </a>
             </li>
             <li class="nav-section">
-              <span class="sidebar-mini-icon">
-                <i class="fa fa-ellipsis-h"></i>
-              </span>
               <h4 class="text-section">Components</h4>
             </li>
-            <!-- Master -->
             <li class="nav-item">
               <a data-bs-toggle="collapse" href="#master">
-                <i class="fas fa-users"></i>
+                <i class="fas fa-users" title="User roles and Users"></i>
                 <p>Master</p>
                 <span class="caret"></span>
               </a>
@@ -88,7 +56,7 @@
                 <ul class="nav nav-collapse">
                   <li>
                     <a href="/userroleslist">
-                      <span class="sub-item">User Roles</span>
+                      <span class="sub-item">User roles</span>
                     </a>
                   </li>
                   <li>
@@ -99,19 +67,15 @@
                 </ul>
               </div>
             </li>
-
-            <!-- Shifts -->
             <li class="nav-item">
               <a href="/shifts">
-                <i class="fa-solid fa-clock"></i>
+                <i class="fa-solid fa-clock" title="Shifts"></i>
                 <p>Shifts</p>
               </a>
             </li>
-
-            <!-- Shift Logs -->
             <li class="nav-item">
               <a href="/shiftLogs">
-                <i class="fas fa-clipboard-list"></i>
+                <i class="fas fa-clipboard-list" title="Shift Logs"></i>
                 <p>Shift Logs</p>
               </a>
             </li>
@@ -122,59 +86,34 @@
     <!-- End Sidebar -->
 
     <div class="main-panel">
-      <div class="main-header">
-        <div class="main-header-logo">
-          <div class="logo-header" data-background-color="dark">
-            <a href="index.html" class="logo">
-              <img src="/img/kaiadmin/logo_light.svg" alt="navbar brand" class="navbar-brand" height="20" />
-            </a>
-            <div class="nav-toggle">
-              <button class="btn btn-toggle toggle-sidebar">
-                <i class="gg-menu-right"></i>
-              </button>
-              <button class="btn btn-toggle sidenav-toggler">
-                <i class="gg-menu-left"></i>
-              </button>
+            <div class="main-header">
+                <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom"
+                    style="display: flex; justify-content: space-between; align-items: center; padding:0 20px;">
+                    <div class="mx-auto" style="margin: 18px 0;">
+                        <h2 class="mb-0 text-center">Shift Management System</h2>
+                    </div>
+                    <div>
+                        <a class="btn btn-danger" href="/login">Logout</a>
+                    </div>
+                </nav>
             </div>
-            <button class="topbar-toggler more">
-              <i class="gg-more-vertical-alt"></i>
-            </button>
-          </div>
-        </div>
-        <!-- Navbar Header -->
-        <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
-          <div class="container-fluid justify-content-end">
-            <a class="btn btn-danger" href="/logout">Logout</a>
-          </div>
-        </nav>
-        <!-- End Navbar -->
-      </div>
-
       <!-- User Roles Datatable -->
       <div class="container">
         <div class="page-inner">
           <div class="page-header">
-            <h3 class="fw-bold mb-3">User Roles List</h3>
-            <ul class="breadcrumbs mb-3">
+            <h3 class="fw-bold mb-3">Users Roles List</h3>
+            <ul class="breadcrumbs mb-3"
+              style="list-style: none; display: flex; gap: 8px; align-items: center; padding: 0;">
               <li class="nav-home">
-                <a href="/index">
-                  <i class="icon-home"></i>
-                </a>
+                <a href="/index"><i class="fas fa-home"></i></a>
               </li>
-              <li class="separator">
-                <i class="icon-arrow-right"></i>
-              </li>
-              <li class="nav-item">
-                <a href="/userroleslist">Master</a>
-              </li>
-              <li class="separator">
-                <i class="icon-arrow-right"></i>
-              </li>
-              <li class="nav-item">
-                <a href="/userroleslist">User Roles</a>
-              </li>
+              <li class="separator"><i class="fas fa-angle-right"></i></li>
+              <li class="nav-item"><a href="/userroleslist">Master</a></li>
+              <li class="separator"><i class="fas fa-angle-right"></i></li>
+              <li class="nav-item"><a href="/userroleslist">User Roles</a></li>
             </ul>
           </div>
+
 
           <div class="col-md-12">
             <div class="card" style="background-color: rgb(221, 212, 212);">
@@ -195,22 +134,6 @@
                   </div>
                 </div>
               </div>
-              <!-- <div class="card-body p-2">
-                <div class="table-responsive p-0">
-                  <table id="rolesTable"
-                    class="table table-sm table-bordered table-striped table-hover text-nowrap small w-100"
-                    style="table-layout: fixed;">
-                    <thead>
-                      <tr>
-                        <th style="width: 25%;">ID</th>
-                        <th style="width: 25%;">Name</th>
-                        <th style="width: 25%;">Status</th>
-                        <th style="width: 25%;">Action</th>
-                      </tr>
-                    </thead>
-                  </table>
-                </div>
-              </div> -->
               <div class="card-body p-2">
                 <div class="table-responsive p-0">
                   <table id="rolesTable"
@@ -305,6 +228,17 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
   <script>
+    // sidebar
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtn = document.getElementById("sidebarToggle");
+      const sidebar = document.querySelector(".sidebar");
+      const wrapper = document.querySelector(".wrapper");
+
+      toggleBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+        wrapper.classList.toggle("active");
+      });
+    });
     // Initialize DataTable
     const table = $('#rolesTable').DataTable({
       ajax: {
