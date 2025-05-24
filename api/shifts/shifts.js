@@ -1,4 +1,4 @@
-const { Shifts, User } = require('../../models');
+const { Shifts, User } = require("../../models");
 
 // Helper: Validate 24-hour format (e.g., "14:30")
 const validate24HourTime = (time) => {
@@ -8,16 +8,16 @@ const validate24HourTime = (time) => {
 
 // Helper: Convert 24-hour to 12-hour format
 const to12HourFormat = (time24) => {
-  const [hours, minutes] = time24.split(':').map(Number);
-  const period = hours >= 12 ? 'PM' : 'AM';
+  const [hours, minutes] = time24.split(":").map(Number);
+  const period = hours >= 12 ? "PM" : "AM";
   const hours12 = hours % 12 || 12;
-  return `${hours12}:${minutes.toString().padStart(2, '0')} ${period}`;
+  return `${hours12}:${minutes.toString().padStart(2, "0")} ${period}`;
 };
 
 // Middleware: Auth check
 const isAuthenticated = (req, res, next) => {
   if (!req.session.userId) {
-    return res.status(401).send({ success: false, message: 'Unauthorized' });
+    return res.status(401).send({ success: false, message: "Unauthorized" });
   }
   next();
 };
@@ -29,29 +29,42 @@ module.exports.createShift = [
     const { name, startTime, endTime } = req.body;
 
     if (!name || !startTime || !endTime) {
-      return res.status(400).send({ success: false, message: 'All fields are required' });
+      return res
+        .status(400)
+        .send({ success: false, message: "All fields are required" });
     }
 
     if (!validate24HourTime(startTime) || !validate24HourTime(endTime)) {
-      return res.status(400).send({ success: false, message: 'Times must be in 24-hour format (HH:MM)' });
+      return res
+        .status(400)
+        .send({
+          success: false,
+          message: "Times must be in 24-hour format (HH:MM)",
+        });
     }
 
     try {
       const user = await User.findByPk(req.session.userId);
       if (!user) {
-        return res.status(404).send({ success: false, message: 'User not found' });
+        return res
+          .status(404)
+          .send({ success: false, message: "User not found" });
       }
 
       const shift = await Shifts.create({
         name,
         startTime,
         endTime,
+        user: {
+          createdBy: { id: user.userId, firstName: user.firstName },
+          updatedBy: { id: user.userId, firstName: user.firstName },
+        },
       });
 
       res.status(201).send({ success: true, data: shift });
     } catch (error) {
-      console.error('Error creating shift:', error);
-      res.status(500).send({ success: false, message: 'Server error' });
+      console.error("Error creating shift:", error);
+      res.status(500).send({ success: false, message: "Server error" });
     }
   },
 ];
@@ -70,8 +83,8 @@ module.exports.getAllShifts = [
       }));
       res.send({ success: true, data: formatted });
     } catch (error) {
-      console.error('Error fetching shifts:', error);
-      res.status(500).send({ success: false, message: 'Server error' });
+      console.error("Error fetching shifts:", error);
+      res.status(500).send({ success: false, message: "Server error" });
     }
   },
 ];
@@ -83,22 +96,33 @@ module.exports.updateShift = [
     const { id, name, startTime, endTime } = req.body;
 
     if (!id || !name || !startTime || !endTime) {
-      return res.status(400).send({ success: false, message: 'All fields are required' });
+      return res
+        .status(400)
+        .send({ success: false, message: "All fields are required" });
     }
 
     if (!validate24HourTime(startTime) || !validate24HourTime(endTime)) {
-      return res.status(400).send({ success: false, message: 'Times must be in 24-hour format (HH:MM)' });
+      return res
+        .status(400)
+        .send({
+          success: false,
+          message: "Times must be in 24-hour format (HH:MM)",
+        });
     }
 
     try {
       const user = await User.findByPk(req.session.userId);
       if (!user) {
-        return res.status(404).send({ success: false, message: 'User not found' });
+        return res
+          .status(404)
+          .send({ success: false, message: "User not found" });
       }
 
       const shift = await Shifts.findByPk(id);
       if (!shift) {
-        return res.status(404).send({ success: false, message: 'Shift not found' });
+        return res
+          .status(404)
+          .send({ success: false, message: "Shift not found" });
       }
 
       await shift.update({
@@ -109,8 +133,8 @@ module.exports.updateShift = [
 
       res.send({ success: true, data: shift });
     } catch (error) {
-      console.error('Error updating shift:', error);
-      res.status(500).send({ success: false, message: 'Server error' });
+      console.error("Error updating shift:", error);
+      res.status(500).send({ success: false, message: "Server error" });
     }
   },
 ];
@@ -124,14 +148,16 @@ module.exports.deleteShift = [
     try {
       const shift = await Shifts.findByPk(id);
       if (!shift) {
-        return res.status(404).send({ success: false, message: 'Shift not found' });
+        return res
+          .status(404)
+          .send({ success: false, message: "Shift not found" });
       }
 
       await shift.destroy();
-      res.send({ success: true, message: 'Shift deleted' });
+      res.send({ success: true, message: "Shift deleted" });
     } catch (error) {
-      console.error('Error deleting shift:', error);
-      res.status(500).send({ success: false, message: 'Server error' });
+      console.error("Error deleting shift:", error);
+      res.status(500).send({ success: false, message: "Server error" });
     }
   },
 ];
