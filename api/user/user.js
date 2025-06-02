@@ -1,5 +1,6 @@
 const { User, UserRole } = require('../../models');
 const bcrypt = require('bcrypt');
+const sendMail = require('../../utils/mailer');
 
 // Validation patterns
 const namePattern = /^[A-Za-z]{2,30}$/;
@@ -9,7 +10,7 @@ const usernamePattern = /^[A-Za-z0-9]{3,20}$/;
 const passwordMinLength = 6;
 
 // Middleware to check if user is authenticated and an Admin
-exports.isAdmin = async (req, res, next) => {
+module.exports.isAdmin = async (req, res, next) => {
   if (!req.session.userId) {
     return res.status(401).send({ success: false, error: 'Unauthorized: Please log in' });
   }
@@ -24,7 +25,7 @@ exports.isAdmin = async (req, res, next) => {
 };
 
 // Create a new user
-exports.create = async (req, res) => {
+module.exports.create = async (req, res) => {
   try {
     const { firstName, lastName, username, email, phone, password, role, id } = req.body;
 
@@ -84,7 +85,7 @@ exports.create = async (req, res) => {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user (explicitly exclude id)
+    // Create user 
     const user = await User.create({
       firstName,
       lastName,
@@ -94,6 +95,19 @@ exports.create = async (req, res) => {
       password: hashedPassword,
       UserRoleId: userRole.id,
       status: 1,
+    });
+
+    // Send welcome email
+    await sendMail({
+      to: email,
+      subject: 'Welcome to Shift Management System!',
+      html: `
+        <h3>Hello ${firstName} ${lastName},</h3>
+        <p>Your account has been successfully created.</p>
+        <p><strong>Username:</strong> ${username}</p>
+        <p>Welcome aboard!</p>
+        <p>Regards,<br/>Shift Management Team</p>
+      `
     });
 
     res.status(201).send({
@@ -115,8 +129,8 @@ exports.create = async (req, res) => {
   }
 };
 
-// Login user (temporary plaintext support)
-exports.loginUser = async (req, res) => {
+// Login user
+module.exports.loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
     if (!username || !password) {
@@ -165,7 +179,7 @@ exports.loginUser = async (req, res) => {
 };
 
 // Get all users
-exports.getAllUSers = async (req, res) => {
+module.exports.getAllUSers = async (req, res) => {
   try {
     const users = await User.findAll({
       include: [{ model: UserRole, attributes: ['roleName'] }],
@@ -190,7 +204,7 @@ exports.getAllUSers = async (req, res) => {
 };
 
 // Get all roles for dropdown
-exports.getAllRoles = async (req, res) => {
+module.exports.getAllRoles = async (req, res) => {
   try {
     const roles = await UserRole.findAll({
       attributes: ['id', 'roleName'],
@@ -207,12 +221,12 @@ exports.getAllRoles = async (req, res) => {
 };
 
 // Deprecated: Redirect to create
-exports.createUser = async (req, res) => {
+module.exports.createUser = async (req, res) => {
   return res.status(400).send({ success: false, error: 'Use /create endpoint for user creation' });
 };
 
 // Update a user
-exports.updateUser = async (req, res) => {
+module.exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const {
@@ -225,6 +239,11 @@ exports.updateUser = async (req, res) => {
       phone,
       status
     } = req.body;
+
+        // Prevent updating user with ID 1
+    if (parseInt(id) === 1) {
+      return res.status(403).send({ success: false, error: 'Cannot edit default admin user' });
+    }
 
     const user = await User.findByPk(id);
     if (!user) {
@@ -300,6 +319,23 @@ exports.updateUser = async (req, res) => {
 
     await user.update(updatedFields);
 
+    // Send update email
+    await sendMail({
+      to: updatedFields.email,
+      subject: 'Your account has been updated',
+      html: `
+        <h3>Hello ${updatedFields.firstName},</h3>
+        <p>Your account information has been updated successfully.</p>
+        <ul>
+          <li><strong>Username:</strong> ${updatedFields.username}</li>
+          <li><strong>Email:</strong> ${updatedFields.email}</li>
+          <li><strong>Phone no:</strong> ${updatedFields.phone}</li>
+          <li><strong>Status:</strong> ${parsedStatus === 1 ? 'Active' : 'Inactive'}</li>
+        </ul>
+        <p>If you did not request this update, please contact Shift Management Team immediately.</p>
+      `
+    });
+
     res.send({ success: true, message: 'User updated successfully' });
   } catch (error) {
     console.error('Error updating user:', error);
@@ -309,13 +345,31 @@ exports.updateUser = async (req, res) => {
 
 
 // Delete a user
-exports.deleteUser = async (req, res) => {
+module.exports.deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
+
+    // Prevent deleting user with ID 1
+    if (parseInt(id) === 1) {
+      return res.status(403).send({ success: false, error: 'Cannot delete default admin user' });
+    }
+
     const user = await User.findByPk(id);
     if (!user) {
       return res.status(404).send({ success: false, error: 'User not found' });
     }
+
+    // Send deletion email
+    await sendMail({
+      to: user.email,
+      subject: 'Account Deleted',
+      html: `
+        <h3>Hello ${user.firstName},</h3>
+        <p>Your account associated with this email has been deleted from our system.</p>
+        <p>If you believe this was a mistake, please contact Shift Management Team immediately.</p>
+      `
+    });
+
     await user.destroy();
     res.status(204).send();
   } catch (error) {
@@ -325,7 +379,7 @@ exports.deleteUser = async (req, res) => {
 };
 
 // Get user count for dashboard
-exports.getUserCount = async (req, res) => {
+module.exports.getUserCount = async (req, res) => {
   try {
     const count = await User.count();
     res.send({ success: true, count });

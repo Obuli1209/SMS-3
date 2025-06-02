@@ -26,6 +26,9 @@ const connectDB = async () => {
 };
 // Call the function
 connectDB();
+// username : obuli@12, password: pass
+// EMAIL_PASS=kncu xcku tauk txaj
+
 
 // Middleware for parsing
 app.use(bodyParser.urlencoded({ extended: true }));

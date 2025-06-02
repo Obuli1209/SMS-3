@@ -1,4 +1,6 @@
 const { ShiftLogs, User, Shifts, UserRole, Sequelize } = require('../../models');
+const sendMail = require('../../utils/mailer');
+const moment = require('moment'); 
 
 const isAuthenticated = async (req, res, next) => {
   console.log('Checking authentication for /api/shiftlogs, session.userId:', req.session.userId);
@@ -123,87 +125,110 @@ module.exports.getShiftLogById = [isAuthenticated, async (req, res) => {
   }
 }];
 
-// Create a new shift log
+// create a new shiftlog
 module.exports.createShiftLog = [isAuthenticated, async (req, res) => {
     const { userIds, shiftId } = req.body;
-
-    // Validate inputs
     if (!Array.isArray(userIds) || !shiftId || isNaN(shiftId) || shiftId <= 0) {
-        return res.status(400).json({
-            success: false,
-            message: 'Invalid input. Shift ID must be a positive integer and users must be selected.',
-        });
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid input. Shift ID must be a positive integer and users must be selected.',
+      });
     }
 
     const currentUser = req.user;
 
     try {
-        // Step 1: Find users who already have any shift assigned
-        const existingAssignments = await ShiftLogs.findAll({
-            where: {
-                userId: userIds
+      const existingAssignments = await ShiftLogs.findAll({
+        where: {
+          userId: userIds,
+        },
+        attributes: ['userId'],
+      });
+
+      const alreadyAssignedUserIds = existingAssignments.map(log => log.userId);
+      const newUserIds = userIds.filter(id => !alreadyAssignedUserIds.includes(id));
+
+      if (newUserIds.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: 'All selected users already have shift assignments.',
+          skipped: alreadyAssignedUserIds,
+        });
+      }
+
+      const shift = await Shifts.findByPk(shiftId);
+      if (!shift) {
+        return res.status(404).json({ success: false, message: 'Shift not found' });
+      }
+
+      // Convert to 12-hour format using moment.js
+      const formattedStart = moment(shift.startTime, 'HH:mm').format('hh:mm A');
+      const formattedEnd = moment(shift.endTime, 'HH:mm').format('hh:mm A');
+
+      const createdLogs = await Promise.all(
+        newUserIds.map(async userId => {
+          if (isNaN(userId) || userId <= 0) {
+            throw new Error(`Invalid user ID: ${userId}`);
+          }
+
+          const user = await User.findByPk(userId);
+          if (!user) {
+            throw new Error(`User not found: ${userId}`);
+          }
+
+          const log = await ShiftLogs.create({
+            userId,
+            shiftId,
+            user: {
+              createdBy: {
+                id: currentUser.id,
+                firstName: currentUser.firstName,
+              },
+              updatedBy: {
+                id: currentUser.id,
+                firstName: currentUser.firstName,
+              },
             },
-            attributes: ['userId']
-        });
+          });
 
-        const alreadyAssignedUserIds = existingAssignments.map(log => log.userId);
+          // Send email
+          await sendMail({
+            to: user.email,
+            subject: 'You have been assigned a new shift',
+            html: `
+              <h3>Hello ${user.firstName},</h3>
+              <p>You have been assigned to a new shift:</p>
+              <ul>
+                <li><strong>Shift:</strong> ${shift.name}</li>
+                <li><strong>Start Time:</strong> ${formattedStart}</li>
+                <li><strong>End Time:</strong> ${formattedEnd}</li>
+              </ul>
+              <p>Please check your dashboard for more details.</p>
+              <p>Thank you.</p>
+            `,
+          });
 
-        // Step 2: Filter out already assigned users
-        const newUserIds = userIds.filter(id => !alreadyAssignedUserIds.includes(id));
+          return log;
+        })
+      );
 
-        if (newUserIds.length === 0) {
-            return res.status(400).json({
-                success: false,
-                message: 'All selected users already have shift assignments.',
-                skipped: alreadyAssignedUserIds
-            });
-        }
-
-        // Step 3: Assign shift to unassigned users
-        const createdLogs = await Promise.all(
-            newUserIds.map(async userId => {
-                if (isNaN(userId) || userId <= 0) {
-                    throw new Error(`Invalid user ID: ${userId}`);
-                }
-
-                const log = await ShiftLogs.create({
-                    userId,
-                    shiftId,
-                    user: {
-                        createdBy: {
-                            id: currentUser.id,
-                            firstName: currentUser.firstName
-                        },
-                        updatedBy: {
-                            id: currentUser.id,
-                            firstName: currentUser.firstName
-                        }
-                    }
-                });
-
-                return log;
-            })
-        );
-
-        // Step 4: Return success response
-        return res.status(200).json({
-            success: true,
-            message: `Shifts assigned to ${newUserIds.length} user(s).`,
-            assigned: newUserIds,
-            skipped: alreadyAssignedUserIds,
-            data: createdLogs
-        });
+      return res.status(200).json({
+        success: true,
+        message: `Shifts assigned to ${newUserIds.length} user(s).`,
+        assigned: newUserIds,
+        skipped: alreadyAssignedUserIds,
+        data: createdLogs,
+      });
 
     } catch (error) {
-        console.error('Error assigning shifts:', error);
-        return res.status(500).json({
-            success: false,
-            message: 'All selected users already have shift assignments.',
-        });
+      console.error('Error assigning shifts:', error);
+      return res.status(500).json({
+        success: false,
+        message: 'Error assigning shifts. Please try again.',
+      });
     }
-}];
-
-
+  },
+];
 
 
 // Update a shift log
@@ -236,6 +261,7 @@ module.exports.updateShiftLog = [isAuthenticated, async (req, res) => {
     if (role !== userRoleName) {
       return res.status(400).json({ success: false, message: 'Provided role does not match user role' });
     }
+
     await shiftLog.update({
       userId,
       shiftId,
@@ -244,6 +270,28 @@ module.exports.updateShiftLog = [isAuthenticated, async (req, res) => {
         updatedBy: { id: userId, firstName: user.firstName },
       },
     });
+
+      // Convert to 12-hour format using moment.js
+      const formattedStart = moment(shift.startTime, 'HH:mm').format('hh:mm A');
+      const formattedEnd = moment(shift.endTime, 'HH:mm').format('hh:mm A');
+
+      // Send email about shift update
+      await sendMail({
+        to: user.email,
+        subject: 'Your Shift Assignment Updated',
+        html: `
+          <h3>Hello ${user.firstName},</h3>
+          <p>Your shift assignment has been updated:</p>
+          <ul>
+            <li><strong>Shift Name:</strong> ${shift.name}</li>
+            <li><strong>Start Time:</strong> ${formattedStart}</li>
+            <li><strong>End Time:</strong> ${formattedEnd}</li>
+          </ul>
+          <p>If you have any questions, please contact your Shift Management Team.</p>
+          <p>Thank you.</p>
+        `,
+      });
+
     const updatedShiftLog = await ShiftLogs.findByPk(id, {
       include: [
         {
@@ -293,11 +341,49 @@ module.exports.deleteShiftLog = [isAuthenticated, async (req, res) => {
       return res.status(400).json({ success: false, message: 'Invalid shift log ID. ID must be a positive integer.' });
     }
 
-    const shiftLog = await ShiftLogs.findByPk(id);
+    const shiftLog = await ShiftLogs.findByPk(id, {
+      include: [
+        {
+          model: User,
+          attributes: ['id', 'firstName', 'email'],
+        },
+        {
+          model: Shifts,
+          attributes: ['name', 'startTime', 'endTime'],
+        },
+      ],
+    });
+
     if (!shiftLog) {
       return res.status(404).json({ success: false, message: 'Shift log not found' });
     }
+
+    const user = shiftLog.User;
+    const shift = shiftLog.Shift;
+
+    // Format start and end times to 12-hour format
+    const formattedStart = moment(shift.startTime, 'HH:mm').format('hh:mm A');
+    const formattedEnd = moment(shift.endTime, 'HH:mm').format('hh:mm A');
+
     await shiftLog.destroy();
+
+    // Send email
+    await sendMail({
+      to: user.email,
+      subject: 'Shift Log Deleted',
+      html: `
+        <h3>Hello ${user.firstName},</h3>
+        <p>Your shift log for the following shift has been deleted:</p>
+        <ul>
+          <li><strong>Shift:</strong> ${shift.name}</li>
+          <li><strong>Start Time:</strong> ${formattedStart}</li>
+          <li><strong>End Time:</strong> ${formattedEnd}</li>
+        </ul>
+        <p>Please contact your Shift Management Team, if this was unexpected.</p>
+        <p>Thank you.</p>
+      `,
+    });
+
     res.status(200).json({ success: true, message: 'Shift log deleted successfully' });
   } catch (error) {
     console.error('Error deleting shift log:', error);

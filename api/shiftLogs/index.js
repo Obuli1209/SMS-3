@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const shiftLogsController = require('./shiftLogs');
+const sendMail = require('../../utils/mailer');
+
 
 // Routes for shift logs
 router.get('/assignments', shiftLogsController.getShiftAssignments); // dashboard

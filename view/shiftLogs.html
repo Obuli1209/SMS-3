@@ -689,6 +689,7 @@
                         data: JSON.stringify({ userId, shiftId, role }),
                         xhrFields: { withCredentials: true },
                         success: function (response) {
+                            alert('Shifts updated successfully.');
                             console.log('Update shift log success:', response);
                             if (response.success) {
                                 table.ajax.reload();
@@ -714,6 +715,7 @@
                             method: 'DELETE',
                             xhrFields: { withCredentials: true },
                             success: function (response) {
+                                alert('Shifts deleted successfully.')
                                 console.log('Delete shift log success:', response);
                                 if (response.success) {
                                     table.ajax.reload();

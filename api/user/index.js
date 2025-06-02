@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('./user');
+const sendMail = require('../../utils/mailer');
+
 
 // Use isAdmin for all routes (restored)
 router.post('/create', controller.create);

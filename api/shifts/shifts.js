@@ -39,8 +39,17 @@ module.exports.createShift = [
         .status(400)
         .send({
           success: false,
-          message: "Times must be in 24-hour format (HH:MM)",
+          message: "Times must be in 24-hour format (HH:MM)"
         });
+    }
+
+    if (startTime === endTime){
+      return res
+      .status(400)
+      .send({
+        success: false,
+        message: "Start time and End time should not be same"
+      });
     }
 
     try {
@@ -60,7 +69,7 @@ module.exports.createShift = [
           updatedBy: { id: user.userId, firstName: user.firstName },
         },
       });
-
+      
       res.status(201).send({ success: true, data: shift });
     } catch (error) {
       console.error("Error creating shift:", error);
@@ -108,6 +117,15 @@ module.exports.updateShift = [
           success: false,
           message: "Times must be in 24-hour format (HH:MM)",
         });
+    }
+
+    if (startTime === endTime){
+      return res
+      .status(400)
+      .send({
+        success: false,
+        message: "Start time and End time should not be same"
+      });
     }
 
     try {

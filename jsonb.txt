@@ -1,7 +1,0 @@
-JSONB - json binary(Javascript Object Notation)
-- It is special type of native-datatype only in postgresql
-- Datatype.JSONB
-- postgresql parses and stores JSONB in binary format
-- It store only objects and arrays.
-
-- faster read, efficient querying
